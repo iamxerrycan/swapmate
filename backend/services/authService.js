@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
 const generateToken = require('../utils/generateToken');
 
-const registerUser = async (name , email ,password ) =>{
+const registerUser = async ({name , email ,password , isAdmin}) =>{
   const userExsits = await User.findOne({ email });
   if (userExsits) {
     throw new Error('User already exists');
@@ -14,13 +14,14 @@ const registerUser = async (name , email ,password ) =>{
     name,
     email,
     password: hashedPassword,
+    isAdmin: isAdmin || false,
   });
 
   const token = generateToken(newUser._id);
   return { newUser, token };
 }
 
-const loginUser = async (email , password ) =>{
+const loginUser = async ({email , password} ) =>{
   const user =  await User.findOne({email});
 
   if(!user){
@@ -38,3 +39,5 @@ module.exports = {
   registerUser,
   loginUser,
 };
+
+
