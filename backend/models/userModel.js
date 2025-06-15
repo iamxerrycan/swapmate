@@ -15,13 +15,13 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: true,
-      minlenghth: 6,
+      minlength: 6,
     },
     isAdmin: {
       type: Boolean,
       default: false,
     },
-    
+
   },
   {
     timestamps: true,

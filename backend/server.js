@@ -1,27 +1,28 @@
 const express = require('express');
 const env = require('dotenv');
 const connectDB = require('./config/db');
+const routes = require('./routes/allRoutes');
 const app = express();
-env.config();
 
-// Connect to MongoDB
+env.config();
 connectDB();
 
-// Middleware
-app.use(express.json());
+//  Correct order of middleware
+app.use(express.json()); // Parse JSON body first
+app.use(express.urlencoded({ extended: true }));
 
-// Routes
+//  Routes after body parser
+app.use('/api', routes);
 
-// test route
+// Test route
 app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-// Start the server
-const PORT = process.env.PORT;
+// Start server
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-// Export the app for testing
 
 module.exports = app;
