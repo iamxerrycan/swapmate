@@ -1,17 +1,17 @@
 const express = require('express');
 const env = require('dotenv');
 const connectDB = require('./config/db');
-const routes = require('./routes/index');
+const routes = require('./routes/allRoutes');
 const app = express();
 
 env.config();
 connectDB();
 
-// ✅ Correct order of middleware
+//  Correct order of middleware
 app.use(express.json()); // Parse JSON body first
 app.use(express.urlencoded({ extended: true }));
 
-// ✅ Routes after body parser
+//  Routes after body parser
 app.use('/api', routes);
 
 // Test route

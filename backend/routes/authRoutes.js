@@ -7,7 +7,7 @@ const { register, login } = require('../controllers/authController');
 router.post('/register', register);
 
 router.post('/test', (req, res) => {
-  console.log("✅ /test hit! req.body is:", req.body);
+  console.log("/test hit! req.body is:", req.body);
   res.json({ message: "Received", data: req.body });
 });
 
