@@ -1,0 +1,41 @@
+src/
+├── app/
+│   └── store.js                    # Redux store
+├── assets/                         # Static files (images, icons)
+├── components/
+│   ├── layout/
+│   │   └── Navbar.jsx              # Navigation UI
+│   └── ui/
+│       ├── ItemCard.jsx
+│       ├── SearchBar.jsx
+│       └── FilterBox.jsx
+├── features/
+│   ├── auth/
+│   │   ├── authSlice.js
+│   │   ├── authService.js
+│   │   └── authTypes.js           # Action types (optional)
+│   └── items/
+│       ├── itemSlice.js
+│       ├── itemService.js
+│       └── itemTypes.js           # Action types (optional)
+├── layouts/
+│   └── AppLayout.jsx              # Wraps with Navbar + content
+├── pages/
+│   ├── auth/
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   └── ForgotPassword.jsx
+│   ├── Home.jsx
+│   ├── Profile.jsx
+│   ├── ItemDetails.jsx
+│   └── AdminDashboard.jsx
+├── routes/
+│   ├── ProtectedRoute.jsx
+│   └── AdminRoute.jsx
+├── styles/
+│   └── global.css
+├── utils/
+│   ├── axiosInstance.js
+│   └── tokenUtils.js              # Token management helper (optional)
+├── App.jsx
+└── main.jsx

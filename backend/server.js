@@ -3,6 +3,12 @@ const env = require('dotenv');
 const connectDB = require('./config/db');
 const routes = require('./routes/allRoutes');
 const app = express();
+const cors = require('cors');
+
+app.use(cors({
+  origin: "http://localhost:5173",  // ✅ Your frontend
+  credentials: true                 // ✅ Required when using cookies/tokens
+}));
 
 env.config();
 connectDB();
