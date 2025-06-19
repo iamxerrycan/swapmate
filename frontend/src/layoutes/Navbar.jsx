@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../features/auth/authSlice';
+import './Navbar.css';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -13,33 +14,25 @@ export default function Navbar() {
   };
 
   return (
-    <nav
-      style={{
-        padding: '1rem',
-        backgroundColor: '#f0f0f0',
-        display: 'flex',
-        gap: '1rem',
-      }}
-    >
-      <Link to="/home">Home</Link>
+    <nav className="navbar">
+      <div className="nav-left">
+        <Link to="/home" className="nav-link">Home</Link>
+        {!token && (
+          <>
+            <Link to="/" className="nav-link">Login</Link>
+            <Link to="/register" className="nav-link">Register</Link>
+          </>
+        )}
+      </div>
 
       {token && (
-        <>
-          <Link to="/profile">My Profile</Link>
-
+        <div className="nav-right">
+          <Link to="/profile" className="nav-link">My Profile</Link>
           {user?.role === 'admin' && (
-            <Link to="/admin/dashboard">Dashboard</Link>
+            <Link to="/admin/dashboard" className="nav-link">Dashboard</Link>
           )}
-
-          <button onClick={handleLogout}>Logout</button>
-        </>
-      )}
-
-      {!token && (
-        <>
-          <Link to="/">Login</Link>
-          <Link to="/register">Register</Link>
-        </>
+          <button className="nav-button" onClick={handleLogout}>Logout</button>
+        </div>
       )}
     </nav>
   );

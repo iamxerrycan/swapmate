@@ -1,0 +1,22 @@
+
+/* AuthHeader.css */
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-header h1 {
+  font-size: 2rem;
+  color: #222;
+}
+
+.auth-header h1 span {
+  color: #007bff;
+}
+
+.auth-header h2 {
+  font-size: 1.3rem;
+  color: #444;
+  margin-top: 0.5rem;
+}

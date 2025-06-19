@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { setCredentials } from '../../features/auth/authSlice';
 import { authService } from '../../features/auth/authService';
-import { Link } from 'react-router-dom';
+import './Register.css';
+import AuthHeader from '../../components/ui/Header';
 
 export default function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,15 +33,14 @@ export default function Register() {
       navigate('/');
     } catch (error) {
       alert(
-        'Registration failed',
-        error.response?.data?.message || 'An error occurred'
+        error.response?.data?.message || 'Registration failed. Please try again.'
       );
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Register</h2>
+    <form className="register-form" onSubmit={handleSubmit}>
+     <AuthHeader title="Register" />
       <input
         type="text"
         name="name"
@@ -48,7 +49,7 @@ export default function Register() {
         onChange={handleChange}
         required
       />
-      <br />
+
       <input
         type="email"
         name="email"
@@ -57,7 +58,7 @@ export default function Register() {
         onChange={handleChange}
         required
       />
-      <br />
+
       <input
         type="password"
         name="password"
@@ -66,11 +67,12 @@ export default function Register() {
         onChange={handleChange}
         required
       />
-      <br />
+
       <button type="submit">Register</button>
+
       <p>
-  Already have an account? <Link to="/">Login</Link>
-</p>
+        Already have an account? <Link to="/">Login</Link>
+      </p>
     </form>
   );
 }

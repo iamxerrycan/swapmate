@@ -1,14 +1,8 @@
+import './FilterBox.css'; // Create this file
+
 export default function FilterBox({ onFilter }) {
   return (
-    <select
-      onChange={(e) => onFilter(e.target.value)}
-      style={{
-        padding: "8px",
-        marginBottom: "1rem",
-        width: "100%",
-        maxWidth: "200px",
-      }}
-    >
+    <select className="filter-box" onChange={(e) => onFilter(e.target.value)}>
       <option value="">All Categories</option>
       <option value="Electronics">Electronics</option>
       <option value="Books">Books</option>

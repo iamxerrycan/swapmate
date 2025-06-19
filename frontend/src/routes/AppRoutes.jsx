@@ -9,6 +9,7 @@ import AdminDashboard from '../pages/AdminDashboard';
 import AppLayout from '../layoutes/AppLayoute';
 import ProtectedRoute from './ProtectedRoute';
 import AdminRoute from './AdminRoute';
+import CreateItem from '../pages/CreateItem';
 
 export default function AppRoutes() {
   return (
@@ -19,6 +20,18 @@ export default function AppRoutes() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
       {/* Protected Pages with layout */}
+
+      <Route
+        path="/create-item"
+        element={
+          <ProtectedRoute>
+            <AppLayout>
+              <CreateItem />
+            </AppLayout>
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path="/home"
         element={
