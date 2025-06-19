@@ -29,11 +29,19 @@ const getUserItems = async () => {
 
 //  POST a new item (with or without file)
 const createItem = async (itemData) => {
-  const response = await API.post(`/api/items`, itemData, {
-    headers: { "Content-Type": "multipart/form-data" },
+  const token = localStorage.getItem('token');
+
+  const response = await API.post('/api/items', itemData, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
   });
+
   return response.data;
 };
+
+
 
 //  PUT to update item
 const updateItem = async (id, updatedData) => {

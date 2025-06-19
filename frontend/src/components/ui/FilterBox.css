@@ -1,0 +1,18 @@
+/* FilterBox.css */
+
+.filter-box {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 200px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+.filter-box:focus {
+  border-color: #007bff;
+  outline: none;
+}

@@ -3,10 +3,13 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { setCredentials } from '../features/auth/authSlice';
 import { authService } from '../features/auth/authService';
+import './Login.css'; // Create this file
+import AuthHeader from '../components/ui/Header';
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -29,15 +32,14 @@ export default function Login() {
       navigate('/home');
     } catch (error) {
       alert(
-        'Login failed. Please check your credentials.',
-        error.response?.data?.message || 'An error occurred'
+        error.response?.data?.message || 'Login failed. Please check your credentials.'
       );
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
+    <form className="login-form" onSubmit={handleSubmit}>
+      <AuthHeader title="Login" />
       <input
         type="email"
         name="email"
@@ -46,7 +48,7 @@ export default function Login() {
         onChange={handleChange}
         required
       />
-      <br />
+
       <input
         type="password"
         name="password"
@@ -55,8 +57,9 @@ export default function Login() {
         onChange={handleChange}
         required
       />
-      <br />
+
       <button type="submit">Login</button>
+
       <p>
         Don’t have an account? <Link to="/register">Register</Link>
       </p>
