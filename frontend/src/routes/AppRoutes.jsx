@@ -10,6 +10,7 @@ import AppLayout from '../layoutes/AppLayoute';
 import ProtectedRoute from './ProtectedRoute';
 import AdminRoute from './AdminRoute';
 import CreateItem from '../pages/CreateItem';
+import ResetPassword from '../pages/auth/ResetPassword';
 
 export default function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ export default function AppRoutes() {
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+       <Route path="/reset-password/:token" element={<ResetPassword />} />
 
       {/* Protected Pages with layout */}
 
