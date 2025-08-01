@@ -1,20 +1,21 @@
 const express = require('express');
 const env = require('dotenv');
 const connectDB = require('./config/db');
-const routes = require('./routes/allRoutes');
+// const routes = require('./routes/allRoutes');
+const routes = require('./routes/allRoutes')
 const app = express();
 const cors = require('cors');
 
 app.use(cors({
-  origin: "http://localhost:5173",  // ✅ Your frontend
-  credentials: true                 // ✅ Required when using cookies/tokens
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173', 
+  credentials: true                 
 }));
 
 env.config();
 connectDB();
 
 //  Correct order of middleware
-app.use(express.json()); // Parse JSON body first
+app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 
 //  Routes after body parser

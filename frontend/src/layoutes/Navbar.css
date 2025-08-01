@@ -4,10 +4,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: #f0f0f0;
-  border-bottom: 1px solid #ccc;
-  flex-wrap: wrap;
+  padding: 0.75rem 2rem;
+  background-color: #1e1e2f;
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .nav-left,
@@ -15,52 +15,48 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  flex-wrap: wrap;
 }
 
 .nav-link {
   text-decoration: none;
-  color: #333;
+  color: #ffffffcc;
+  font-size: 1rem;
   font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  transition: background-color 0.3s;
+  transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-  background-color: #e0e0e0;
+  color: #ffd369;
 }
 
 .nav-button {
-  background-color: #ff4d4d;
-  color: white;
+  background-color: #ff4d4f;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 5px;
+  font-size: 0.95rem;
   font-weight: 500;
-  transition: background-color 0.3s;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .nav-button:hover {
-  background-color: #d93636;
+  background-color: #d9363e;
 }
 
-@media (max-width: 600px) {
+/* Responsive for mobile view */
+@media (max-width: 768px) {
   .navbar {
     flex-direction: column;
+    gap: 0.75rem;
     align-items: flex-start;
   }
 
   .nav-left,
   .nav-right {
-    width: 100%;
-    justify-content: space-between;
-    margin-top: 0.5rem;
-  }
-
-  .nav-link,
-  .nav-button {
-    width: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 }

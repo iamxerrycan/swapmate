@@ -6,6 +6,7 @@ const itemRoutes = require("./itemRoutes");
 const adminRoutes = require("./adminRoutes");
 const userRoutes = require("./userRoutes");
 
+console.log("✅ authRoutes loaded");
 // Prefix each route group
 router.use("/auth", authRoutes);    
 router.use("/items", itemRoutes); 

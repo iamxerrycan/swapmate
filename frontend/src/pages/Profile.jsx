@@ -1,69 +1,15 @@
-// import { useSelector } from 'react-redux';
-// import './Profile.css'; // Create this file
-// import { useNavigate } from 'react-router-dom';
-// import ItemCard from '../components/ui/ItemCard';
-
-// export default function Profile() {
-//   const { user } = useSelector((state) => state.auth);
-//   const { items } = useSelector((state) => state.items);
-//   const navigate = useNavigate();
-
-// const currentUserId = user?.user?._id;
-
-// const myItems = Array.isArray(items)
-//   ? items.filter((item) =>
-//       String(item.user?._id || item.user) === String(currentUserId)
-//     )
-//   : [];
-
-// console.log("All items:", items);
-// console.log("Current User ID:", currentUserId);
-
-
-//   const handleCreateItem = () => {
-//     navigate('/create-item');
-//   };
-
-//   return (
-//     <div className="profile-container">
-//       <div>
-//         <h2>👤 {user?.user?.name}'s Profile</h2>
-//         <p>Email: {user?.user?.email}</p>
-
-//         <button className="create-item-button" onClick={handleCreateItem}>
-//         create item
-//         </button>
-//       </div>
-//       <h3>Your Items</h3>
-//       {myItems.length === 0 ? (
-//         <p className="no-items">You haven't listed any items yet.</p>
-//       ) : (
-//         <ul className="item-list">
-//           {myItems.map((item) => (
-//             <li key={item._id} className="item">
-//               <strong>{item.name}</strong> — {item.category}
-//             </li>
-//           ))}
-//         </ul>
-//       )}
-//     </div>
-//   );
-// }
-
 import { useSelector, useDispatch } from 'react-redux';
-import './Profile.css';
 import { useNavigate } from 'react-router-dom';
+import { updateProfile } from '../features/profile/profileSlice';
 import ItemCard from '../components/ui/ItemCard';
-import { updateProfile } from '../features/profile/profileSlice'; // Optional
 import { useState } from 'react';
+import './Profile.css';
 
 export default function Profile() {
-  //  const { loading, success, error } = useSelector((state) => state.profile);
-
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { items } = useSelector((state) => state.items);
-  const navigate = useNavigate();
 
   const currentUserId = user?.user?._id;
   const myItems = Array.isArray(items)
@@ -76,73 +22,70 @@ export default function Profile() {
     email: user?.user?.email || '',
   });
 
-  const handleCreateItem = () => {
-    navigate('/create-item');
-  };
-
-  const handleEditToggle = () => {
-    setIsEditing(!isEditing);
-  };
-
   const handleInputChange = (e) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
-  
 
-  const handleSave = () => {
-    console.log('Updated user data:', formData);
-    dispatch(updateProfile(formData)) // If API available
-    setIsEditing(false);
+  const handleEditToggle = () => setIsEditing(!isEditing);
+
+const handleSave = async () => {
+  const result = await dispatch(updateProfile(formData));
+  if (result.meta.requestStatus === "fulfilled") {
+    alert("Profile updated successfully");
+  }
+};
+
+  const handleCreateItem = () => {
+    navigate('/create-item');
   };
 
   return (
-    <div className="profile-container">
+    <div className="profile-wrapper">
+      <section className="profile-header">
+        <h1>👤 {user?.user?.name}'s Dashboard</h1>
+        <p>Email: {user?.user?.email}</p>
+        <p>User ID: {user?.user?._id}</p>
 
-      <h2>👤 {user?.user?.name}'s Profile</h2>
-      <p>Email: {user?.user?.email}</p>
-      <p>UserID : {user?.user?._id}</p>
+        {isEditing ? (
+          <div className="edit-form-row">
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              placeholder="New name"
+            />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              placeholder="New email"
+            />
+            <button onClick={handleSave} className="save-btn">Save</button>
+          </div>
+        ) : (
+          <button onClick={handleEditToggle} className="edit-btn">Edit Profile</button>
+        )}
 
-      {isEditing ? (
-        <div className="edit-form">
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            placeholder="Enter new name"
-          />
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            placeholder="Enter new email"
-          />
-          <button onClick={handleSave}>Save</button>
-        </div>
-      ) : (
-        <button onClick={handleEditToggle}>Edit Profile</button>
-      )}
+        <button onClick={handleCreateItem} className="create-item-btn">+ Create New Item</button>
+      </section>
 
-      <button className="create-item-button" onClick={handleCreateItem}>
-        Create Item
-      </button>
-
-      <h3>Your Items</h3>
-      {myItems.length === 0 ? (
-        <p className="no-items">You haven't listed any items yet.</p>
-      ) : (
-        <ul className="item-list">
-          {myItems.map((item) => (
-            <li key={item._id} className="item">
-              <strong>{item.name}</strong> — {item.category}
-            </li>
-          ))}
-        </ul>
-      )}
+      <section className="item-section">
+        <h2>Your Listed Items</h2>
+        {myItems.length === 0 ? (
+          <p className="no-items">You haven’t listed anything yet.</p>
+        ) : (
+          <div className="items-grid">
+            {myItems.map((item) => (
+              <ItemCard key={item._id} item={item} />
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 }

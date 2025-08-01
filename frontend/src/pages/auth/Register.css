@@ -1,71 +1,90 @@
-/* Register.css */
-
+/* Container */
 .register-form {
   max-width: 400px;
-  margin: 50px auto;
+  margin: 5vh auto;
   padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #1e293b; /* slate-800 */
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  color: #f8fafc; /* slate-50 */
+  animation: fadeInUp 0.5s ease-in-out;
 }
 
-.register-form h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #333;
-}
-
+/* Inputs */
 .register-form input {
-  width: 93%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: none;
+  outline: none;
   font-size: 1rem;
-  transition: border-color 0.3s;
+  background: #334155; /* slate-700 */
+  color: #f1f5f9; /* slate-100 */
+  transition: all 0.3s ease;
 }
 
 .register-form input:focus {
-  border-color: #007bff;
-  outline: none;
+  background: #475569; /* slate-600 */
+  border: 1px solid #7dd3fc; /* sky-300 */
 }
 
+/* Button */
 .register-form button {
-  width: 100%;
   padding: 0.75rem;
-  background-color: #007bff;
-  color: white;
   font-size: 1rem;
+  background: linear-gradient(to right, #6366f1, #60a5fa); /* indigo to blue */
+  color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: transform 0.2s ease, background 0.3s ease;
 }
 
 .register-form button:hover {
-  background-color: #0056b3;
+  transform: translateY(-2px);
+  background: linear-gradient(to right, #818cf8, #38bdf8);
 }
 
+/* Link Text */
 .register-form p {
-  margin-top: 1rem;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .register-form a {
-  color: #007bff;
-  text-decoration: none;
+  color: #38bdf8; /* sky-400 */
+  text-decoration: underline;
+  transition: color 0.3s ease;
 }
 
 .register-form a:hover {
-  text-decoration: underline;
+  color: #0ea5e9; /* sky-500 */
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive */
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .register-form {
+    margin: 2rem 1rem;
     padding: 1.5rem;
-    margin: 30px 20px;
+  }
+
+  .register-form input,
+  .register-form button {
+    font-size: 0.95rem;
   }
 }

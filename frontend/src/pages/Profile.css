@@ -1,36 +1,66 @@
-/* Profile.css */
+:root {
+  --primary: #4f46e5;
+  --bg: #f9f9f9;
+  --text: #1f2937;
+  --border: #d1d5db;
+  --accent: #e0e7ff;
+  --danger: #ef4444;
+}
 
-.profile-container {
-  max-width: 600px;
-  margin: 40px auto;
+body.dark {
+  --bg: #1f2937;
+  --text: #f3f4f6;
+  --border: #374151;
+  --accent: #4f46e5;
+}
+
+.profile-wrapper {
   padding: 2rem;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
 }
 
-.profile-container h2 {
-  font-size: 1.8rem;
+.profile-header {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+}
+
+.profile-header h1 {
+  font-size: 2rem;
   margin-bottom: 0.5rem;
-  color: #333;
 }
 
-.profile-container p {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 1.5rem;
+.edit-btn,
+.save-btn,
+.create-item-btn {
+  padding: 0.6rem 1.2rem;
+  margin-right: 1rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
 }
 
-.profile-container h3 {
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-  color: #444;
+.edit-btn:hover,
+.save-btn:hover,
+.create-item-btn:hover {
+  background-color: #4338ca;
 }
 
-.no-items {
-  font-style: italic;
-  color: #888;
+.edit-form input {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 1rem 0.5rem 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  width: 200px;
+}
+
+.item-section {
+  margin-top: 2rem;
 }
 
 .item-list {
@@ -39,17 +69,45 @@
 }
 
 .item {
-  padding: 0.6rem 1rem;
-  background-color: #f7f7f7;
-  margin-bottom: 0.5rem;
-  border-radius: 6px;
-  border-left: 4px solid #007bff;
+  background: var(--accent);
+  margin-bottom: 0.75rem;
+  padding: 1rem;
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 500;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .profile-container {
-    margin: 20px;
-    padding: 1.5rem;
-  }
+.no-items {
+  font-style: italic;
+  color: gray;
+}
+
+.edit-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.edit-form-row input {
+  flex: 1 1 200px;
+  min-width: 150px;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background-color: var(--bg);
+  color: var(--text);
+}
+.edit-form-row input:focus {
+  outline: 2px solid var(--primary);
+  background-color: var(--bg);
+}
+
+
+.save-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
 }

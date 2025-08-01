@@ -1,38 +1,77 @@
-/* Home.css */
-
 .home-container {
+  padding: 2rem;
   max-width: 1200px;
-  margin: auto;
-  padding: 1.5rem;
+  margin: 0 auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
 }
 
 .home-title {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Make inputs compact and aligned */
+.controls .search-bar,
+.controls .filter-box {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-width: 200px;
+  max-width: 300px;
+  background-color: #fff;
+  color: #333;
+  flex: 1;
+}
+
+.controls .search-bar {
+  margin-right: auto;
+}
+
+.controls .filter-box {
+  margin-left: auto;
+}
+
+/* Option dropdown background for readability */
+.filter-box option {
+  background-color: #fff;
   color: #333;
 }
 
-.loading {
-  color: #666;
-  font-style: italic;
-  margin-top: 1rem;
-}
-
-.error {
-  color: red;
-  margin-top: 1rem;
-}
-
-.no-items {
-  color: #999;
-  font-style: italic;
-  margin-top: 1rem;
-}
-
+/* Grid styling for items */
 .items-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+/* Status messages */
+.loading,
+.error,
+.no-items {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 1rem;
+}
+.search-wrapper {
+  flex: 1;
+  text-align: left;
+}
+.filter-wrapper {
+  flex: 1;
+  text-align: right;
 }

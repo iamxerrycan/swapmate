@@ -4,7 +4,7 @@ import { fetchItems } from '../features/items/itemSlice';
 import ItemCard from '../components/ui/ItemCard';
 import SearchBar from '../components/ui/SearchBar';
 import FilterBox from '../components/ui/FilterBox';
-import './Home.css'; // Add this file
+import './Home.css';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -13,14 +13,12 @@ export default function Home() {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
 
-  // Fetch items when category changes
   useEffect(() => {
     let query = '';
     if (category) query = `?category=${category}`;
     dispatch(fetchItems(query));
   }, [dispatch, category]);
 
-  // Filter based on search
   const filteredItems =
     search.trim() === ''
       ? items
@@ -30,17 +28,24 @@ export default function Home() {
 
   return (
     <div className="home-container">
-      <h2 className="home-title">All Items</h2>
+      <h2 className="home-title">🛍️ Explore Our Collection</h2>
 
-      <SearchBar onSearch={setSearch} />
-      <FilterBox onFilter={setCategory} />
+     <div className="controls">
+  <div className="search-wrapper">
+    <SearchBar onSearch={setSearch} />
+  </div>
+  <div className="filter-wrapper">
+    <FilterBox onFilter={setCategory} />
+  </div>
+</div>
 
-      {loading && <p className="loading">Loading...</p>}
-      {error && <p className="error">{error}</p>}
+
+      {loading && <p className="loading">⏳ Loading items...</p>}
+      {error && <p className="error">⚠️ {error}</p>}
 
       <div className="items-grid">
         {filteredItems.length === 0 ? (
-          <p className="no-items">No items found.</p>
+          <p className="no-items">🚫 No items found.</p>
         ) : (
           filteredItems.map((item) => <ItemCard key={item._id} item={item} />)
         )}

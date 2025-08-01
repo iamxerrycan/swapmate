@@ -1,3 +1,50 @@
+// import { createSlice } from "@reduxjs/toolkit";
+// import { updateProfile } from "../profile/profileSlice";
+
+
+// const initialUser = localStorage.getItem("user")
+//   ? JSON.parse(localStorage.getItem("user"))
+//   : null;
+
+// const authSlice = createSlice({
+//   name: "auth",
+//   initialState: {
+//     user: initialUser,
+//   },
+//   reducers: {
+//     logout: (state) => {
+//       state.user = null;
+//       localStorage.removeItem("user");
+//     },
+//     setCredentials: (state, action) => {
+//       state.user = action.payload;
+//       localStorage.setItem("user", JSON.stringify(action.payload));
+//     },
+//   },
+//   extraReducers: (builder) => {
+//     builder.addCase(updateProfile.fulfilled, (state, action) => {
+//       state.user = action.payload;
+//       localStorage.setItem("user", JSON.stringify(action.payload));
+//     });
+//   },
+// });
+
+// export const { logout, setCredentials } = authSlice.actions;
+// export default authSlice.reducer;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { createSlice } from "@reduxjs/toolkit";
 
 const user = JSON.parse(localStorage.getItem("user"));
