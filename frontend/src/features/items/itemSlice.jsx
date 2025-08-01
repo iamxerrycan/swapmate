@@ -1,32 +1,38 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { itemService } from "./itemService";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { itemService } from './itemService';
 
 // GET all items
-export const fetchItems = createAsyncThunk("items/fetchAll", async (query = "", thunkAPI) => {
-  try {
-    return await itemService.getAllItems(query);
-  } catch (err) {
-    return thunkAPI.rejectWithValue(err.response.data.message || "Failed to load items");
-  }
-});
-
-// POST a new item
-export const createItem = createAsyncThunk(
-  "items/create",
-  async (itemData, thunkAPI) => {
+export const fetchItems = createAsyncThunk(
+  'items/fetchAll',
+  async (query = '', thunkAPI) => {
     try {
-      const state = thunkAPI.getState();
-      const token = state.auth.token; // 
-      return await itemService.createItem(itemData, token); 
+      return await itemService.getAllItems(query);
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to create item");
+      return thunkAPI.rejectWithValue(
+        err.response.data.message || 'Failed to load items'
+      );
     }
   }
 );
 
+// POST a new item
+export const createItem = createAsyncThunk(
+  'items/create',
+  async (itemData, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token; //
+      return await itemService.createItem(itemData, token);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message || 'Failed to create item'
+      );
+    }
+  }
+);
 
 const itemSlice = createSlice({
-  name: "items",
+  name: 'items',
   initialState: {
     items: [],
     loading: false,

@@ -1,21 +1,12 @@
-import API from "../../utils/axiosInstance";
+import API from '../../utils/axiosInstance';
 
-// const API = axios.create({
-//   baseURL: "http://localhost:5000",
-//   withCredentials: true,
-// });
 //  GET all items (with optional query)
-const getAllItems = async (query = "") => {
+const getAllItems = async (query = '') => {
   const res = await API.get(`/api/items${query}`);
   return res.data; // This will be an array
 };
 
-// const getAllItems = async () =>{
-//   const response = await API.get(`/api/items`);
-//   return response.data; // This will be an array
-// }
-
-// GET item by ID   
+// GET item by ID
 const getItemById = async (id) => {
   const response = await API.get(`/api/items/${id}`);
   return response.data;
@@ -40,8 +31,6 @@ const createItem = async (itemData) => {
 
   return response.data;
 };
-
-
 
 //  PUT to update item
 const updateItem = async (id, updatedData) => {
