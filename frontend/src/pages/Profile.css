@@ -78,6 +78,10 @@ body.dark {
   font-weight: 500;
 }
 
+.items-grid {
+  display: grid;
+  margin-top: 10px;
+}
 .no-items {
   font-style: italic;
   color: gray;
@@ -125,11 +129,42 @@ body.dark {
 margin-bottom: 17.5px;
 }
 
-.two-buttons{
+/* .two-buttons{
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
   margin-top: 20px;
   flex-direction: row;
+} */
+
+.two-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap; 
+  margin-top: 1rem;
+}
+
+.two-buttons button {
+  flex: 1;
+  min-width: 140px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Responsive layout for small screens */
+@media (max-width: 500px) {
+  .two-buttons {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .two-buttons button {
+    width: 10%;
+  }
 }

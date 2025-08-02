@@ -80,7 +80,7 @@ export default function Profile() {
               Edit Profile
             </button>
             <button onClick={handleCreateItem} className="create-item-btn">
-              + Create New Item
+             Create New Item
             </button>
           </div>
         )}
