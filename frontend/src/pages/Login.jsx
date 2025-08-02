@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { setCredentials } from '../features/auth/authSlice';
 import { authService } from '../features/auth/authService';
-import './Login.css'; // Create this file
+import './Login.css';
 import AuthHeader from '../components/ui/Header';
+import { toast } from 'react-toastify';
+import { useFormValidation } from '../hooks/useFormValidation';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -14,8 +16,16 @@ export default function Login() {
     email: '',
     password: '',
   });
+  const [errors, setErrors] = useState({});
 
-  const { email, password } = formData;
+  const { validate } = useFormValidation();
+
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      const timer = setTimeout(() => setErrors({}), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [errors]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -26,12 +36,19 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validationErrors = validate(formData, 'login');
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     try {
       const data = await authService.login(formData);
       dispatch(setCredentials({ user: data, token: data.token }));
+      toast.success('Login successful!');
       navigate('/home');
     } catch (error) {
-      alert(
+      toast.error(
         error.response?.data?.message || 'Login failed. Please check your credentials.'
       );
     }
@@ -40,23 +57,24 @@ export default function Login() {
   return (
     <form className="login-form" onSubmit={handleSubmit}>
       <AuthHeader title="Login" />
+
       <input
         type="email"
         name="email"
         placeholder="Email"
-        value={email}
+        value={formData.email}
         onChange={handleChange}
-        required
       />
+      {errors.email && <p className="input-error">{errors.email}</p>}
 
       <input
         type="password"
         name="password"
         placeholder="Password"
-        value={password}
+        value={formData.password}
         onChange={handleChange}
-        required
       />
+      {errors.password && <p className="input-error">{errors.password}</p>}
 
       <button type="submit">Login</button>
 
@@ -69,3 +87,5 @@ export default function Login() {
     </form>
   );
 }
+
+
