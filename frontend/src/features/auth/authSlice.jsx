@@ -1,46 +1,15 @@
-// import { createSlice } from "@reduxjs/toolkit";
-// import { updateProfile } from "../profile/profileSlice";
-
-// const initialUser = localStorage.getItem("user")
-//   ? JSON.parse(localStorage.getItem("user"))
-//   : null;
-
-// const authSlice = createSlice({
-//   name: "auth",
-//   initialState: {
-//     user: initialUser,
-//   },
-//   reducers: {
-//     logout: (state) => {
-//       state.user = null;
-//       localStorage.removeItem("user");
-//     },
-//     setCredentials: (state, action) => {
-//       state.user = action.payload;
-//       localStorage.setItem("user", JSON.stringify(action.payload));
-//     },
-//   },
-//   extraReducers: (builder) => {
-//     builder.addCase(updateProfile.fulfilled, (state, action) => {
-//       state.user = action.payload;
-//       localStorage.setItem("user", JSON.stringify(action.payload));
-//     });
-//   },
-// });
-
-// export const { logout, setCredentials } = authSlice.actions;
-// export default authSlice.reducer;
-
 import { createSlice } from '@reduxjs/toolkit';
 
-const user = JSON.parse(localStorage.getItem('user'));
-const token = localStorage.getItem('token');
+const storedUser = localStorage.getItem('user');
+const user = storedUser && storedUser !== "undefined" ? JSON.parse(storedUser) : null;
+
+const token = localStorage.getItem('token') || null;
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: user || null,
-    token: token || null,
+    user,
+    token,
   },
   reducers: {
     setCredentials: (state, action) => {
@@ -52,7 +21,8 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.token = null;
-      localStorage.clear();
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
     },
   },
 });

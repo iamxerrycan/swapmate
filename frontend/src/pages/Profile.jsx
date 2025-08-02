@@ -4,6 +4,7 @@ import { updateProfile } from '../features/profile/profileSlice';
 import ItemCard from '../components/ui/ItemCard';
 import { useState } from 'react';
 import './Profile.css';
+import { toast } from 'react-toastify';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -13,7 +14,9 @@ export default function Profile() {
 
   const currentUserId = user?.user?._id;
   const myItems = Array.isArray(items)
-    ? items.filter((item) => String(item.user?._id || item.user) === String(currentUserId))
+    ? items.filter(
+        (item) => String(item.user?._id || item.user) === String(currentUserId)
+      )
     : [];
 
   const [isEditing, setIsEditing] = useState(false);
@@ -31,12 +34,14 @@ export default function Profile() {
 
   const handleEditToggle = () => setIsEditing(!isEditing);
 
-const handleSave = async () => {
-  const result = await dispatch(updateProfile(formData));
-  if (result.meta.requestStatus === "fulfilled") {
-    alert("Profile updated successfully");
-  }
-};
+  const handleSave = async () => {
+    const result = await dispatch(updateProfile(formData));
+    if (result.meta.requestStatus === 'fulfilled') {
+      toast.success('Profile updated successfully');
+    }
+    setIsEditing(false);
+    navigate('/profile');
+  };
 
   const handleCreateItem = () => {
     navigate('/create-item');
@@ -65,13 +70,20 @@ const handleSave = async () => {
               onChange={handleInputChange}
               placeholder="New email"
             />
-            <button onClick={handleSave} className="save-btn">Save</button>
+            <button onClick={handleSave} className="save-btn">
+              Save
+            </button>
           </div>
         ) : (
-          <button onClick={handleEditToggle} className="edit-btn">Edit Profile</button>
+          <div className="two-buttons">
+            <button onClick={handleEditToggle} className="edit-btn">
+              Edit Profile
+            </button>
+            <button onClick={handleCreateItem} className="create-item-btn">
+              + Create New Item
+            </button>
+          </div>
         )}
-
-        <button onClick={handleCreateItem} className="create-item-btn">+ Create New Item</button>
       </section>
 
       <section className="item-section">

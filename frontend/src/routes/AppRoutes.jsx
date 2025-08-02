@@ -11,6 +11,8 @@ import ProtectedRoute from './ProtectedRoute';
 import AdminRoute from './AdminRoute';
 import CreateItem from '../pages/CreateItem';
 import ResetPassword from '../pages/auth/ResetPassword';
+import EditItem from '../pages/EditItem';
+import SwapItem from '../pages/SwapRequest';
 
 export default function AppRoutes() {
   return (
@@ -19,7 +21,7 @@ export default function AppRoutes() {
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
-       <Route path="/reset-password/:token" element={<ResetPassword />} />
+      <Route path="/reset-password/:token" element={<ResetPassword />} />
 
       {/* Protected Pages with layout */}
 
@@ -60,6 +62,28 @@ export default function AppRoutes() {
           <ProtectedRoute>
             <AppLayout>
               <Profile />
+            </AppLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/edit-item/:id"
+        element={
+          <ProtectedRoute>
+            <AppLayout>
+              <EditItem />
+            </AppLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/swap-item/:id"
+        element={
+          <ProtectedRoute>
+            <AppLayout>
+              <SwapItem />
             </AppLayout>
           </ProtectedRoute>
         }
