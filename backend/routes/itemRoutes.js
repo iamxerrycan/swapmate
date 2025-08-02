@@ -3,6 +3,7 @@ const router = express.Router();
 const { protect } = require('../middleware/authMiddleware');
 const {
   createItem,
+  updateItem,
   getAllItems,
   getItemById,
   getItemsByUser,
@@ -23,5 +24,9 @@ router.get('/user/items', protect, getItemsByUser);
 router.get('/:id', getItemById);
 
 router.put('/:id/swap',protect , markItemSwapped);
+
+//  PUT: Update item by ID (Protected)
+router.put('/:id',protect, updateItem);
+ console.log("PUT /api/items/:id hit ✅");
 
 module.exports = router;

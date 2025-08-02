@@ -1,4 +1,7 @@
+const asyncHandler = require('express-async-handler');
+const mongoose = require('mongoose');
 const {
+  updateItemService,
   createItemService,
   getAllItemsService,
   getItemByIdService,
@@ -104,7 +107,30 @@ const markItemSwapped = async (req, res) => {
   }
 };
 
+const updateItem = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  // ✅ Check if ID is valid ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ message: "Invalid item ID" });
+  }
+
+  const updateData = req.body;
+
+  // ✅ Update the item
+  const updatedItem = await Item.findByIdAndUpdate(id, updateData, {
+    new: true,
+  });
+
+  if (!updatedItem) {
+    return res.status(404).json({ message: "Item not found" });
+  }
+
+  res.status(200).json(updatedItem);
+});
+
 module.exports = {
+  updateItem,
   createItem,
   getAllItems,
   getItemById,

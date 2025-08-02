@@ -1,4 +1,5 @@
 import API from '../../utils/axiosInstance';
+import axios from 'axios';
 
 //  GET all items (with optional query)
 const getAllItems = async (query = '') => {
@@ -33,10 +34,31 @@ const createItem = async (itemData) => {
 };
 
 //  PUT to update item
-const updateItem = async (id, updatedData) => {
-  const response = await API.put(`/api/items/${id}`, updatedData);
-  return response.data;
+const API_URL = "http://localhost:5001/api/items/";
+
+// itemService.jsx
+export const updateItem = async (itemData, id, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`, // ✅ Pass token here
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const response = await axios.put(
+      `/api/items/${id}`,
+      itemData,
+      config
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Update item error:", error);
+    throw error;
+  }
 };
+
 
 //  DELETE an item
 const deleteItem = async (id) => {
@@ -52,3 +74,7 @@ export const itemService = {
   updateItem,
   deleteItem,
 };
+
+
+
+

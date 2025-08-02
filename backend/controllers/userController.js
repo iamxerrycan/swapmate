@@ -3,12 +3,12 @@ const {updateUserProfileService} = require('../services/userService');
 const generateResetToken = require('../utils/generateResetToken');
 const crypto = require('crypto');
 const { forgotPasswordService, resetPasswordService } = require('../services/userService');
-// @desc    Update logged-in user's profile
-// @route   PUT /api/users/me
-// @access  Private
+
+
+
 const updateUserProfileController = async (req, res) => {
   try {
-    const userId = req.user._id; // Assuming req.user is set by the protect middleware
+    const userId = req.user._id; 
     const updateData = req.body;
 console.log('Incoming body:', req.body);
 console.log('Decoded user:', req.user);

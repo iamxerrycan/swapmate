@@ -1,14 +1,9 @@
-
 const { registerUser, loginUser } = require('../services/authService');
 
-// @desc    Register new user
-// @route   POST /api/auth/register
-// @access  Public
 const register = async (req, res) => {
   try {
-      console.log("Incoming Register Body: ", req.body);
+    console.log('Incoming Register Body: ', req.body);
     const { name, email, password, isAdmin } = req.body;
-   
 
     const result = await registerUser({
       name,
@@ -23,9 +18,6 @@ const register = async (req, res) => {
   }
 };
 
-// @desc    Login user
-// @route   POST /api/auth/login
-// @access  Public
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;

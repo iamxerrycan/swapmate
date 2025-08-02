@@ -1,3 +1,4 @@
+// src/pages/ItemDetails.jsx
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -8,12 +9,24 @@ export default function ItemDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { items } = useSelector((state) => state.items);
-  const { user } = useSelector((state) => state.auth); // Logged-in user
+  const { user } = useSelector((state) => state.auth);
 
   const [item, setItem] = useState(null);
   const [error, setError] = useState('');
 
+  // If not logged in, redirect
   useEffect(() => {
+    if (!user || !user?.user?._id) {
+      setError('Login required to view item details.');
+      const timeout = setTimeout(() => navigate('/login'), 2000);
+      return () => clearTimeout(timeout);
+    }
+  }, [user, navigate]);
+
+  // Load item (from Redux or API)
+  useEffect(() => {
+    if (!user || !user?.user?._id) return;
+
     const foundItem = items.find((i) => i._id === id);
     if (foundItem) {
       setItem(foundItem);
@@ -28,24 +41,14 @@ export default function ItemDetails() {
       };
       fetchItem();
     }
-  }, [id, items]);
+  }, [id, items, user]);
 
   if (error) return <p className="error">{error}</p>;
   if (!item) return <p className="loading">Loading item details...</p>;
 
-  // ✅ Correctly resolve user ID (whether it's string or object)
   const itemOwnerId = typeof item.user === 'string' ? item.user : item.user?._id;
-  const currentUserId = user?._id || 'not_logged_in';
+  const currentUserId = user?.user?._id;
   const isOwner = itemOwnerId === currentUserId;
-  console.log("From Redux - user:", user);
-console.log("user._id:", user?._id);
-
-
-  // ✅ Logs for debugging
-  console.log("item.user:", item.user);
-  console.log("Logged in user._id:", currentUserId);
-  console.log("Resolved itemOwnerId:", itemOwnerId);
-  console.log("isOwner:", isOwner);
 
   return (
     <div className="item-details-container">
@@ -54,7 +57,6 @@ console.log("user._id:", user?._id);
         <p><strong>Description:</strong> {item.description}</p>
         <p><strong>Category:</strong> {item.category}</p>
         <p><strong>Address:</strong> {item.address || 'N/A'}</p>
-        <p><strong>Owner ID:</strong> {itemOwnerId || 'Unknown'}</p>
         <p><strong>Status:</strong> {item.swapStatus}</p>
 
         <div className="two-buttons">

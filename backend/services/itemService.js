@@ -71,8 +71,14 @@ const markItemSwappedservice = async (itemId, swappedWithUserId) => {
   return updatedItem;
 };
 
+const updateItemService = async (itemId, updatedData) => {
+  console.log("Updating item ID:", itemId);
+  return await Item.findByIdAndUpdate(itemId, updatedData, { new: true });
+};
+
 
 module.exports = {
+  updateItemService,
   createItemService,
   getAllItemsService,
   getItemByIdService,
