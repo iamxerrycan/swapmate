@@ -11,3 +11,18 @@ export const getToken = (token) => ({
     Authorization: `Bearer ${token}`,
   },
 });
+
+
+// tokenHelper.js
+export const getAuthHeaders = (getState) => {
+  const {
+    auth: { user },
+  } = getState();
+
+  return {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
+};

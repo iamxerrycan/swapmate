@@ -1,0 +1,47 @@
+button {
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: 1;
+  padding: 0.6rem 1.2rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Wrap spinner + text */
+.btn-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Spinner */
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #fff;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* Text */
+.btn-text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Spinner animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

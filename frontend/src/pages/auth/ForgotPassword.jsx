@@ -4,10 +4,12 @@ import './ForgotPassword.css';
 import AuthHeader from '../../components/ui/Header';
 import API from '../../utils/api/axiosInstance';
 import { toast } from 'react-toastify';
+import ButtonLoader from '../../components/ui/ButtonLoader';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
+   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isValidEmail = (email) => {
     return /\S+@\S+\.\S+/.test(email); // Basic email format check
@@ -42,6 +44,8 @@ export default function ForgotPassword() {
       setError(
         err.response?.data?.message || 'Something went wrong. Try again later.'
       );
+    }finally{
+      setIsSubmitting(false);
     }
   };
 
@@ -57,7 +61,7 @@ export default function ForgotPassword() {
       />
       {error && <p className="input-error">{error}</p>}
 
-      <button type="submit">Send Reset Link</button>
+     <ButtonLoader isLoading={isSubmitting} text="Sending Link" />
 
       <p>
         Already have an account? <Link to="/">Login</Link>

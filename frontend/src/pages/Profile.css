@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --primary: #4f46e5;
   --bg: #f9f9f9;
   --text: #1f2937;
@@ -12,13 +12,14 @@ body.dark {
   --text: #f3f4f6;
   --border: #374151;
   --accent: #4f46e5;
-}
+} */
 
 .profile-wrapper {
   padding: 2rem;
-  background-color: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
+  /* background-color: var(--bg); */
+  background-color: black;
+  /* color: var(--text); */
+  /* min-height: 100vh; */
 }
 
 .profile-header {

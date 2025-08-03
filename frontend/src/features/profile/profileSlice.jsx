@@ -1,29 +1,25 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+// src/features/profile/profileSlice.js
 
-import API from '../../utils/api/axiosInstance';
-// 🔁 Async thunk: update user profile
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { updateUserProfile } from './profileService';
+import { UPDATE_PROFILE } from './profileTypes';
+
+const initialState = {
+  profile: null,
+  loading: false,
+  error: null,
+  success: false,
+};
+
+// Async thunk to update profile
 export const updateProfile = createAsyncThunk(
-  'profile/update',
+  UPDATE_PROFILE,
   async (userData, { getState, rejectWithValue }) => {
     try {
-      const {
-        auth: { user },
-      } = getState();
-
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
-      const { data } = await API.put('/api/user/profile', userData, config);
-      return data;
+      const { token } = getState().auth.user;
+      return await updateUserProfile(userData, token);
     } catch (err) {
-      const message =
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message;
+      const message = err.response?.data?.message || err.message;
       return rejectWithValue(message);
     }
   }
@@ -31,39 +27,33 @@ export const updateProfile = createAsyncThunk(
 
 const profileSlice = createSlice({
   name: 'profile',
-  initialState: {
-    userInfo: null,
-    loading: false,
-    error: null,
-    success: false,
-  },
+  initialState,
   reducers: {
-    resetProfileState: (state) => {
-      state.userInfo = null;
+    resetProfile: (state) => {
       state.loading = false;
-      state.error = null;
       state.success = false;
+      state.error = null;
+      state.profile = null;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(updateProfile.pending, (state) => {
         state.loading = true;
-        state.error = null;
         state.success = false;
+        state.error = null;
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
         state.loading = false;
-        state.userInfo = action.payload;
         state.success = true;
+        state.profile = action.payload;
       })
       .addCase(updateProfile.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
-        state.success = false;
+        state.error = action.payload || 'Something went wrong';
       });
   },
 });
 
-export const { resetProfileState } = profileSlice.actions;
+export const { resetProfile } = profileSlice.actions;
 export default profileSlice.reducer;

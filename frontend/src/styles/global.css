@@ -177,3 +177,56 @@ select:focus {
     transform: none !important;
   }
 }
+
+
+/* 
+=================================================== */
+
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #000000;
+  color: #000000;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  user-select: none;
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+.page-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.4s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 
+======================================== */

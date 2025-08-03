@@ -8,11 +8,13 @@ import AuthHeader from '../../components/ui/Header';
 import { toast } from 'react-toastify';
 import { useFormValidation } from '../../hooks/useFormValidation'; // adjust path as needed
 import { useEffect } from 'react';
+import ButtonLoader from '../../components/ui/ButtonLoader';
 
 export default function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { validate } = useFormValidation();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -63,7 +65,9 @@ export default function Register() {
         error.response?.data?.message ||
           'Registration failed. Please try again.'
       );
-    }
+    }finally {
+    setIsSubmitting(false);
+  }
   };
 
   return (
@@ -97,7 +101,8 @@ export default function Register() {
       />
       {errors.password && <p className="input-error">{errors.password}</p>}
 
-      <button type="submit">Register</button>
+      <ButtonLoader isLoading={isSubmitting} text="Register" />
+
 
       <p>
         Already have an account? <Link to="/">Login</Link>

@@ -7,6 +7,10 @@ import './Login.css';
 import AuthHeader from '../components/ui/Header';
 import { toast } from 'react-toastify';
 import { useFormValidation } from '../hooks/useFormValidation';
+import ButtonLoader from '../components/ui/ButtonLoader';
+
+
+
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -17,6 +21,8 @@ export default function Login() {
     password: '',
   });
   const [errors, setErrors] = useState({});
+
+const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { validate } = useFormValidation();
 
@@ -34,25 +40,29 @@ export default function Login() {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationErrors = validate(formData, 'login');
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
+ 
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const validationErrors = validate(formData, 'login');
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+    return;
+  }
 
-    try {
-      const data = await authService.login(formData);
-      dispatch(setCredentials({ user: data, token: data.token }));
-      toast.success('Login successful!');
-      navigate('/home');
-    } catch (error) {
-      toast.error(
-        error.response?.data?.message || 'Login failed. Please check your credentials.'
-      );
-    }
-  };
+  try {
+    setIsSubmitting(true);
+    const data = await authService.login(formData);
+    dispatch(setCredentials({ user: data, token: data.token }));
+    toast.success('Login successful!');
+    navigate('/home');
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message || 'Login failed. Please check your credentials.'
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
@@ -76,7 +86,9 @@ export default function Login() {
       />
       {errors.password && <p className="input-error">{errors.password}</p>}
 
-      <button type="submit">Login</button>
+      {/* <button type="submit">Login</button> */}
+
+<ButtonLoader isLoading={isSubmitting} text="Login" />
 
       <p>
         Don’t have an account? <Link to="/register">Register</Link>
