@@ -57,13 +57,32 @@ const itemSchema = new mongoose.Schema({
     enum: ['None', 'Pending', 'Accepted', 'Rejected', 'Completed'],
     default: 'None',
   },
+  type: {
+    type: String,
+    enum: ['Giveaway', 'Request', 'Swap'],
+    default: 'Swap',
+  },
+  tags: [String], // e.g. ["used", "clean", "rare"]
+  condition: {
+    type: String,
+    enum: ['New', 'Like New', 'Used', 'Broken'],
+    default: 'Used',
+  },
 
   createdAt: {
     type: Date,
     default: Date.now,
   },
+  hasSwapRequest: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-itemSchema.index({ location: '2dsphere' }); // geo location index
+// Indexes for faster queries and sorting
+itemSchema.index({ location: '2dsphere' });
+itemSchema.index({ owner: 1 });
+itemSchema.index({ category: 1 });
+itemSchema.index({ status: 1 });
 
 module.exports = mongoose.model('Item', itemSchema);
