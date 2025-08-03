@@ -1,58 +1,46 @@
-import API from '../../utils/api/axiosInstance';
+// src/features/items/itemService.js
 
-//  GET all items (with optional query)
+import API from '../../utils/api/axiosInstance';
+import { getToken } from '../../utils/api/tokenHelpers'; 
+
+// 1. GET all items (optionally filtered with query)
 const getAllItems = async (query = '') => {
   const res = await API.get(`/api/items${query}`);
-  return res.data; // This will be an array
+  return res.data;
 };
 
-// GET item by ID
+// 2. GET item by ID
 const getItemById = async (id) => {
-  const response = await API.get(`/api/items/${id}`);
-  return response.data;
+  const res = await API.get(`/api/items/${id}`);
+  return res.data;
 };
 
-//  GET all items of logged-in user
-const getUserItems = async () => {
-  const response = await API.get(`/api/items/user/items`);
-  return response.data;
+// 3. GET items created by logged-in user
+const getUserItems = async (token) => {
+  const config = getToken(token);
+  const res = await API.get('/api/items/user/items', config);
+  return res.data;
 };
 
-//  POST a new item (with or without file)
-const createItem = async (itemData) => {
-  const token = localStorage.getItem('token');
-
-  const response = await API.post('/api/items', itemData, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return response.data;
+//  4. POST: Create new item
+const createItem = async (itemData, token) => {
+  const config = getToken(token);
+  const res = await API.post('/api/items', itemData, config);
+  return res.data;
 };
 
-export const updateItem = async (itemData, id, token) => {
-  try {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    };
-
-    const response = await API.put(`/api/items/${id}`, itemData, config); // ✅ Use API
-    return response.data;
-  } catch (error) {
-    console.error('Update item error:', error);
-    throw error;
-  }
+// 5. PUT: Update existing item
+const updateItem = async (itemData, id, token) => {
+  const config = getToken(token);
+  const res = await API.put(`/api/items/${id}`, itemData, config);
+  return res.data;
 };
 
-//  DELETE an item
-const deleteItem = async (id) => {
-  const response = await API.delete(`/api/items/${id}`);
-  return response.data;
+// 6. DELETE item
+const deleteItem = async (id, token) => {
+  const config = getToken(token);
+  const res = await API.delete(`/api/items/${id}`, config);
+  return res.data;
 };
 
 export const itemService = {

@@ -1,28 +1,30 @@
+// src/features/auth/authSlice.js
+
 import { createSlice } from '@reduxjs/toolkit';
-
-const storedUser = localStorage.getItem('user');
-const user = storedUser && storedUser !== "undefined" ? JSON.parse(storedUser) : null;
-
-const token = localStorage.getItem('token') || null;
+import {
+  getStoredUser,
+  getStoredToken,
+  saveUserToStorage,
+  removeUserFromStorage,
+} from './authStorage';
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user,
-    token,
+    user: getStoredUser(),
+    token: getStoredToken(),
   },
   reducers: {
     setCredentials: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      localStorage.setItem('user', JSON.stringify(action.payload.user));
-      localStorage.setItem('token', action.payload.token);
+      const { user, token } = action.payload;
+      state.user = user;
+      state.token = token;
+      saveUserToStorage(user, token);
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
+      removeUserFromStorage();
     },
   },
 });

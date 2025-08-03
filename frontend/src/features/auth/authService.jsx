@@ -1,21 +1,21 @@
-import API from '../../utils/api/axiosInstance';
+// import API from '../../utils/api/axiosInstance';
 
-// Register User
-const register = async (userData) => {
-  const response = await API.post('/api/auth/register', userData);
-  return response.data; // Contains user + token
-};
+// // Register User
+// const register = async (userData) => {
+//   const response = await API.post('/api/auth/register', userData);
+//   return response.data; // Contains user + token
+// };
 
-// Login User
-const login = async (userData) => {
-  const response = await API.post('/api/auth/login', userData);
-  return response.data; // Contains user + token
-};
+// // Login User
+// const login = async (userData) => {
+//   const response = await API.post('/api/auth/login', userData);
+//   return response.data; // Contains user + token
+// };
 
-export const authService = {
-  register,
-  login,
-};
+// export const authService = {
+//   register,
+//   login,
+// };
 
 //===========================================================================================
 
@@ -39,3 +39,24 @@ export const authService = {
 //   register,
 //   login,
 // };
+
+
+// src/features/auth/authService.js
+import API from '../../utils/api/axiosInstance';
+
+// ✅ Register User
+const register = async (userData) => {
+  const response = await API.post('/api/auth/register', userData);
+  return response.data; // user + token
+};
+
+// ✅ Login User
+const login = async (userData) => {
+  const response = await API.post('/api/auth/login', userData);
+  return response.data; // user + token
+};
+
+export const authService = {
+  register,
+  login,
+};

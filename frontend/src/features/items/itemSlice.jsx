@@ -1,91 +1,92 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { itemService } from './itemService';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { itemService } from "./itemService";
+import { getToken } from "../../utils/api/tokenHelpers";
 
-// GET all items
-export const fetchItems = createAsyncThunk(
-  'items/fetchAll',
-  async (query = '', thunkAPI) => {
-    try {
-      return await itemService.getAllItems(query);
-    } catch (err) {
-      return thunkAPI.rejectWithValue(
-        err.response?.data?.message || 'Failed to load items'
-      );
-    }
+import {
+  FETCH_ALL_ITEMS,
+  FETCH_ITEM_BY_ID,
+  FETCH_USER_ITEMS,
+  CREATE_ITEM,
+  UPDATE_ITEM,
+  DELETE_ITEM,
+} from "./itemTypes";
+
+// 🔁 Fetch all items
+export const fetchItems = createAsyncThunk(FETCH_ALL_ITEMS, async (query = "", thunkAPI) => {
+  try {
+    return await itemService.getAllItems(query);
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to load items");
   }
-);
+});
 
-// CREATE item
-export const createItem = createAsyncThunk(
-  'items/create',
-  async (itemData, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.token;
-      return await itemService.createItem(itemData, token);
-    } catch (err) {
-      return thunkAPI.rejectWithValue(
-        err.response?.data?.message || 'Failed to create item'
-      );
-    }
+// 🔁 Fetch item by ID
+export const fetchItemById = createAsyncThunk(FETCH_ITEM_BY_ID, async (id, thunkAPI) => {
+  try {
+    return await itemService.getItemById(id);
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to fetch item");
   }
-);
+});
 
-export const deleteItem = createAsyncThunk(
-  'items/delete',
-  async (id, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.token;
-      return await itemService.deleteItem(id, token);
-    } catch (err) {
-      return thunkAPI.rejectWithValue(
-        err.response?.data?.message || 'Failed to delete item'
-      );
-    }
+// 🔁 Fetch items created by user
+export const fetchUserItems = createAsyncThunk(FETCH_USER_ITEMS, async (_, thunkAPI) => {
+  try {
+    const token = getToken(thunkAPI.getState);
+    return await itemService.getUserItems(token);
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to fetch user items");
   }
-);
+});
 
-// ✅ UPDATE item
-export const updateItem = createAsyncThunk(
-  'items/updateItem',
-  async ({ id, itemData }, thunkAPI) => {
-    try {
-      const state = thunkAPI.getState();
-      const token = state.auth.user.token || localStorage.getItem("token"); // ✅ get token
-
-      return await itemService.updateItem(itemData, id, token);
-    } catch{
-      return thunkAPI.rejectWithValue('Failed to update item');
-    }
+// 🔁 Create item
+export const createItem = createAsyncThunk(CREATE_ITEM, async (itemData, thunkAPI) => {
+  try {
+    const token = getToken(thunkAPI.getState);
+    return await itemService.createItem(itemData, token);
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to create item");
   }
-);
+});
 
-
-export const fetchItemById = createAsyncThunk(
-  'items/fetchOne',
-  async (id, thunkAPI) => {
-    try {
-      return await itemService.getItemById(id);
-    } catch (err) {
-      return thunkAPI.rejectWithValue(
-        err.response?.data?.message || 'Failed to fetch item'
-      );
-    }
+// 🔁 Update item
+export const updateItem = createAsyncThunk(UPDATE_ITEM, async ({ id, itemData }, thunkAPI) => {
+  try {
+    const token = getToken(thunkAPI.getState);
+    return await itemService.updateItem(itemData, id, token);
+  } catch {
+    return thunkAPI.rejectWithValue("Failed to update item");
   }
-);
+});
 
+// 🔁 Delete item
+export const deleteItem = createAsyncThunk(DELETE_ITEM, async (id, thunkAPI) => {
+  try {
+    const token = getToken(thunkAPI.getState);
+    return await itemService.deleteItem(id, token);
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.response?.data?.message || "Failed to delete item");
+  }
+});
+
+// 🔧 Initial State
+const initialState = {
+  items: [],
+  selectedItem: null,
+  loading: false,
+  error: null,
+};
+
+// 🧩 Slice
 const itemSlice = createSlice({
-  name: 'items',
-  initialState: {
-    items: [],
-    loading: false,
-    error: null,
-  },
+  name: "items",
+  initialState,
   reducers: {
-    // Future reducers like resetItems, etc.
+    // optional: add sync reducers here
   },
   extraReducers: (builder) => {
     builder
-      // FETCH
+      // Fetch all
       .addCase(fetchItems.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -99,7 +100,35 @@ const itemSlice = createSlice({
         state.error = action.payload;
       })
 
-      // CREATE
+      // Fetch by ID
+      .addCase(fetchItemById.pending, (state) => {
+        state.loading = true;
+        state.selectedItem = null;
+      })
+      .addCase(fetchItemById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.selectedItem = action.payload;
+      })
+      .addCase(fetchItemById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Fetch user items
+      .addCase(fetchUserItems.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUserItems.fulfilled, (state, action) => {
+        state.loading = false;
+        state.items = action.payload;
+      })
+      .addCase(fetchUserItems.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Create
       .addCase(createItem.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -113,56 +142,35 @@ const itemSlice = createSlice({
         state.error = action.payload;
       })
 
-      // ✅ UPDATE
+      // Update
       .addCase(updateItem.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(updateItem.fulfilled, (state, action) => {
         state.loading = false;
-        const index = state.items.findIndex(
-          (item) => item._id === action.payload._id
-        );
-        if (index !== -1) {
-          state.items[index] = action.payload;
-        }
+        const index = state.items.findIndex(item => item._id === action.payload._id);
+        if (index !== -1) state.items[index] = action.payload;
       })
       .addCase(updateItem.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
 
-      // DELETE
+      // Delete
       .addCase(deleteItem.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(deleteItem.fulfilled, (state, action) => {
         state.loading = false;
-        state.items = state.items.filter(
-          (item) => item._id !== action.payload._id
-        );
+        state.items = state.items.filter(item => item._id !== action.payload._id);
       })
       .addCase(deleteItem.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
-
-       // Fetch one item
-    .addCase(fetchItemById.pending, (state) => {
-      state.loading = true;
-      state.selectedItem = null;
-    })
-    .addCase(fetchItemById.fulfilled, (state, action) => {
-      state.loading = false;
-      state.selectedItem = action.payload;
-    })
-    .addCase(fetchItemById.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-  },  
+      });
+  },
 });
 
 export default itemSlice.reducer;
-
