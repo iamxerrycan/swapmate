@@ -1,8 +1,15 @@
 const Item = require('../models/itemModel');
 
-
 //  Create a new item
-const createItemService = async ({ name, category, description, image, location, address, userId }) => {
+const createItemService = async ({
+  name,
+  category,
+  description,
+  image,
+  location,
+  address,
+  userId,
+}) => {
   const item = await Item.create({
     name,
     category,
@@ -49,12 +56,10 @@ const getItemByIdService = async (itemId) => {
 
 //  Get items posted by a specific user
 const getItemsByUserService = async (userId) => {
-  console.log("Querying items for user:", userId);
+  console.log('Querying items for user:', userId);
 
   return await Item.find({ user: userId });
 };
-
-
 
 //  Mark an item as swapped
 const markItemSwappedservice = async (itemId, swappedWithUserId) => {
@@ -72,16 +77,20 @@ const markItemSwappedservice = async (itemId, swappedWithUserId) => {
 };
 
 const updateItemService = async (itemId, updatedData) => {
-  console.log("Updating item ID:", itemId);
   return await Item.findByIdAndUpdate(itemId, updatedData, { new: true });
+};
+
+const deleteItemService = async (itemId) => {
+  return await Item.findByIdAndDelete(itemId);
 };
 
 
 module.exports = {
+  deleteItemService,
   updateItemService,
   createItemService,
   getAllItemsService,
   getItemByIdService,
   getItemsByUserService,
-  markItemSwappedservice
+  markItemSwappedservice,
 };

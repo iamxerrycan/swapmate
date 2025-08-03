@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');
+const Item = require('../models/itemModel');
 const {
   updateItemService,
   createItemService,
@@ -7,6 +8,7 @@ const {
   getItemByIdService,
   markItemSwappedservice,
   getItemsByUserService,
+  deleteItemService,
 } = require('../services/itemService');
 
 //  Create a new item
@@ -110,17 +112,28 @@ const markItemSwapped = async (req, res) => {
 const updateItem = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  // ✅ Check if ID is valid ObjectId
+  // ✅ Validate ObjectId
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: "Invalid item ID" });
   }
 
-  const updateData = req.body;
+  let updateData = { ...req.body };
 
-  // ✅ Update the item
-  const updatedItem = await Item.findByIdAndUpdate(id, updateData, {
-    new: true,
-  });
+  // ✅ If coordinates are present, convert to GeoJSON format
+  if (req.body.coordinates) {
+    updateData.location = {
+      type: "Point",
+      coordinates: req.body.coordinates, // [lng, lat]
+    };
+    delete updateData.coordinates; // remove raw coordinates from body
+  }
+
+  // ✅ Optionally handle image (if using multer)
+  if (req.file?.filename) {
+    updateData.image = req.file.filename;
+  }
+
+  const updatedItem = await updateItemService(id, updateData);
 
   if (!updatedItem) {
     return res.status(404).json({ message: "Item not found" });
@@ -129,7 +142,36 @@ const updateItem = asyncHandler(async (req, res) => {
   res.status(200).json(updatedItem);
 });
 
+
+// delete item by id
+
+const deleteItem = async (req, res) => {
+  console.log('🗑 DELETE /items/:id hit with ID:', req.params.id);
+  console.log('🔐 Token found:', req.headers.authorization);
+
+
+  try {
+    const itemId = req.params.id;
+
+    if (!mongoose.Types.ObjectId.isValid(itemId)) {
+      return res.status(400).json({ message: 'Invalid item ID' });
+    }
+
+    const deletedItem = await Item.findByIdAndDelete(itemId);
+
+    if (!deletedItem) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+
+    res.status(200).json({ message: 'Item deleted successfully', item: deletedItem });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
 module.exports = {
+  deleteItem,
   updateItem,
   createItem,
   getAllItems,

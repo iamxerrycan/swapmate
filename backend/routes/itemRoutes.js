@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { protect } = require('../middleware/authMiddleware');
 const {
+  deleteItem,
   createItem,
   updateItem,
   getAllItems,
@@ -27,6 +28,9 @@ router.put('/:id/swap',protect , markItemSwapped);
 
 //  PUT: Update item by ID (Protected)
 router.put('/:id',protect, updateItem);
- console.log("PUT /api/items/:id hit ✅");
+
+// DELETE: Delete item by ID (Protected)
+router.delete('/:id',protect, deleteItem);
+
 
 module.exports = router;

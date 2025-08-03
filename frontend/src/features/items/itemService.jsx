@@ -1,5 +1,4 @@
 import API from '../../utils/axiosInstance';
-import axios from 'axios';
 
 //  GET all items (with optional query)
 const getAllItems = async (query = '') => {
@@ -33,25 +32,16 @@ const createItem = async (itemData) => {
   return response.data;
 };
 
-//  PUT to update item
-const API_URL = "http://localhost:5001/api/items/";
-
-// itemService.jsx
 export const updateItem = async (itemData, id, token) => {
   try {
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`, // ✅ Pass token here
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
     };
 
-    const response = await axios.put(
-      `/api/items/${id}`,
-      itemData,
-      config
-    );
-
+    const response = await API.put(`/api/items/${id}`, itemData, config); // ✅ Use API
     return response.data;
   } catch (error) {
     console.error("Update item error:", error);

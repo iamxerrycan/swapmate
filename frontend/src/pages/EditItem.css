@@ -29,9 +29,9 @@
   color: #444;
 }
 
-.edit-form input[type="text"],
+.edit-form input[type='text'],
 .edit-form textarea,
-.edit-form input[type="file"] {
+.edit-form input[type='file'] {
   width: 100%;
   padding: 12px 14px;
   border-radius: 8px;
@@ -40,7 +40,7 @@
   transition: border 0.3s;
 }
 
-.edit-form input[type="text"]:focus,
+.edit-form input[type='text']:focus,
 .edit-form textarea:focus {
   outline: none;
   border-color: #007bff;
@@ -114,5 +114,27 @@
   .edit-buttons button {
     width: 100%;
   }
+}
+
+.three-buttons {
+  all: unset;
+  display: flex;
+  flex-direction: row;       /* Only needed once */
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;           /* Optional: makes buttons wrap on small screens */
+}
+
+.three-buttons button {
+  all: unset;
+  flex: 1;
+  min-width: 100px;
+  padding: 10px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
 }
 

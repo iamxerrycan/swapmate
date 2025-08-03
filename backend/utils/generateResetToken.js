@@ -7,3 +7,4 @@ function generateResetToken() {
 }
 
 module.exports = generateResetToken;
+

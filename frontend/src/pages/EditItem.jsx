@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchItemById, updateItem } from '../features/items/itemSlice';
+import {
+  fetchItemById,
+  updateItem,
+  deleteItem,
+} from '../features/items/itemSlice';
 import { toast } from 'react-toastify';
 import './CreateItem.css';
 
@@ -82,7 +86,7 @@ export default function EditItem() {
         category: formData.category,
         description: formData.description,
         address: formData.address,
-      coordinates: [lng, lat],
+        coordinates: [lng, lat],
       };
 
       await dispatch(updateItem({ id, itemData: updatedItem })).unwrap();
@@ -91,6 +95,19 @@ export default function EditItem() {
     } catch (err) {
       console.error('Update failed:', err);
       toast.error('Failed to update item');
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!window.confirm('Are you sure you want to delete this item?')) return;
+
+    try {
+      await dispatch(deleteItem(id)).unwrap();
+      toast.success('Item deleted successfully');
+      navigate('/profile');
+    } catch (err) {
+      console.error('Delete failed:', err);
+      toast.error('Failed to delete item');
     }
   };
 
@@ -158,11 +175,23 @@ export default function EditItem() {
       </div>
 
       <div className="two-buttons">
-        <button type="submit">Update</button>
-        <button type="button" onClick={() => navigate('/profile')}>
-          Cancel
-        </button>
+        <div className="three-buttons">
+          <button type="submit">Update</button>
+          <button type="button" onClick={() => navigate('/profile')}>
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="delete-button"
+            onClick={handleDelete}
+            style={{ backgroundColor: 'red', color: 'white' }}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </form>
   );
 }
+
+
