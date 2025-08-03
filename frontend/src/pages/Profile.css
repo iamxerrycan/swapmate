@@ -17,7 +17,7 @@ body.dark {
 /* Container */
 .profile-wrapper {
   padding: 2rem;
-  background-color: var(--bg);
+  background-color: black;
   color: var(--text);
 }
 
@@ -66,18 +66,6 @@ body.dark {
   width: 200px;
   background-color: var(--bg);
   color: var(--text);
-}
-
-.edit-form-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.edit-form-row input:focus {
-  outline: 2px solid var(--primary);
 }
 
 /* Buttons container */
@@ -140,4 +128,8 @@ body.dark {
     width: 100%;
     margin: 0.25rem 0;
   }
+}
+
+.edit-form{
+  width: 300px;
 }

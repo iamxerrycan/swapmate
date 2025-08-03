@@ -118,9 +118,11 @@ export default function EditItem() {
 
   return (
     <form className="create-item-form" onSubmit={handleSubmit}>
+     <div className='form-wrap'>
       <h2>Edit Item</h2>
 
       <div className="form-group">
+        
         <input
           type="text"
           name="name"
@@ -194,6 +196,7 @@ export default function EditItem() {
             Delete
           </button>
         </div>
+      </div>
       </div>
     </form>
   );

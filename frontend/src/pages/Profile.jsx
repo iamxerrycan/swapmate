@@ -74,7 +74,7 @@ export default function Profile() {
         <p>User ID: {user?.user?._id}</p>
 
         {isEditing ? (
-          <div className="edit-form-row">
+          <div className="edit-form-roww" style={{ width:'300px'}}>
             <input
               type="text"
               name="name"
