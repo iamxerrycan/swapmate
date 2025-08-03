@@ -2,7 +2,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import API from '../utils/axiosInstance';
+import API from '../utils/api/axiosInstance';
 import './ItemDetails.css';
 
 export default function ItemDetails() {

@@ -1,7 +1,8 @@
-/* =========================
-   Global CSS for React App
-   ========================= */
+/* ======================================
+   🌐 Global Styles for React Application
+   ====================================== */
 
+/* ===== Theme Variables ===== */
 :root {
   --font-body: 'Inter', system-ui, sans-serif;
 
@@ -17,13 +18,14 @@
   --color-primary-dark: #8b5cf6;
   --color-accent-dark: #60a5fa;
 
-  /* Defaults */
+  /* Active Theme Defaults */
   --bg: var(--color-bg-dark);
   --text: var(--color-text-dark);
   --primary: var(--color-primary-dark);
   --accent: var(--color-accent-dark);
 }
 
+/* Automatically switch to light theme */
 @media (prefers-color-scheme: light) {
   :root {
     --bg: var(--color-bg-light);
@@ -33,14 +35,15 @@
   }
 }
 
-/* ======= Reset ======= */
+/* ===== Reset & Base ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   font-family: var(--font-body);
   background-color: var(--bg);
   color: var(--text);
@@ -50,7 +53,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ======= Typography ======= */
+/* ===== Typography ===== */
 h1, h2, h3, h4, h5, h6 {
   color: var(--text);
   font-weight: 600;
@@ -69,11 +72,11 @@ a {
 }
 
 a:hover {
-  text-decoration: underline;
   color: var(--primary);
+  text-decoration: underline;
 }
 
-/* ======= Buttons ======= */
+/* ===== Buttons ===== */
 button {
   font: inherit;
   background-color: var(--primary);
@@ -95,16 +98,18 @@ button:focus {
   outline-offset: 2px;
 }
 
-/* ======= Inputs & Forms ======= */
-input, textarea, select {
+/* ===== Forms & Inputs ===== */
+input,
+textarea,
+select {
   font: inherit;
-  padding: 0.6em;
   width: 100%;
+  padding: 0.6em;
   border: 1px solid #ccc;
   border-radius: 0.375rem;
-  margin-bottom: 1rem;
   background-color: rgba(255, 255, 255, 0.1);
   color: var(--text);
+  margin-bottom: 1rem;
   transition: border 0.2s;
 }
 
@@ -115,7 +120,7 @@ select:focus {
   outline: none;
 }
 
-/* ======= Utility Classes ======= */
+/* ===== Utility Classes ===== */
 .container {
   max-width: 1080px;
   margin: 0 auto;
@@ -152,7 +157,7 @@ select:focus {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Custom Toast Styling */
+/* ===== Toastify Custom Styling ===== */
 .Toastify__toast {
   border-radius: 12px !important;
   font-size: 0.9rem;
@@ -160,7 +165,6 @@ select:focus {
   text-align: center;
 }
 
-/* For mobile: center width and margin */
 @media (max-width: 480px) {
   .Toastify__toast {
     width: 90% !important;

@@ -1,4 +1,4 @@
-import API from '../../utils/axiosInstance';
+import API from '../../utils/api/axiosInstance';
 
 //  GET all items (with optional query)
 const getAllItems = async (query = '') => {
@@ -44,11 +44,10 @@ export const updateItem = async (itemData, id, token) => {
     const response = await API.put(`/api/items/${id}`, itemData, config); // ✅ Use API
     return response.data;
   } catch (error) {
-    console.error("Update item error:", error);
+    console.error('Update item error:', error);
     throw error;
   }
 };
-
 
 //  DELETE an item
 const deleteItem = async (id) => {
@@ -64,7 +63,3 @@ export const itemService = {
   updateItem,
   deleteItem,
 };
-
-
-
-

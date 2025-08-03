@@ -1,4 +1,4 @@
-import API from '../../utils/axiosInstance';
+import API from '../../utils/api/axiosInstance';
 
 // Register User
 const register = async (userData) => {

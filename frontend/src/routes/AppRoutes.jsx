@@ -6,7 +6,7 @@ import Home from '../pages/Home';
 import ItemDetails from '../pages/ItemDetails';
 import Profile from '../pages/Profile';
 import AdminDashboard from '../pages/AdminDashboard';
-import AppLayout from '../layoutes/AppLayoute';
+import AppLayout from '../components/layoutes/AppLayoute';
 import ProtectedRoute from './ProtectedRoute';
 import AdminRoute from './AdminRoute';
 import CreateItem from '../pages/CreateItem';

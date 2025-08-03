@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import API from '../../utils/axiosInstance';
+import API from '../../utils/api/axiosInstance';
 // 🔁 Async thunk: update user profile
 export const updateProfile = createAsyncThunk(
   'profile/update',

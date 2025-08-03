@@ -1,14 +1,13 @@
-import { useState , useEffect} from "react";
-import { Link } from "react-router-dom";
-import "./ForgotPassword.css";
-import AuthHeader from "../../components/ui/Header";
-import API from "../../utils/axiosInstance";
-import { toast } from "react-toastify";
-
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import './ForgotPassword.css';
+import AuthHeader from '../../components/ui/Header';
+import API from '../../utils/api/axiosInstance';
+import { toast } from 'react-toastify';
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
 
   const isValidEmail = (email) => {
     return /\S+@\S+\.\S+/.test(email); // Basic email format check
@@ -16,7 +15,7 @@ export default function ForgotPassword() {
 
   useEffect(() => {
     if (error) {
-      const timer = setTimeout(() => setError(""), 3000);
+      const timer = setTimeout(() => setError(''), 3000);
       return () => clearTimeout(timer);
     }
   }, [error]);
@@ -25,23 +24,23 @@ export default function ForgotPassword() {
     e.preventDefault();
 
     if (!email.trim()) {
-      setError("Email is required.");
+      setError('Email is required.');
       return;
     }
 
     if (!isValidEmail(email)) {
-      setError("Please enter a valid email address.");
+      setError('Please enter a valid email address.');
       return;
     }
 
     try {
-      const res = await API.post("api/user/forgot-password", { email });
-      setEmail("");
-      setError(""); 
-      toast(res.data.message || "Reset link sent!"); 
+      const res = await API.post('api/user/forgot-password', { email });
+      setEmail('');
+      setError('');
+      toast(res.data.message || 'Reset link sent!');
     } catch (err) {
       setError(
-        err.response?.data?.message || "Something went wrong. Try again later."
+        err.response?.data?.message || 'Something went wrong. Try again later.'
       );
     }
   };

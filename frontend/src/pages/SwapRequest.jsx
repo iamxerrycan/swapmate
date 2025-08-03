@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
-import API from '../utils/axiosInstance';
+import API from '../utils/api/axiosInstance';
 import './SwapItem.css';
 
 export default function SwapItem() {
@@ -45,7 +45,9 @@ export default function SwapItem() {
 
       {success && <p className="success-text">{success}</p>}
       {error && <p className="error-text">{error}</p>}
-      <button onClick={() => navigate(-1)} className="back-btn">← Back</button>
+      <button onClick={() => navigate(-1)} className="back-btn">
+        ← Back
+      </button>
     </div>
   );
 }
