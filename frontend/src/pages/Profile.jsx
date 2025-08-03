@@ -2,7 +2,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { updateProfile } from '../features/profile/profileSlice';
 import ItemCard from '../components/ui/ItemCard';
-import { useState } from 'react';
+import { fetchItems } from '../features/items/itemSlice';
+import { useState , useEffect} from 'react';
 import './Profile.css';
 import { toast } from 'react-toastify';
 
@@ -18,6 +19,10 @@ export default function Profile() {
         (item) => String(item.user?._id || item.user) === String(currentUserId)
       )
     : [];
+
+useEffect(() => {
+  dispatch(fetchItems());
+}, []);  
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -101,3 +106,4 @@ export default function Profile() {
     </div>
   );
 }
+
