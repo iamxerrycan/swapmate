@@ -1,17 +1,20 @@
 const User = require('../models/userModel');
-const {updateUserProfileService} = require('../services/userService');
 const generateResetToken = require('../utils/generateResetToken');
 const crypto = require('crypto');
-const { forgotPasswordService, resetPasswordService } = require('../services/userService');
-
-
+const {
+  forgotPasswordService,
+  updateUserProfileService,
+  resetPasswordService,
+  deleteUserProfileService,
+} = require('../services/userService');
+const { deleteUser } = require('./adminController');
 
 const updateUserProfileController = async (req, res) => {
   try {
-    const userId = req.user._id; 
+    const userId = req.user._id;
     const updateData = req.body;
-console.log('Incoming body:', req.body);
-console.log('Decoded user:', req.user);
+    console.log('Incoming body:', req.body);
+    console.log('Decoded user:', req.user);
 
     const updatedUser = await updateUserProfileService(userId, updateData);
 
@@ -24,8 +27,6 @@ console.log('Decoded user:', req.user);
     res.status(500).json({ message: 'Server error' });
   }
 };
-
-
 
 // 🔐 Forgot Password Controller
 const forgotPasswordController = async (req, res) => {
@@ -47,9 +48,24 @@ const resetPasswordController = async (req, res) => {
   }
 };
 
+// 🗑️ Delete User Profile Controller
+const deleteUserProfileController = async (req, res) => {
+  try {
+    console.log("🧠 Trying to delete user:", req.user._id);
+
+    console.log('🧠 req.user:', req.user); // Check the user ID coming from token
+    const deletedUser = await deleteUserProfileService(req.user._id);
+    res.json({ message: 'User deleted successfully', user: deletedUser });
+  } catch (error) {
+    console.error('❌ Error deleting user:', error);
+    res.status(400).json({ message: error.message });
+  }
+};
+
 
 module.exports = {
   updateUserProfileController,
   forgotPasswordController,
-  resetPasswordController
+  resetPasswordController,
+  deleteUserProfileController,
 };

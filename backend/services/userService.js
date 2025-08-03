@@ -62,8 +62,21 @@ const resetPasswordService = async (token, newPassword) => {
   return user;
 };
 
+//delete user profile
+const deleteUserProfileService = async (userId) => {
+  console.log('🔍 Deleting user ID:', userId);
+  const user = await User.findByIdAndDelete(userId);
+  console.log('✅ Deleted user:', user);
+  if (!user) {
+    throw new Error('User not found');
+  }
+  return user;
+};
+
+
 module.exports = {
   updateUserProfileService,
   forgotPasswordService,
-  resetPasswordService
+  resetPasswordService,
+  deleteUserProfileService
 };

@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { updateProfile } from '../features/profile/profileSlice';
+import { updateProfile, deleteProfile } from '../features/profile/profileSlice';
 import ItemCard from '../components/ui/ItemCard';
 import { fetchItems } from '../features/items/itemSlice';
-import { useState , useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import './Profile.css';
+import { confirmToast } from '../components/ui/ConfirmToast';
 import { toast } from 'react-toastify';
 
 export default function Profile() {
@@ -14,15 +15,16 @@ export default function Profile() {
   const { items } = useSelector((state) => state.items);
 
   const currentUserId = user?.user?._id;
+
   const myItems = Array.isArray(items)
     ? items.filter(
         (item) => String(item.user?._id || item.user) === String(currentUserId)
       )
     : [];
 
-useEffect(() => {
-  dispatch(fetchItems());
-}, []);  
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, [dispatch]);
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -52,6 +54,18 @@ useEffect(() => {
     navigate('/create-item');
   };
 
+  const handleDelete = () => {
+  confirmToast(async () => {
+    const result = await dispatch(deleteProfile());
+    if (result.meta.requestStatus === 'fulfilled') {
+      toast.success('Profile deleted successfully');
+      navigate('/register');
+    } else {
+      toast.error(result.payload || 'Failed to delete profile');
+    }
+  });
+};
+
   return (
     <div className="profile-wrapper">
       <section className="profile-header">
@@ -80,12 +94,15 @@ useEffect(() => {
             </button>
           </div>
         ) : (
-          <div className="two-buttons">
+          <div className="three-buttons">
             <button onClick={handleEditToggle} className="edit-btn">
               Edit Profile
             </button>
-            <button onClick={handleCreateItem} className="create-item-btn">
-             Create New Item
+            <button onClick={handleCreateItem} className="edit-btn">
+              Create New Item
+            </button>
+            <button onClick={handleDelete} className="edit-btn">
+              Delete Profile
             </button>
           </div>
         )}
@@ -106,4 +123,38 @@ useEffect(() => {
     </div>
   );
 }
+
+
+
+
+// .edit-form input {
+//   padding: 0.5rem 1rem;
+//   margin: 0.5rem 1rem 0.5rem 0;
+//   border: 1px solid var(--border);
+//   border-radius: 6px;
+//   width: 200px;
+// }
+
+// .edit-form-row {
+//   display: flex;
+//   flex-wrap: wrap;
+//   align-items: center;
+//   gap: 0.5rem;
+//   margin-top: 1rem;
+// }
+
+// .edit-form-row input {
+//   flex: 1 1 200px;
+//   min-width: 150px;
+//   padding: 0.5rem;
+//   border: 1px solid var(--border);
+//   border-radius: 6px;
+//   font-size: 0.9rem;
+//   background-color: var(--bg);
+//   color: var(--text);
+// }
+// .edit-form-row input:focus {
+//   outline: 2px solid var(--primary);
+//   background-color: var(--bg);
+// }
 

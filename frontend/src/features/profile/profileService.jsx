@@ -14,3 +14,14 @@ export const updateUserProfile = async (userData, token) => {
   const response = await API.put('/api/user/profile', userData, config);
   return response.data;
 };
+
+/**
+ * Delete current user profile
+ * @param {string} token - auth token
+ * @returns {Promise<object>} success message
+ */
+export const deleteUserProfile = async (token) => {
+  const config = getToken(token);
+  const response = await API.delete('/api/user/profile', config);
+  return response.data;
+};

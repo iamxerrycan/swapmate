@@ -1,4 +1,4 @@
-/* :root {
+:root {
   --primary: #4f46e5;
   --bg: #f9f9f9;
   --text: #1f2937;
@@ -12,16 +12,16 @@ body.dark {
   --text: #f3f4f6;
   --border: #374151;
   --accent: #4f46e5;
-} */
-
-.profile-wrapper {
-  padding: 2rem;
-  /* background-color: var(--bg); */
-  background-color: black;
-  /* color: var(--text); */
-  /* min-height: 100vh; */
 }
 
+/* Container */
+.profile-wrapper {
+  padding: 2rem;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+/* Header */
 .profile-header {
   margin-bottom: 2rem;
   border-bottom: 1px solid var(--border);
@@ -33,33 +33,63 @@ body.dark {
   margin-bottom: 0.5rem;
 }
 
+/* Buttons */
 .edit-btn,
 .save-btn,
-.create-item-btn {
+.create-item-btn,
+.two-buttons button {
   padding: 0.6rem 1.2rem;
-  margin-right: 1rem;
   background-color: var(--primary);
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+  font-size: 1rem;
+  min-width: 140px;
+  flex: 1;
 }
 
 .edit-btn:hover,
 .save-btn:hover,
-.create-item-btn:hover {
+.create-item-btn:hover,
+.two-buttons button:hover {
   background-color: #4338ca;
 }
 
+/* Form */
 .edit-form input {
   padding: 0.5rem 1rem;
   margin: 0.5rem 1rem 0.5rem 0;
   border: 1px solid var(--border);
   border-radius: 6px;
   width: 200px;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
+.edit-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.edit-form-row input:focus {
+  outline: 2px solid var(--primary);
+}
+
+/* Buttons container */
+.two-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+/* Items */
 .item-section {
   margin-top: 2rem;
 }
@@ -83,89 +113,31 @@ body.dark {
   display: grid;
   margin-top: 10px;
 }
+
 .no-items {
   font-style: italic;
   color: gray;
 }
 
-.edit-form-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
+/* Responsive layout */
+@media (max-width: 600px) {
+  .edit-form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-.edit-form-row input {
-  flex: 1 1 200px;
-  min-width: 150px;
-  padding: 0.5rem;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 0.9rem;
-  background-color: var(--bg);
-  color: var(--text);
-}
-.edit-form-row input:focus {
-  outline: 2px solid var(--primary);
-  background-color: var(--bg);
-}
+  .edit-form input {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
 
-
-.save-btn {
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-}
-
-.edit-btn{
-  width: 20%;
-}
-
-.create-item-btn {
-  width: 20%;
-}
-
-.save-btn{
-  width: 20%;
-margin-bottom: 17.5px;
-}
-
-/* .two-buttons{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
-  flex-direction: row;
-} */
-
-.two-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap; 
-  margin-top: 1rem;
-}
-
-.two-buttons button {
-  flex: 1;
-  min-width: 140px;
-  padding: 10px 15px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Responsive layout for small screens */
-@media (max-width: 500px) {
   .two-buttons {
     flex-direction: column;
-    gap: 8px;
     align-items: stretch;
   }
 
   .two-buttons button {
-    width: 10%;
+    width: 100%;
+    margin: 0.25rem 0;
   }
 }
