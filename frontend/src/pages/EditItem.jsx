@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
+import { confirmToast } from '../components/ui/ConfirmToast';
 import {
   fetchItemById,
   updateItem,
@@ -99,7 +100,7 @@ export default function EditItem() {
   };
 
   const handleDelete = async () => {
-    if (!window.confirm('Are you sure you want to delete this item?')) return;
+    // if (!window.confirm('Are you sure you want to delete this item?')) return;
 
     try {
       await dispatch(deleteItem(id)).unwrap();
@@ -110,6 +111,10 @@ export default function EditItem() {
       toast.error('Failed to delete item');
     }
   };
+
+  const handleClick = () => {
+  confirmToast(handleDelete);
+};
 
   return (
     <form className="create-item-form" onSubmit={handleSubmit}>
@@ -183,7 +188,7 @@ export default function EditItem() {
           <button
             type="button"
             className="delete-button"
-            onClick={handleDelete}
+            onClick={handleClick}
             style={{ backgroundColor: 'red', color: 'white' }}
           >
             Delete

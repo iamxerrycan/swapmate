@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
-      <ToastContainer position="top-center" autoClose={3000} />
+      <ToastContainer position="top-center" theme="dark" style={{ marginTop: '1rem' }} autoClose={3000} />
     </Provider>
   </React.StrictMode>
 );
