@@ -15,73 +15,95 @@ const {
 // @desc    Create new swap request
 // @route   POST /api/swaps
 // @access  Private
-exports.createSwapRequest = asyncHandler(async (req, res) => {
-  const { senderItemId, receiverItemId, receiverId } = req.body;
-  const senderId = req.user._id;
-
-  const swap = await createSwapRequestService({
-    senderId,
-    senderItemId,
-    receiverItemId,
-    receiverId,
-  });
-
-  res.status(201).json(swap);
-});
+exports.createSwapRequest = async (req, res) => {
+  try {
+    const swap = await createSwapRequestService(req.body);
+    res.status(201).json(swap);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
 
 // @desc    Get all swap requests for a user
 // @route   GET /api/swaps/user/:userId
 // @access  Private
-exports.getUserSwapRequests = asyncHandler(async (req, res) => {
-  const userId = req.params.userId;
-  const swaps = await getUserSwapRequestsService(userId);
-  res.status(200).json(swaps);
-});
+exports.getUserSwapRequests = async (req, res) => {
+  try {
+    const swaps = await getUserSwapRequestsService(req.params.userId);
+    res.status(200).json(swaps);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
 
 // @desc    Get single swap request by ID
 // @route   GET /api/swaps/:id
 // @access  Private
-exports.getSwapById = asyncHandler(async (req, res) => {
-  const swap = await getSwapByIdService(req.params.id);
-  res.status(200).json(swap);
-});
+exports.getSwapById = async (req, res) => {
+  try {
+    const swap = await getSwapByIdService(req.params.id);
+    res.status(200).json(swap);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
 
 // @desc    Accept a swap
 // @route   PUT /api/swaps/:id/accept
 // @access  Private
-exports.acceptSwap = asyncHandler(async (req, res) => {
-  const result = await acceptSwapService(req.params.id);
-  res.status(200).json(result);
-});
+exports.acceptSwap = async (req, res) => {
+  try {
+    const swap = await acceptSwapService(req.params.id);
+    res.status(200).json(swap);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
 
 // @desc    Reject a swap
 // @route   PUT /api/swaps/:id/reject
 // @access  Private
-exports.rejectSwap = asyncHandler(async (req, res) => {
-  const result = await rejectSwapService(req.params.id);
-  res.status(200).json(result);
-});
+exports.rejectSwap = async (req, res) => {
+  try {
+    const swap = await rejectSwapService(req.params.id);
+    res.status(200).json(swap);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
 
 // @desc    Cancel a swap (by sender)
 // @route   PUT /api/swaps/:id/cancel
 // @access  Private
-exports.cancelSwap = asyncHandler(async (req, res) => {
-  const result = await cancelSwapService(req.params.id, req.user._id);
-  res.status(200).json(result);
-});
+exports.cancelSwap = async (req, res) => {
+  try {
+    const swap = await cancelSwapService(req.params.id, req.user._id);
+    res.status(200).json(swap);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
 
 // @desc    Delete a swap (soft delete)
 // @route   DELETE /api/swaps/:id
 // @access  Private
-exports.deleteSwap = asyncHandler(async (req, res) => {
-  const result = await deleteSwapService(req.params.id);
-  res.status(200).json(result);
-});
+exports.deleteSwap = async (req, res) => {
+  try {
+    const swap = await deleteSwapService(req.params.id);
+    res.status(200).json(swap);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
 
 // @desc    Admin: Get all swap requests
 // @route   GET /api/swaps
 // @access  Admin
-exports.getAllSwaps = asyncHandler(async (req, res) => {
-  const swaps = await getAllSwapsService();
-  res.status(200).json(swaps);
-});
+exports.getAllSwaps = async (req, res) => {
+  try {
+    const swaps = await getAllSwapsService();
+    res.status(200).json(swaps);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}

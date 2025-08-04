@@ -84,21 +84,24 @@ const deleteItemService = async (itemId) => {
   return await Item.findByIdAndDelete(itemId);
 };
 
-const forgetPasswordService = async (email) => {
-  return await User.findOne({ email });
-};
-
-const resetPasswordService = async (token, newPassword) => {
-  return await User.findOneAndUpdate(
-    { resetPasswordToken: token },
-    { password: newPassword },
+const markItemSwappedService = async (itemId, swappedWithUserId) => {
+  const updatedItem = await Item.findByIdAndUpdate(
+    itemId,
+    {
+      isSwapped: true,
+      swappedWith: swappedWithUserId,
+      swapDate: new Date(),
+      swapStatus: 'Completed',
+    },
     { new: true }
   );
+  return updatedItem;
 };
 
+
+
 module.exports = {
-  forgetPasswordService,
-  resetPasswordService,
+  markItemSwappedService,
   deleteItemService,
   updateItemService,
   createItemService,

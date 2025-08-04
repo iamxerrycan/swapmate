@@ -5,7 +5,7 @@ const router = express.Router();
 const {
   createSwapRequest,
   getAllSwaps,
-  getUserSwaps,
+  getUserSwapRequests,
   getSwapById,
   acceptSwap,
   rejectSwap,
@@ -13,7 +13,7 @@ const {
   deleteSwap,
 } = require("../controllers/swapController");
 
-const { protect } = require("../middlewares/authMiddleware"); // Auth middleware
+const { protect } = require('../middleware/authMiddleware');
 
 // Create a swap request
 router.post("/", protect, createSwapRequest);
@@ -22,7 +22,7 @@ router.post("/", protect, createSwapRequest);
 router.get("/", protect, getAllSwaps);
 
 // Get current user's swaps
-router.get("/my", protect, getUserSwaps);
+router.get("/my", protect, getUserSwapRequests);
 
 // Get specific swap by ID
 router.get("/:id", protect, getSwapById);

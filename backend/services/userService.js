@@ -1,7 +1,5 @@
-const User = require('../models/userModel');
-// const crypto = require('crypto');
-// const generateResetToken = require('../utils/generateResetToken');
-
+const User = require("../models/userModel");
+const bcrypt = require("bcrypt");
 
 const getMeService = async (userId) => {
   try {
@@ -13,15 +11,26 @@ const getMeService = async (userId) => {
   }
 };
 
-
 const updateProfileService = async (userId, updatedData) => {
-  try {
-    const user = await User.findByIdAndUpdate(userId, updatedData, { new: true });
-    return user;
-  } catch (error) {
-    console.error(error);
-    throw new Error('Failed to update user profile');
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new Error("User not found");
   }
+
+  // Update fields
+  if (updatedData.name) user.name = updatedData.name;
+  if (updatedData.email) user.email = updatedData.email;
+
+  // Hash password if provided
+  if (updatedData.password) {
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(updatedData.password, salt);
+  }
+
+  const updatedUser = await user.save();
+  updatedUser.password = undefined; // Don't send password
+  return updatedUser;
 };
 
 const deleteAccountService = async (userId) => {
@@ -55,7 +64,8 @@ const getUserByIdService = async (userId) => {
 };
 
 module.exports = {
- getMeService,
+  updateProfileService,
+  getMeService,
   updateProfileService,
   deleteAccountService,
   getAllUsersService,

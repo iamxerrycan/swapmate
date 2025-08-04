@@ -2,17 +2,17 @@ const asyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');
 const Item = require('../models/itemModel');
 const {
+ markItemSwappedService,
+  deleteItemService,
   updateItemService,
   createItemService,
   getAllItemsService,
   getItemByIdService,
-  markItemSwappedservice,
   getItemsByUserService,
-  deleteItemService,
 } = require('../services/itemService');
 
 //  Create a new item
-const createItem = async (req, res) => {
+exports.createItem = async (req, res) => {
   try {
     const userId = req.user._id; // from auth middleware
     const {
@@ -42,7 +42,7 @@ const createItem = async (req, res) => {
 };
 
 //  Get all items (optional filter)
-const getAllItems = async (req, res) => {
+exports.getAllItems = async (req, res) => {
   try {
     const { category, lat, lng, radius } = req.query;
     const items = await getAllItemsService({ category, lat, lng, radius });
@@ -53,7 +53,7 @@ const getAllItems = async (req, res) => {
 };
 
 //  Get single item by ID
-const getItemById = async (req, res) => {
+exports.getItemById = async (req, res) => {
   try {
     const item = await getItemByIdService(req.params.id);
     res.status(200).json(item);
@@ -63,7 +63,7 @@ const getItemById = async (req, res) => {
 };
 
 // Get items by user
-const getItemsByUser = async (req, res) => {
+exports.getItemsByUser = async (req, res) => {
   try {
     const userId = req.user._id; // from auth middleware
     console.log('Querying items for user:', userId);
@@ -78,7 +78,7 @@ const getItemsByUser = async (req, res) => {
 };
 
 //  Controller to mark item as swapped
-const markItemSwapped = async (req, res) => {
+exports.markItemSwapped = async (req, res) => {
   try {
     const itemId = req.params.id; // item ID from URL
     if (!itemId) {
@@ -92,7 +92,7 @@ const markItemSwapped = async (req, res) => {
         .json({ message: 'itemId and swappedWithUserId are required' });
     }
 
-    const updatedItem = await markItemSwappedservice(itemId, swappedWithUserId);
+    const updatedItem = await markItemSwappedService(itemId, swappedWithUserId);
 
     if (!updatedItem) {
       return res
@@ -109,7 +109,7 @@ const markItemSwapped = async (req, res) => {
   }
 };
 
-const updateItem = asyncHandler(async (req, res) => {
+exports.updateItem = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   // ✅ Validate ObjectId
@@ -145,7 +145,20 @@ const updateItem = asyncHandler(async (req, res) => {
 
 // delete item by id
 
-const deleteItem = async (req, res) => {
+// exports.deleteItem = async (req, res) => {
+//   try {
+//     const itemId = req.params.id; // Item ID from URL
+//     if (!itemId) {
+//       return res.status(400).json({ message: 'Item ID is required' });
+//     }
+//     const item = await deleteItemService(itemId);
+//     res.status(200).json({ message: 'Item deleted successfully', item });
+//   } catch (err) {
+//     res.status(404).json({ message: err.message });
+//   }
+// };
+
+exports.deleteItem = async (req, res) => {
   console.log('🗑 DELETE /items/:id hit with ID:', req.params.id);
   console.log('🔐 Token found:', req.headers.authorization);
 
@@ -167,15 +180,4 @@ const deleteItem = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
-
-
-module.exports = {
-  deleteItem,
-  updateItem,
-  createItem,
-  getAllItems,
-  getItemById,
-  getItemsByUser,
-  markItemSwapped,
 };

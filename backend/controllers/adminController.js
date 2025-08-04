@@ -10,7 +10,7 @@ const {
 } = require('../services/adminService');
 
 // Get all users
-const getAllUsers = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
   try {
     const users = await getAllUsersService();
     res.status(200).json(users);
@@ -19,7 +19,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 // Get all items
-const getAllItems = async (req, res) => {
+exports.getAllItems = async (req, res) => {
   try {
     const items = await getAllItemsService();
     res.status(200).json(items);
@@ -28,7 +28,7 @@ const getAllItems = async (req, res) => {
   }
 };
 // Delete a user
-const deleteUser = async (req, res) => {
+exports.deleteUser = async (req, res) => {
   try {
     const userId = req.params.id; // User ID from URL
     if (!userId) {
@@ -41,7 +41,7 @@ const deleteUser = async (req, res) => {
   }
 };
 // Delete an item
-const deleteItem = async (req, res) => {
+exports.deleteItem = async (req, res) => {
   try {
     const itemId = req.params.id; // Item ID from URL
     if (!itemId) {
@@ -54,7 +54,7 @@ const deleteItem = async (req, res) => {
   }
 };
 // Update user role
-const updateUserRole = async (req, res) => {
+exports.updateUserRole = async (req, res) => {
   try {
     const userId = req.params.id; // User ID from URL
     const { isAdmin } = req.body; // New role from request body
@@ -71,7 +71,7 @@ const updateUserRole = async (req, res) => {
 };
 
 // Block a user
-const blockUser = async (req, res) => {
+exports.blockUser = async (req, res) => {
   try {
     const userId = req.params.id; // User ID from URL
     if (!userId) {
@@ -85,7 +85,7 @@ const blockUser = async (req, res) => {
 };
 
 // Unblock a user
-const unblockUser = async (req, res) => {
+exports.unblockUser = async (req, res) => {
   try {
     const userId = req.params.id; // User ID from URL
     if (!userId) {
@@ -99,7 +99,7 @@ const unblockUser = async (req, res) => {
 };
 
 // Get admin stats
-const getAdminStats = async (req, res) => {
+exports.getAdminStats = async (req, res) => {
   try {
     const stats = await getAdminStatsService();
     res.status(200).json(stats);
@@ -109,14 +109,3 @@ const getAdminStats = async (req, res) => {
 };
 
 
-
-module.exports = {
- getAllUsers,
-  getAllItems,
-  deleteUser,
-  deleteItem,
-  updateUserRole,
-  blockUser,
-  unblockUser,
-  getAdminStats
-};

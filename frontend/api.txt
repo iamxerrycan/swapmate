@@ -1,0 +1,56 @@
+API endpoints list हैं जो तुम्हारे backend में होने चाहिए और frontend में भी use हो रहे हैं:
+
+✅ AUTH Routes
+Prefix: /api/appointments/auth
+
+Method	Endpoint	Description
+POST	/register	Register new user
+POST	/login	Login user
+GET	/me	Get current user (auth)
+
+✅ USER Routes (admin only)
+Prefix: /api/appointments/users
+
+Method	Endpoint	Description
+GET	/	Get all users (admin)
+GET	/:id	Get single user
+DELETE	/:id	Delete user
+
+✅ PROFILE Routes
+Prefix: /api/appointments/profile
+
+Method	Endpoint	Description
+PUT	/update	Update logged-in user's info
+DELETE	/delete	Delete own profile
+
+✅ ITEM Routes
+Prefix: /api/appointments/items
+
+Method	Endpoint	Description
+GET	/my-items	Get items of logged-in user
+POST	/	Create new item
+PUT	/:id	Update own item
+DELETE	/:id	Delete own item
+
+✅ ADMIN DASHBOARD (Stat Overview etc.)
+Prefix: /api/appointments/admin
+
+Method	Endpoint	Description
+GET	/stats	Get admin stats overview
+
+✅ CONTACT FORM (optional)
+Prefix: /api/appointments/contact
+
+Method	Endpoint	Description
+POST	/	Send contact form data
+
+✅ JWT Protected
+All these routes (except register/login) should be protected with JWT middleware on the backend.
+
+🔐 Roles & Access:
+Endpoint Type	Access Role
+/auth/*	Public
+/profile/*	Authenticated
+/items/*	Authenticated
+/users/*	Admin only
+/admin/*	Admin only
