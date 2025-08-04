@@ -56,6 +56,7 @@ export default function Register() {
     }
 
     try {
+      setIsSubmitting(true);
       const data = await authService.register(formData);
       dispatch(setCredentials({ user: data, token: data.token }));
       toast.success('Registration successful!');

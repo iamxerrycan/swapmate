@@ -84,8 +84,21 @@ const deleteItemService = async (itemId) => {
   return await Item.findByIdAndDelete(itemId);
 };
 
+const forgetPasswordService = async (email) => {
+  return await User.findOne({ email });
+};
+
+const resetPasswordService = async (token, newPassword) => {
+  return await User.findOneAndUpdate(
+    { resetPasswordToken: token },
+    { password: newPassword },
+    { new: true }
+  );
+};
 
 module.exports = {
+  forgetPasswordService,
+  resetPasswordService,
   deleteItemService,
   updateItemService,
   createItemService,

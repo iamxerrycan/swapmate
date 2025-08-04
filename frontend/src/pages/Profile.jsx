@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { updateProfile, deleteProfile } from '../features/profile/profileSlice';
+// import { updateProfile, deleteProfile } from '../features/profile/profileSlice';
 import ItemCard from '../components/ui/ItemCard';
 import { fetchItems } from '../features/items/itemSlice';
 import { useState, useEffect } from 'react';
 import './Profile.css';
-import { confirmToast } from '../components/ui/ConfirmToast';
-import { toast } from 'react-toastify';
+// import { confirmToast } from '../components/ui/ConfirmToast';
+// import { toast } from 'react-toastify';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -42,12 +42,12 @@ export default function Profile() {
   const handleEditToggle = () => setIsEditing(!isEditing);
 
   const handleSave = async () => {
-    const result = await dispatch(updateProfile(formData));
-    if (result.meta.requestStatus === 'fulfilled') {
-      toast.success('Profile updated successfully');
-    }
-    setIsEditing(false);
-    navigate('/profile');
+    // const result = await dispatch(updateProfile(formData));
+    // if (result.meta.requestStatus === 'fulfilled') {
+    //   toast.success('Profile updated successfully');
+    // }
+    // setIsEditing(false);
+    // navigate('/profile');
   };
 
   const handleCreateItem = () => {
@@ -55,15 +55,15 @@ export default function Profile() {
   };
 
   const handleDelete = () => {
-  confirmToast(async () => {
-    const result = await dispatch(deleteProfile());
-    if (result.meta.requestStatus === 'fulfilled') {
-      toast.success('Profile deleted successfully');
-      navigate('/register');
-    } else {
-      toast.error(result.payload || 'Failed to delete profile');
-    }
-  });
+  // confirmToast(async () => {
+    // const result = await dispatch(deleteProfile());
+  //   if (result.meta.requestStatus === 'fulfilled') {
+  //     toast.success('Profile deleted successfully');
+  //     navigate('/register');
+  //   } else {
+  //     toast.error(result.payload || 'Failed to delete profile');
+  //   }
+  // });
 };
 
   return (

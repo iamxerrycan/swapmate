@@ -7,19 +7,24 @@ const {
   deleteUser,
   deleteItem,
   updateUserRole,
+  blockUser,
+  unblockUser,
+  getAdminStats
 } = require('../controllers/adminController');
 
 const { protect, adminOnly } = require('../middleware/authMiddleware');
 
-// @route GET /api/admin/users
-router.get('/users', protect, adminOnly, getAllUsers);
-// @route GET /api/admin/items
-router.get('/items', protect, adminOnly, getAllItems);
-// @route DELETE /api/admin/users/:id
-router.delete('/users/:id', protect, adminOnly, deleteUser);
-// @route DELETE /api/admin/items/:id
-router.delete('/items/:id', protect, adminOnly, deleteItem);
-// @route PUT /api/admin/users/:id/role
-router.put('/users/:id/role', protect, adminOnly, updateUserRole);
+// 🔐 All routes below are protected and admin-only
+router.use(protect, adminOnly);
+
+router.get("/users", getAllUsers);          // View all users
+router.put("/block/:id", blockUser);        //  Block user
+router.put("/unblock/:id", unblockUser);    //  Unblock user
+router.delete("/delete/:id", deleteUser);   //  Delete user
+router.get("/items", getAllItems);          //  View all items
+router.delete("/item/:id", deleteItem);     //  Delete item
+router.put("/user/:id", updateUserRole);    //  Update user role
+router.get("/dashboard/stats", getAdminStats); // For dashboard metrics
+
 
 module.exports = router;

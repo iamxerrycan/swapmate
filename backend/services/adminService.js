@@ -25,7 +25,7 @@ const deleteItemService = async (itemId) => {
     throw new Error('Item not found');
   }
   return item;
-}
+};
 // Update user role
 const updateUserRoleService = async (userId, isAdmin) => {
   const user = await User.findByIdAndUpdate(
@@ -37,13 +37,51 @@ const updateUserRoleService = async (userId, isAdmin) => {
     throw new Error('User not found');
   }
   return user;
-}
+};
 
+// adminService.js
+const blockUserService = async (userId) => {
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  if (user.isBlocked) {
+    throw new Error('User is already blocked');
+  }
+
+  user.isBlocked = true;
+  await user.save();
+  return user;
+};
+// Unblock a user
+const unblockUserService = async (userId) => {
+  const user = await User.findByIdAndUpdate(
+    userId,
+    { isBlocked: false },
+    { new: true }
+  );
+  if (!user) {
+    throw new Error('User not found');
+  }
+  return user;
+};
+
+// Get admin stats
+const getAdminStatsService = async () => {
+  const userCount = await User.countDocuments();
+  const itemCount = await Item.countDocuments();
+  return { userCount, itemCount };
+};
 
 module.exports = {
   getAllUsersService,
   getAllItemsService,
   deleteUserService,
   deleteItemService,
-  updateUserRoleService
+  updateUserRoleService,
+  blockUserService,
+  unblockUserService,
+  getAdminStatsService,
 };

@@ -1,71 +1,72 @@
-const User = require('../models/userModel');
-const generateResetToken = require('../utils/generateResetToken');
-const crypto = require('crypto');
+// const User = require('../models/userModel');
+// const generateResetToken = require('../utils/generateResetToken');
+// const crypto = require('crypto');
 const {
-  forgotPasswordService,
-  updateUserProfileService,
-  resetPasswordService,
-  deleteUserProfileService,
+ getMeService,
+  updateProfileService,
+  deleteAccountService,
+  getAllUsersService,
+  getUserByIdService
 } = require('../services/userService');
-const { deleteUser } = require('./adminController');
 
-const updateUserProfileController = async (req, res) => {
+const getMe = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const updateData = req.body;
-    console.log('Incoming body:', req.body);
-    console.log('Decoded user:', req.user);
-
-    const updatedUser = await updateUserProfileService(userId, updateData);
-
-    res.status(200).json({
-      message: 'User profile updated successfully',
-      user: updatedUser,
-    });
-  } catch (error) {
-    console.error('Error updating user profile:', error);
-    res.status(500).json({ message: 'Server error' });
+    const user = await getMeService(req.user._id);
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
-// 🔐 Forgot Password Controller
-const forgotPasswordController = async (req, res) => {
+const updateProfile = async (req, res) => {
   try {
-    const resetLink = await forgotPasswordService(req.body.email);
-    res.json({ message: 'Reset link sent', link: resetLink });
-  } catch (error) {
-    res.status(404).json({ message: error.message });
+    const userId = req.user._id; // from auth middleware
+    const { name, email, password } = req.body;
+    const updatedUser = await updateProfileService(userId, { name, email, password });
+    res.status(200).json({ message: 'User profile updated successfully', user: updatedUser });
+  } catch (err) {
+    res.status(404).json({ message: err.message });
   }
 };
 
-// 🔁 Reset Password Controller
-const resetPasswordController = async (req, res) => {
+const deleteAccount = async (req, res) => {
   try {
-    await resetPasswordService(req.params.token, req.body.password);
-    res.json({ message: 'Password updated successfully' });
-  } catch (error) {
-    res.status(400).json({ message: error.message });
+    const userId = req.user._id; // from auth middleware
+    const user = await deleteAccountService(userId);
+    res.status(200).json({ message: 'User deleted successfully', user });
+  } catch (err) {
+    res.status(404).json({ message: err.message });
   }
 };
 
-// 🗑️ Delete User Profile Controller
-const deleteUserProfileController = async (req, res) => {
+const getAllUsers = async (req, res) => {
   try {
-    console.log("🧠 Trying to delete user:", req.user._id);
+    const users = await getAllUsersService();
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
-    console.log('🧠 req.user:', req.user); // Check the user ID coming from token
-    const deletedUser = await deleteUserProfileService(req.user._id);
-    res.json({ message: 'User deleted successfully', user: deletedUser });
-  } catch (error) {
-    console.error('❌ Error deleting user:', error);
-    res.status(400).json({ message: error.message });
+const getUserById = async (req, res) => {
+  try {
+    const userId = req.params.id; // User ID from URL
+    if (!userId) {
+      return res.status(400).json({ message: 'User ID is required' });
+    }
+    const user = await getUserByIdService(userId);
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
   }
 };
 
 
 module.exports = {
-  updateUserProfileController,
-  forgotPasswordController,
-  resetPasswordController,
-  deleteUserProfileController,
+  getMe,
+  updateProfile,
+  deleteAccount,
+  getAllUsers,
+  getUserById,
 };
+

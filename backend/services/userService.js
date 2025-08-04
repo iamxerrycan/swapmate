@@ -1,82 +1,63 @@
 const User = require('../models/userModel');
-const crypto = require('crypto');
-const generateResetToken = require('../utils/generateResetToken');
+// const crypto = require('crypto');
+// const generateResetToken = require('../utils/generateResetToken');
 
-const updateUserProfileService = async (userId, updateData) => {
-  const user = await User.findById(userId);
-  if (!user) {
-    throw new Error('User not found');
+
+const getMeService = async (userId) => {
+  try {
+    const user = await User.findById(userId);
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to get user');
   }
-
-  user.name = updateData.name || user.name;
-  user.email = updateData.email || user.email;
-
-console.log("Before Save", user);
-const updatedUser = await user.save();
-console.log("After Save", updatedUser);
-
-
-  return {
-    _id: updatedUser._id,
-    name: updatedUser.name,
-    email: updatedUser.email,
-  };
 };
 
 
-// 🔐 Forgot Password: Generate reset token and update user
-const forgotPasswordService = async (email) => {
-  const user = await User.findOne({ email });
-  if (!user) {
-    throw new Error('User not found');
+const updateProfileService = async (userId, updatedData) => {
+  try {
+    const user = await User.findByIdAndUpdate(userId, updatedData, { new: true });
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to update user profile');
   }
-
-  const { rawToken, hashedToken } = generateResetToken();
-
-  user.resetPasswordToken = hashedToken;
-  user.resetPasswordExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
-  await user.save();
-
-  const resetLink = `http://localhost:5173/reset-password/${rawToken}`;
-  return resetLink; // In real app, send this via email
 };
 
-// 🔁 Reset Password: Match token, validate expiry, and reset password
-const resetPasswordService = async (token, newPassword) => {
-  const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
-
-  const user = await User.findOne({
-    resetPasswordToken: hashedToken,
-    resetPasswordExpires: { $gt: Date.now() },
-  });
-
-  if (!user) {
-    throw new Error('Invalid or expired token');
+const deleteAccountService = async (userId) => {
+  try {
+    const user = await User.findByIdAndDelete(userId);
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to delete user account');
   }
-
-  user.password = newPassword;
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpires = undefined;
-
-  await user.save();
-  return user;
 };
 
-//delete user profile
-const deleteUserProfileService = async (userId) => {
-  console.log('🔍 Deleting user ID:', userId);
-  const user = await User.findByIdAndDelete(userId);
-  console.log('✅ Deleted user:', user);
-  if (!user) {
-    throw new Error('User not found');
+const getAllUsersService = async () => {
+  try {
+    const users = await User.find();
+    return users;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to get users');
   }
-  return user;
 };
 
+const getUserByIdService = async (userId) => {
+  try {
+    const user = await User.findById(userId);
+    return user;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to get user by ID');
+  }
+};
 
 module.exports = {
-  updateUserProfileService,
-  forgotPasswordService,
-  resetPasswordService,
-  deleteUserProfileService
+ getMeService,
+  updateProfileService,
+  deleteAccountService,
+  getAllUsersService,
+  getUserByIdService
 };

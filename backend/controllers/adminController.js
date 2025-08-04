@@ -3,7 +3,10 @@ const {
   getAllItemsService,
   deleteUserService,
   deleteItemService,
-  updateUserRoleService
+  updateUserRoleService,
+  blockUserService,
+  unblockUserService,
+  getAdminStatsService
 } = require('../services/adminService');
 
 // Get all users
@@ -66,10 +69,54 @@ const updateUserRole = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+// Block a user
+const blockUser = async (req, res) => {
+  try {
+    const userId = req.params.id; // User ID from URL
+    if (!userId) {
+      return res.status(400).json({ message: 'User ID is required' });
+    }
+    const user = await blockUserService(userId);
+    res.status(200).json({ message: 'User blocked successfully', user });
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+// Unblock a user
+const unblockUser = async (req, res) => {
+  try {
+    const userId = req.params.id; // User ID from URL
+    if (!userId) {
+      return res.status(400).json({ message: 'User ID is required' });
+    }
+    const user = await unblockUserService(userId);
+    res.status(200).json({ message: 'User unblocked successfully', user });
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+// Get admin stats
+const getAdminStats = async (req, res) => {
+  try {
+    const stats = await getAdminStatsService();
+    res.status(200).json(stats);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+
 module.exports = {
-  getAllUsers,
+ getAllUsers,
   getAllItems,
   deleteUser,
   deleteItem,
-  updateUserRole
+  updateUserRole,
+  blockUser,
+  unblockUser,
+  getAdminStats
 };

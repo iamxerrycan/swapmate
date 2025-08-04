@@ -1,28 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const { admin } = require('../middleware/authMiddleware');
 const { protect } = require('../middleware/authMiddleware');
 const {
-  updateUserProfileController,
-  forgotPasswordController,
-  resetPasswordController,
-  deleteUserProfileController
+  getMe,
+  updateProfile,
+  deleteAccount,
+  getAllUsers,
+  getUserById,
 } = require('../controllers/userController');
 
-// PUT /api/users/me - update profile
-router.put('/profile', protect, updateUserProfileController);
+router.get('/me', protect, getMe); // Get logged-in user info
+router.put('/me', protect, updateProfile); // Update profile
+router.delete('/me', protect, deleteAccount); // Delete own account
 
-router.get('/test', (req, res) => {
-  res.json({ message: '✅ User route working' });
-});
-
-//delete user profile
-router.delete('/profile', protect  ,deleteUserProfileController)
-
-router.post('/forgot-password', forgotPasswordController);
-
-// PUT /api/user/reset-password/:token
-router.put('/reset-password/:token', resetPasswordController);
+router.get('/', protect, admin, getAllUsers); // Admin only
+router.get('/:id', protect, getUserById); // User/Admin
 
 module.exports = router;
-
 

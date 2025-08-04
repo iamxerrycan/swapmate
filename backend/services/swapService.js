@@ -1,55 +1,103 @@
-const Swap = require('../models/swapModel');
-const Item = require('../models/itemModel');
+// services/swapService.js
 
-const isDuplicateSwap = async (fromItem, toItem) => {
-  return await Swap.findOne({ fromItem, toItem, status: 'pending' });
-};
+const Swap = require("../models/swapModel");
+const Item = require("../models/itemModel");
 
-const createSwap = async (fromItem, toItem) => {
-  const existing = await isDuplicateSwap(fromItem, toItem);
-  if (existing) {
-    throw new Error('Swap request already exists');
+// Create a swap request
+exports.createSwapRequestService = async ({ senderId, senderItemId, receiverItemId, receiverId }) => {
+  // Check if items exist
+  const senderItem = await Item.findById(senderItemId);
+  const receiverItem = await Item.findById(receiverItemId);
+
+  if (!senderItem || !receiverItem) {
+    throw new Error("One or both items not found");
   }
 
-  const swap = await Swap.create({
-    fromItem,
-    toItem,
-    status: 'pending',
+  const newSwap = await Swap.create({
+    sender: senderId,
+    senderItem: senderItemId,
+    receiver: receiverId,
+    receiverItem: receiverItemId,
+    status: "pending",
   });
 
+  return newSwap;
+};
+
+// Get all swap requests for a user
+exports.getUserSwapRequestsService = async (userId) => {
+  const swaps = await Swap.find({
+    $or: [{ sender: userId }, { receiver: userId }],
+  })
+    .populate("sender", "name email")
+    .populate("receiver", "name email")
+    .populate("senderItem")
+    .populate("receiverItem");
+
+  return swaps;
+};
+
+// Get swap by ID
+exports.getSwapByIdService = async (swapId) => {
+  const swap = await Swap.findById(swapId)
+    .populate("sender", "name email")
+    .populate("receiver", "name email")
+    .populate("senderItem")
+    .populate("receiverItem");
+
+  if (!swap) {
+    throw new Error("Swap not found");
+  }
+
   return swap;
 };
 
-const acceptSwap = async (swapId) => {
+// Accept a swap
+exports.acceptSwapService = async (swapId) => {
   const swap = await Swap.findById(swapId);
-  if (!swap) throw new Error('Swap not found');
-  if (swap.status !== 'pending') throw new Error('Swap is already processed');
+  if (!swap) throw new Error("Swap not found");
 
-  swap.status = 'accepted';
+  swap.status = "accepted";
   await swap.save();
-
-  // Optional: Auto mark items as unavailable
-  await Promise.all([
-    Item.findByIdAndUpdate(swap.fromItem, { available: false }),
-    Item.findByIdAndUpdate(swap.toItem, { available: false }),
-  ]);
-
-  return swap;
+  return { message: "Swap accepted", swap };
 };
 
-const rejectSwap = async (swapId) => {
+// Reject a swap
+exports.rejectSwapService = async (swapId) => {
   const swap = await Swap.findById(swapId);
-  if (!swap) throw new Error('Swap not found');
-  if (swap.status !== 'pending') throw new Error('Swap is already processed');
+  if (!swap) throw new Error("Swap not found");
 
-  swap.status = 'rejected';
+  swap.status = "rejected";
   await swap.save();
-
-  return swap;
+  return { message: "Swap rejected", swap };
 };
 
-module.exports = {
-  createSwap,
-  acceptSwap,
-  rejectSwap,
+// Cancel a swap
+exports.cancelSwapService = async (swapId, userId) => {
+  const swap = await Swap.findById(swapId);
+  if (!swap) throw new Error("Swap not found");
+
+  if (String(swap.sender) !== String(userId)) {
+    throw new Error("Only the sender can cancel this swap");
+  }
+
+  swap.status = "cancelled";
+  await swap.save();
+  return { message: "Swap cancelled", swap };
+};
+
+// Delete a swap (soft delete or hard depending on use-case)
+exports.deleteSwapService = async (swapId) => {
+  const swap = await Swap.findByIdAndDelete(swapId);
+  if (!swap) throw new Error("Swap not found");
+  return { message: "Swap deleted", swap };
+};
+
+// Admin: get all swaps
+exports.getAllSwapsService = async () => {
+  return await Swap.find()
+    .populate("sender", "name email")
+    .populate("receiver", "name email")
+    .populate("senderItem")
+    .populate("receiverItem");
 };
