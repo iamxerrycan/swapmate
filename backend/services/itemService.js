@@ -1,6 +1,5 @@
 const Item = require('../models/itemModel');
 
-//  Create a new item
 const createItemService = async ({
   name,
   category,
@@ -10,95 +9,107 @@ const createItemService = async ({
   address,
   userId,
 }) => {
-  const item = await Item.create({
-    name,
-    category,
-    description,
-    image,
-    location: {
-      type: 'Point',
-      coordinates: location, // [longitude, latitude]
-    },
-    address,
-    user: userId,
-  });
-  return item;
-};
-
-//  Get all items (optionally filter by category or proximity)
-const getAllItemsService = async ({ category, lat, lng, radius = 1000 }) => {
-  let query = {};
-
-  if (category) {
-    query.category = category;
-  }
-
-  if (lat && lng) {
-    query.location = {
-      $near: {
-        $geometry: {
-          type: 'Point',
-          coordinates: [lng, lat],
-        },
-        $maxDistance: radius, // meters
+  try {
+    const item = await Item.create({
+      name,
+      category,
+      description,
+      image,
+      location: {
+        type: 'Point',
+        coordinates: location,
       },
-    };
+      address,
+      user: userId,
+    });
+    return item;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to create item');
   }
-
-  const items = await Item.find(query).populate('user', 'name email');
-  return items;
 };
 
-//  Get single item by ID
+const getAllItemsService = async ({ category, lat, lng, radius = 1000 }) => {
+  try {
+    let query = {};
+    if (category) query.category = category;
+
+    if (lat && lng) {
+      query.location = {
+        $near: {
+          $geometry: {
+            type: 'Point',
+            coordinates: [lng, lat],
+          },
+          $maxDistance: radius,
+        },
+      };
+    }
+
+    const items = await Item.find(query).populate('user', 'name email');
+    return items;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to get items');
+  }
+};
+
 const getItemByIdService = async (itemId) => {
-  return await Item.findById(itemId).populate('user', 'name email');
+  try {
+    const item = await Item.findById(itemId).populate('user', 'name email');
+    if (!item) throw new Error('Item not found');
+    return item;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to get item by ID');
+  }
 };
 
-//  Get items posted by a specific user
 const getItemsByUserService = async (userId) => {
-  console.log('Querying items for user:', userId);
-
-  return await Item.find({ user: userId });
-};
-
-//  Mark an item as swapped
-const markItemSwappedservice = async (itemId, swappedWithUserId) => {
-  const updatedItem = await Item.findByIdAndUpdate(
-    itemId,
-    {
-      isSwapped: true,
-      swappedWith: swappedWithUserId,
-      swapDate: new Date(),
-      swapStatus: 'Completed',
-    },
-    { new: true }
-  );
-  return updatedItem;
+  try {
+    return await Item.find({ user: userId });
+  } catch (error) {
+    throw new Error(error.message || 'Failed to get user items');
+  }
 };
 
 const updateItemService = async (itemId, updatedData) => {
-  return await Item.findByIdAndUpdate(itemId, updatedData, { new: true });
+  try {
+    const item = await Item.findByIdAndUpdate(itemId, updatedData, { new: true });
+    if (!item) throw new Error('Item not found or update failed');
+    return item;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to update item');
+  }
 };
 
 const deleteItemService = async (itemId) => {
-  return await Item.findByIdAndDelete(itemId);
+  try {
+    const item = await Item.findByIdAndDelete(itemId);
+    if (!item) throw new Error('Item not found');
+    return item;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to delete item');
+  }
 };
 
-const markItemSwappedService = async (itemId, swappedWithUserId) => {
-  const updatedItem = await Item.findByIdAndUpdate(
-    itemId,
-    {
-      isSwapped: true,
-      swappedWith: swappedWithUserId,
-      swapDate: new Date(),
-      swapStatus: 'Completed',
-    },
-    { new: true }
-  );
-  return updatedItem;
+const markItemSwappedservice = async (itemId, swappedWithUserId) => {
+  try {
+    const updatedItem = await Item.findByIdAndUpdate(
+      itemId,
+      {
+        isSwapped: true,
+        swappedWith: swappedWithUserId,
+        swapDate: new Date(),
+        swapStatus: 'Completed',
+      },
+      { new: true }
+    );
+    if (!updatedItem) throw new Error('Item not found or swap failed');
+    return updatedItem;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to mark item as swapped');
+  }
 };
 
-
+const markItemSwappedService = markItemSwappedservice;
 
 module.exports = {
   markItemSwappedService,

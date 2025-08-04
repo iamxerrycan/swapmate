@@ -64,7 +64,6 @@ const getUserByIdService = async (userId) => {
 };
 
 module.exports = {
-  updateProfileService,
   getMeService,
   updateProfileService,
   deleteAccountService,
