@@ -1,0 +1,41 @@
+src/
+└── pages/
+    └── dashboard/
+        ├── components/              # ♻️ Shared reusable components
+        │   ├── StatCard.jsx
+        │   ├── ChartBox.jsx
+        │   ├── OverviewCard.jsx
+        │   ├── TopUsersList.jsx
+        │   ├── NotificationItem.jsx
+        │   └── ActivityLogItem.jsx
+
+        ├── overview/                # 📊 Main admin dashboard (widgets)
+        │   └── OverviewPage.jsx
+
+        ├── users/                   # 👥 User Management (view/edit/delete)
+        │   ├── UsersPage.jsx
+        │   ├── UserCard.jsx
+        │   └── UserTable.jsx
+
+        ├── profile/                 # 🙍‍♂️ Admin Profile
+        │   └── AdminProfile.jsx
+
+        ├── analytics/              # 📈 Graphs, Stats
+        │   ├── AnalyticsPage.jsx
+        │   └── SalesChart.jsx
+
+        ├── notifications/          # 🔔 System notifications
+        │   └── NotificationsPage.jsx
+
+        ├── activity/               # 📜 User actions, logs
+        │   └── ActivityLogPage.jsx
+
+        ├── chat/                   # 💬 Internal messaging system
+        │   ├── ChatPage.jsx
+        │   ├── ChatBox.jsx
+        │   └── MessageItem.jsx
+
+        ├── settings/               # ⚙️ Settings (theme, password, account)
+        │   └── SettingsPage.jsx
+
+        └── index.jsx               # 🧠 Dashboard Layout switcher (routes to overview by default)
