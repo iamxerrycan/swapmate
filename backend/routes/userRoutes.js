@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { admin } = require('../middleware/authMiddleware');
+const { adminOnly } = require('../middleware/authMiddleware');
 const { protect } = require('../middleware/authMiddleware');
 const {
   getMe,
@@ -14,7 +14,7 @@ router.get('/me', protect, getMe); // Get logged-in user info
 router.put('/me', protect, updateProfile); // Update profile
 router.delete('/me', protect, deleteAccount); // Delete own account
 
-router.get('/', protect, admin, getAllUsers); // Admin only
+router.get('/', protect,adminOnly, getAllUsers); // Admin only
 router.get('/:id', protect, getUserById); // User/Admin
 
 module.exports = router;
