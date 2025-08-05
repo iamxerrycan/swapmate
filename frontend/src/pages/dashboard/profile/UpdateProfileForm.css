@@ -1,0 +1,180 @@
+/* src/components/forms/UpdateProfileForm.css */
+
+:root {
+  --modal-bg: #ffffff;
+  --overlay-bg: rgba(0, 0, 0, 0.65);
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --secondary: #f3f4f6;
+  --text-color: #111827;
+  --label-color: #6b7280;
+  --border-color: #d1d5db;
+  --danger: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.profile-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--overlay-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.profile-modal__container {
+  background: var(--modal-bg);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  padding: 2rem;
+  box-shadow: 0 25px 40px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.profile-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.profile-modal__title {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.profile-modal__close-btn {
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: var(--label-color);
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.profile-modal__close-btn:hover {
+  color: var(--danger);
+}
+
+.profile-modal__avatar-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.profile-modal__avatar-placeholder {
+  width: 56px;
+  height: 56px;
+  background-color: var(--primary);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.profile-modal__avatar-name {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.profile-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.profile-modal__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-modal__field label {
+  margin-bottom: 0.5rem;
+  color: var(--label-color);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.profile-modal__field input {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  font-size: 1rem;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-modal__field input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  outline: none;
+}
+
+.profile-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn--primary {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn--secondary {
+  background-color: var(--secondary);
+  color: var(--text-color);
+}
+
+.btn--secondary:hover {
+  background-color: #e5e7eb;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-modal__container {
+    padding: 1.5rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+}

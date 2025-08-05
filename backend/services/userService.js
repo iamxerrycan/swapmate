@@ -17,17 +17,14 @@ const updateProfileService = async (userId, updatedData) => {
   if (!user) {
     throw new Error("User not found");
   }
-
   // Update fields
   if (updatedData.name) user.name = updatedData.name;
   if (updatedData.email) user.email = updatedData.email;
-
   // Hash password if provided
   if (updatedData.password) {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(updatedData.password, salt);
   }
-
   const updatedUser = await user.save();
   updatedUser.password = undefined; // Don't send password
   return updatedUser;

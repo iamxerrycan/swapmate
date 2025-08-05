@@ -22,6 +22,9 @@ exports.updateProfile = async (req, res) => {
   try {
     const userId = req.user._id;
     const { name, email, password } = req.body;
+    console.log("Updating profile for user:", userId);
+    console.log("Request body:", req.body);
+    console.log("name email password", name, email, password);
 
     const updatedUser = await updateProfileService(userId, {
       name,

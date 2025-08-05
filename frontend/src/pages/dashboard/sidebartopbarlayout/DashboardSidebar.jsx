@@ -38,7 +38,7 @@ export default function DashboardSidebar() {
       <aside className={`sidebar ${open ? 'open' : ''}`}>
         <div className="sidebar-content">
           <div className="sidebar-header">
-            <div className="sidebar-logo">Crowz</div>
+            <div className="sidebar-logo">SwapMate</div>
             <div className="sidebar-user">
               <img src={`https://ui-avatars.com/api/?name=${user?.name}`} alt="User" className="sidebar-avatar" />
               <div>

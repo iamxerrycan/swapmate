@@ -50,14 +50,14 @@ export default function Login() {
       const data = await authService.login(formData);
       dispatch(setCredentials({ user: data, token: data.token }));
       toast.success('Login successful!');
-      
-        navigate('/dashboard');
-      
+
+      navigate('/dashboard');
     } catch (error) {
       toast.error(
         error.response?.data?.message ||
           'Login failed. Please check your credentials.'
       );
+      navigate('/');
     } finally {
       setIsSubmitting(false);
     }

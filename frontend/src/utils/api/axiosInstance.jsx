@@ -1,8 +1,11 @@
+// src/utils/axiosInstance.js
+
 import axios from 'axios';
 import { store } from '../../App/store';
 import { logout } from '../../features/auth/authSlice';
 import { toast } from 'react-toastify';
 
+// Axios instance
 const API = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
@@ -20,26 +23,23 @@ API.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// Response Interceptor (Single & Clean)
 API.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && error.response.status === 401) {
-      store.dispatch(logout());
+    const { response } = error;
 
-      window.location.href = '/login';
-    }
-    return Promise.reject(error);
-  }
-);
-
-API.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
+    if (response?.status === 401) {
+      // Clear Redux + redirect to login
       store.dispatch(logout());
       toast.error('Session expired. Please login again.');
-      window.location.href = '/login';
+
+      // Optional: Prevent multiple redirects
+      // if (window.location.pathname !== '/') {
+      //   window.location.href = '/';
+      // }
     }
+
     return Promise.reject(error);
   }
 );

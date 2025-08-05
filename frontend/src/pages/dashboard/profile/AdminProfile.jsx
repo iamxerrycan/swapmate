@@ -1,11 +1,13 @@
-// src/pages/dashboard/profile/AdminProfile.jsx
-
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../../features/auth/authSlice';
-import { deleteAccount } from '../../../features/users/userSlice';
+import {
+  deleteAccount,
+  updateProfile,
+} from '../../../features/users/userSlice';
 import { toast } from 'react-toastify';
+import UpdateProfileForm from './UpdateProfileForm';
 import './AdminProfile.css';
 
 const AdminProfile = () => {
@@ -14,14 +16,24 @@ const AdminProfile = () => {
   const { user: userWrapper, token } = useSelector((state) => state.auth);
   const user = userWrapper?.user;
 
-  console.log('User:', user);
-  console.log('====================================');
-  console.log(user);
-  console.log('====================================');
+  const [showForm, setShowForm] = useState(false);
+
   const handleLogout = () => {
     dispatch(logout());
     navigate('/');
     toast.success('Logged out successfully');
+  };
+
+  const handleUpdate = async (formData) => {
+    console.log('Updating with:', formData);
+    try {
+      await dispatch(updateProfile({ updatedData: formData, token })).unwrap();
+      toast.success('Profile updated successfully');
+      setShowForm(false);
+    } catch (error) {
+      console.error('Update error:', error);
+      toast.error(error || 'Failed to update profile');
+    }
   };
 
   const handleDelete = async () => {
@@ -71,15 +83,9 @@ const AdminProfile = () => {
         </div>
 
         <div className="profile-actions">
-          <Link to="/dashboard/create" className="btn">
-            ➕ Create Item
-          </Link>
-          <Link to="/dashboard/update" className="btn">
-            ✏️ Update Item
-          </Link>
-          <Link to="/dashboard/delete" className="btn">
-            ❌ Delete Item
-          </Link>
+          <button onClick={() => setShowForm(true)} className="btn update">
+            ✏️ Update Profile
+          </button>
           <button onClick={handleLogout} className="btn logout">
             🚪 Logout
           </button>
@@ -88,6 +94,14 @@ const AdminProfile = () => {
           </button>
         </div>
       </div>
+
+      {showForm && (
+        <UpdateProfileForm
+          user={user}
+          onSubmit={handleUpdate}
+          onClose={() => setShowForm(false)}
+        />
+      )}
     </div>
   );
 };

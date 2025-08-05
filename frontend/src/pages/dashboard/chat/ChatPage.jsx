@@ -1,4 +1,7 @@
+// src/pages/dashboard/chat/ChatPage.jsx
 import React, { useState } from 'react';
+import MessageItem from './MessageItem';
+import './ChatPage.css';
 
 const dummyMessages = [
   { id: 1, sender: 'Admin', text: 'Hello, how can I help you?' },
@@ -11,34 +14,28 @@ const ChatPage = () => {
 
   const handleSend = () => {
     if (input.trim()) {
-      setMessages([...messages, { id: Date.now(), sender: 'Admin', text: input }]);
+      setMessages([...messages, { id: Date.now(), sender: 'User', text: input }]);
       setInput('');
     }
   };
 
   return (
-    <div className="flex flex-col h-full p-4">
-      <h2 className="text-xl font-semibold mb-4">Chat Support</h2>
-      <div className="flex-1 overflow-y-auto border p-4 rounded mb-4 bg-white">
+    <div className="chat-page-container">
+      <h2 className="chat-title">Chat Support</h2>
+      <div className="chat-messages">
         {messages.map((msg) => (
-          <div key={msg.id} className={`mb-2 ${msg.sender === 'Admin' ? 'text-right' : 'text-left'}`}>
-            <span className="text-sm bg-gray-100 px-3 py-1 rounded inline-block">
-              <strong>{msg.sender}:</strong> {msg.text}
-            </span>
-          </div>
+          <MessageItem key={msg.id} message={msg} />
         ))}
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="chat-input-container">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="flex-1 px-3 py-2 border rounded"
           placeholder="Type your message..."
+          className="chat-input"
         />
-        <button onClick={handleSend} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-          Send
-        </button>
+        <button onClick={handleSend} className="chat-send-button">Send</button>
       </div>
     </div>
   );
