@@ -15,7 +15,7 @@
   position: fixed;
   top: 0;
   left: -260px;
-  width: 300px;
+  width: 260px;
   height: 100vh;
   background: white;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
@@ -32,12 +32,12 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 1.5rem 1.5rem;
+  padding: 2rem 1.5rem;
   justify-content: space-between;
 }
 
 .sidebar-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .sidebar-logo {
