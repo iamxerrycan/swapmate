@@ -30,21 +30,21 @@
   height: 96px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 0 0 4px #3b82f6;
+  box-shadow: 0 0 0 4px #000000;
 }
 
 .avatar-placeholder {
   width: 96px;
   height: 96px;
   border-radius: 50%;
-  background-color: #3b82f6;
+  background-color: #000000;
   color: #ffffff;
   font-size: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  box-shadow: 0 0 0 4px #3b82f6;
+  box-shadow: 0 0 0 4px #000000;
 }
 
 .profile-info {
@@ -82,30 +82,30 @@
 }
 
 .btn.update {
-  background-color: #3b82f6;
+  background-color: #000000;
   color: #fff;
 }
 
 .btn.update:hover {
-  background-color: #2563eb;
+  background-color: #ffffff;
 }
 
 .btn.logout {
-  background-color: #f3f4f6;
-  color: #111827;
+  background-color: #000000;
+  color: #ffffff;
 }
 
 .btn.logout:hover {
-  background-color: #e5e7eb;
+  background-color: #ffffff;
 }
 
 .btn.danger {
-  background-color: #ef4444;
+  background-color: #cc0000;
   color: #fff;
 }
 
 .btn.danger:hover {
-  background-color: #dc2626;
+  background-color: #ffffff;
 }
 
 @keyframes fadeIn {

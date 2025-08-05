@@ -1,0 +1,29 @@
+/* dashboardui/components/AnalyticsCard.css */
+.analytics-card {
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+  padding: 1rem;
+  
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(88, 88, 88, 0.1);
+  flex: 1;
+  color: black;
+  margin: 10px;
+  min-width: 200px;
+}
+
+.analytics-icon {
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+.analytics-title {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.analytics-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+}

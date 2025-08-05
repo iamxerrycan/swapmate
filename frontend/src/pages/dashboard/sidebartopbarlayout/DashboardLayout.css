@@ -20,4 +20,5 @@
 .dashboard-main {
   flex-grow: 1;
   width: 100%;
+  background-color: rgb(255, 255, 255);
 }

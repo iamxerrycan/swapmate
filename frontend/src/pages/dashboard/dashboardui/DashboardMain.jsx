@@ -10,13 +10,16 @@ import './DashboardMain.css';
 const DashboardMain = () => {
   const user = useSelector((state) => state.auth.user);
 
+  const userType = user.user;
+  console.log('usertype', userType);
+  console.log('usermaindash', user);
   if (!user) return <div>Loading...</div>;
 
   return (
     <div className="dashboardmain-container">
       <DashboardHeader />
       <div className="dashboard-content">
-        {user.isAdmin ? <AdminDashboard /> : <UserDashboard />}
+        {userType.isAdmin ? <AdminDashboard /> : <UserDashboard />}
       </div>
     </div>
   );

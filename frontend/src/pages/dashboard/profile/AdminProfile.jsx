@@ -84,13 +84,13 @@ const AdminProfile = () => {
 
         <div className="profile-actions">
           <button onClick={() => setShowForm(true)} className="btn update">
-            ✏️ Update Profile
+             Update Profile
           </button>
           <button onClick={handleLogout} className="btn logout">
-            🚪 Logout
+             Logout
           </button>
           <button onClick={handleDelete} className="btn danger">
-            🗑️ Delete Account
+             Delete Account
           </button>
         </div>
       </div>
