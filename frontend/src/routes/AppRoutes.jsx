@@ -25,7 +25,7 @@ import AnalyticsPage from '../pages/dashboard/analytics/AnalyticsPage';
 import ActivityLogPage from '../pages/dashboard/activity/ActivityLogPage';
 import ChatPage from '../pages/dashboard/chat/ChatPage';
 import SettingsPage from '../pages/dashboard/settings/SettingsPage';
-import DashboardHome from '../pages/dashboard/home/DashboardHome';
+import DashboardHome from '../pages/dashboard/dashboardui/Dashboard';
 
 export default function AppRoutes() {
   return (
