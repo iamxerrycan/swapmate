@@ -14,98 +14,95 @@ import EditItem from '../pages/EditItem';
 import SwapItem from '../pages/SwapRequest';
 
 import AppLayout from '../components/layout/AppLayoute';
-import DashboardLayout from '../components/layout/DashboardLayout'; // ✅ Dashboard layout
+import DashboardLayout from '../pages/dashboard/components/DashboardLayout';
 import ProtectedRoute from './ProtectedRoute';
 
-// Admin Pages (Dashboard)
-import DashboardPage from '../pages/admin/DashboardPage';
-import UsersPage from '../pages/admin/UsersPage';
-import MyProfilePage from '../pages/admin/MyProfilePage';
+// Dashboard pages
+import UsersPage from '../pages/dashboard/users/UsersPage';
+import AdminProfile from '../pages/dashboard/profile/AdminProfile';
+import AnalyticsPage from '../pages/dashboard/analytics/AnalyticsPage';
+import NotificationsPage from '../pages/dashboard/components/NotificationsPage';
+import ActivityLogPage from '../pages/dashboard/activity/ActivityLogPage';
+import ChatPage from '../pages/dashboard/chat/ChatPage';
+import SettingsPage from '../pages/dashboard/settings/SettingsPage';
+import DashboardHome from '../pages/dashboard/DashboardHome';
 
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* Public Routes */}
+      {/* 🔓 Public Routes */}
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
 
-      {/* User Protected Routes */}
-      <Route
-        path="/home"
-        element={
-          <ProtectedRoute>
+      {/* 🔐 User-Protected Routes (with layout) */}
+      <Route element={<ProtectedRoute />}>
+        <Route
+          path="/home"
+          element={
             <AppLayout>
               <Home />
             </AppLayout>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/item/:id"
-        element={
-          <ProtectedRoute>
+          }
+        />
+        <Route
+          path="/item/:id"
+          element={
             <AppLayout>
               <ItemDetails />
             </AppLayout>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/create-item"
-        element={
-          <ProtectedRoute>
+          }
+        />
+        <Route
+          path="/create-item"
+          element={
             <AppLayout>
               <CreateItem />
             </AppLayout>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/edit-item/:id"
-        element={
-          <ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit-item/:id"
+          element={
             <AppLayout>
               <EditItem />
             </AppLayout>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/swap-item/:id"
-        element={
-          <ProtectedRoute>
+          }
+        />
+        <Route
+          path="/swap-item/:id"
+          element={
             <AppLayout>
               <SwapItem />
             </AppLayout>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
             <AppLayout>
               <Profile />
             </AppLayout>
-          </ProtectedRoute>
-        }
-      />
+          }
+        />
+      </Route>
 
-      {/* ✅ Admin Dashboard Nested Layout */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute allowedRoles={['admin']}>
-            <DashboardLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<DashboardPage />} /> {/* default /dashboard */}
-        <Route path="overview" element={<DashboardPage />} />
-        <Route path="users" element={<UsersPage />} />
-        <Route path="profile" element={<MyProfilePage />} />
+      {/* 🔐 Admin Dashboard Routes */}
+      <Route element={<ProtectedRoute allowedRoles={['admin', 'user']} />}>
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          {/* Admin-only pages */}
+          <Route path="users" element={<UsersPage />} />
+          <Route path="analytics" element={<AnalyticsPage />} />
+          <Route path="activity" element={<ActivityLogPage />} />
+
+          {/* Shared pages */}
+          <Route index element={<DashboardHome />} /> 
+          <Route path="profile" element={<AdminProfile />} />
+          <Route path="notifications" element={<NotificationsPage />} />
+          <Route path="chat" element={<ChatPage />} />
+          <Route path="settings" element={<SettingsPage />} />
+        </Route>
       </Route>
     </Routes>
   );

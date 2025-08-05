@@ -9,9 +9,6 @@ import { toast } from 'react-toastify';
 import { useFormValidation } from '../hooks/useFormValidation';
 import ButtonLoader from '../components/ui/ButtonLoader';
 
-
-
-
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,7 +19,7 @@ export default function Login() {
   });
   const [errors, setErrors] = useState({});
 
-const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { validate } = useFormValidation();
 
@@ -40,29 +37,31 @@ const [isSubmitting, setIsSubmitting] = useState(false);
     }));
   };
 
- 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const validationErrors = validate(formData, 'login');
-  if (Object.keys(validationErrors).length > 0) {
-    setErrors(validationErrors);
-    return;
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const validationErrors = validate(formData, 'login');
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
-  try {
-    setIsSubmitting(true);
-    const data = await authService.login(formData);
-    dispatch(setCredentials({ user: data, token: data.token }));
-    toast.success('Login successful!');
-    navigate('/home');
-  } catch (error) {
-    toast.error(
-      error.response?.data?.message || 'Login failed. Please check your credentials.'
-    );
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+    try {
+      setIsSubmitting(true);
+      const data = await authService.login(formData);
+      dispatch(setCredentials({ user: data, token: data.token }));
+      toast.success('Login successful!');
+      
+        navigate('/dashboard');
+      
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          'Login failed. Please check your credentials.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
@@ -88,7 +87,7 @@ const handleSubmit = async (e) => {
 
       {/* <button type="submit">Login</button> */}
 
-<ButtonLoader isLoading={isSubmitting} text="Login" />
+      <ButtonLoader isLoading={isSubmitting} text="Login" />
 
       <p>
         Don’t have an account? <Link to="/register">Register</Link>
@@ -99,5 +98,3 @@ const handleSubmit = async (e) => {
     </form>
   );
 }
-
-

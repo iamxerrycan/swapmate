@@ -31,3 +31,13 @@ const authSlice = createSlice({
 
 export const { setCredentials, logout } = authSlice.actions;
 export default authSlice.reducer;
+
+
+// features/auth/authSlice.js
+
+// initialState: {
+//   user: localStorage.getItem("user")
+//     ? JSON.parse(localStorage.getItem("user"))
+//     : null,
+// },
+// ...
