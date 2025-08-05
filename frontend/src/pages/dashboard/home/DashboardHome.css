@@ -1,0 +1,57 @@
+/* src/pages/dashboard/DashboardHome.css */
+
+.dashboard-home-container {
+  padding: 1rem;
+  background-color: #f9fafb;
+  min-height: 100%;
+}
+
+.dashboard-home-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1.25rem;
+  color: #1f2937;
+  text-align: center;
+}
+
+.dashboard-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+/* Loading, Error, Empty Texts */
+.loading,
+.error,
+.no-items {
+  font-size: 1rem;
+  margin-top: 1rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* Responsive Item Grid */
+.dashboard-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Optional: add some responsiveness for very small screens */
+@media (max-width: 480px) {
+  .dashboard-home-title {
+    font-size: 1.5rem;
+  }
+
+  .dashboard-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dashboard-items-grid {
+    grid-template-columns: 1fr;
+  }
+}

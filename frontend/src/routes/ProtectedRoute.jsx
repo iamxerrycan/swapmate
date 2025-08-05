@@ -19,7 +19,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 const ProtectedRoute = ({ allowedRoles }) => {
   const { token, user } = useSelector((state) => state.auth);
 
-  if (!token || !user) return <Navigate to="/login" replace />;
+  if (!token || !user) return <Navigate to="/" replace />;
 
   const userRole = user?.isAdmin ? 'admin' : 'user';
 

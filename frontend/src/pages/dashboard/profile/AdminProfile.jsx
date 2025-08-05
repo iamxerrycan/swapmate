@@ -1,17 +1,23 @@
-//src/pages/dashboard/profile/AdminProfile.jsx
+// src/pages/dashboard/profile/AdminProfile.jsx
+
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../../features/auth/authSlice';
 import { deleteAccount } from '../../../features/users/userSlice';
 import { toast } from 'react-toastify';
-
+import './AdminProfile.css';
 
 const AdminProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
+  const { user: userWrapper, token } = useSelector((state) => state.auth);
+  const user = userWrapper?.user;
 
+  console.log('User:', user);
+  console.log('====================================');
+  console.log(user);
+  console.log('====================================');
   const handleLogout = () => {
     dispatch(logout());
     navigate('/');
@@ -21,60 +27,66 @@ const AdminProfile = () => {
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete your account?')) {
       try {
-        await dispatch(deleteAccount()).unwrap();
+        await dispatch(deleteAccount(token)).unwrap();
         dispatch(logout());
-        toast.success('Account deleted');
+        toast.success('Account deleted successfully');
         navigate('/');
       } catch (error) {
-        toast.error(error.message || 'Error deleting account');
+        toast.error(error || 'Failed to delete account');
       }
     }
   };
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-4">My Profile</h2>
-      <div className="border p-4 rounded shadow">
-        <p><strong>Name:</strong> {user?.name}</p>
-        <p><strong>Email:</strong> {user?.email}</p>
-        <p><strong>Role:</strong> {user?.isAdmin ? 'Admin' : 'User'}</p>
-      </div>
+    <div className="admin-profile-container">
+      <div className="profile-card">
+        <div className="profile-avatar">
+          {user?.profilePic ? (
+            <img src={user.profilePic} alt="Profile" />
+          ) : (
+            <div className="avatar-placeholder">
+              {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+            </div>
+          )}
+        </div>
 
-      <div className="mt-6 space-x-4">
-        <Link
-          to="/dashboard/create"
-          className="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          Create Item
-        </Link>
+        <div className="profile-info">
+          <h2>{user.name}</h2>
+          <p>
+            <strong>Email:</strong> {user.email}
+          </p>
+          <p>
+            <strong>Role:</strong> {user.isAdmin ? 'Admin' : 'User'}
+          </p>
+          <p>
+            <strong>Status:</strong>{' '}
+            {user.isOnline ? '🟢 Online' : '⚪ Offline'}
+          </p>
+          <p>
+            <strong>User ID:</strong> {user._id}
+          </p>
+          <p>
+            <strong>Joined:</strong> {new Date(user.createdAt).toLocaleString()}
+          </p>
+        </div>
 
-        <Link
-          to="/dashboard/update"
-          className="inline-block bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
-        >
-          Update Item
-        </Link>
-
-        <Link
-          to="/dashboard/delete"
-          className="inline-block bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-        >
-          Delete Item
-        </Link>
-
-        <button
-          onClick={handleLogout}
-          className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800"
-        >
-          Logout
-        </button>
-
-        <button
-          onClick={handleDelete}
-          className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800"
-        >
-          Delete Account
-        </button>
+        <div className="profile-actions">
+          <Link to="/dashboard/create" className="btn">
+            ➕ Create Item
+          </Link>
+          <Link to="/dashboard/update" className="btn">
+            ✏️ Update Item
+          </Link>
+          <Link to="/dashboard/delete" className="btn">
+            ❌ Delete Item
+          </Link>
+          <button onClick={handleLogout} className="btn logout">
+            🚪 Logout
+          </button>
+          <button onClick={handleDelete} className="btn danger">
+            🗑️ Delete Account
+          </button>
+        </div>
       </div>
     </div>
   );

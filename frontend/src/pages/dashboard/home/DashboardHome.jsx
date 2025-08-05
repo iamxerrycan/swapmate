@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchItems } from '../../features/items/itemSlice';
-import ItemCard from '../../components/ui/ItemCard';
-import SearchBar from '../../components/ui/SearchBar';
-import FilterBox from '../../components/ui/FilterBox';
+import { fetchItems } from '../../../features/items/itemSlice';
+import ItemCard from '../../../components/ui/ItemCard';
+import SearchBar from '../../../components/ui/SearchBar';
+import FilterBox from '../../../components/ui/FilterBox';
 import './DashboardHome.css'; // Create this file for styling
 
 export default function DashboardHome() {

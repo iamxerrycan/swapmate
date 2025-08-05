@@ -14,18 +14,18 @@ import EditItem from '../pages/EditItem';
 import SwapItem from '../pages/SwapRequest';
 
 import AppLayout from '../components/layout/AppLayoute';
-import DashboardLayout from '../pages/dashboard/components/DashboardLayout';
+import DashboardLayout from '../pages/dashboard/sidebartopbarlayout/DashboardLayout';
 import ProtectedRoute from './ProtectedRoute';
 
 // Dashboard pages
 import UsersPage from '../pages/dashboard/users/UsersPage';
 import AdminProfile from '../pages/dashboard/profile/AdminProfile';
 import AnalyticsPage from '../pages/dashboard/analytics/AnalyticsPage';
-import NotificationsPage from '../pages/dashboard/components/NotificationsPage';
+// import NotificationsPage from '../pages/dashboard/sidebartopbarlayout/NotificationsPage';
 import ActivityLogPage from '../pages/dashboard/activity/ActivityLogPage';
 import ChatPage from '../pages/dashboard/chat/ChatPage';
 import SettingsPage from '../pages/dashboard/settings/SettingsPage';
-import DashboardHome from '../pages/dashboard/DashboardHome';
+import DashboardHome from '../pages/dashboard/home/DashboardHome';
 
 export default function AppRoutes() {
   return (
@@ -99,7 +99,7 @@ export default function AppRoutes() {
           {/* Shared pages */}
           <Route index element={<DashboardHome />} /> 
           <Route path="profile" element={<AdminProfile />} />
-          <Route path="notifications" element={<NotificationsPage />} />
+          {/* <Route path="notifications" element={<NotificationsPage />} /> */}
           <Route path="chat" element={<ChatPage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>
