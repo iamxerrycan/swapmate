@@ -25,7 +25,7 @@ import AnalyticsPage from '../pages/dashboard/analytics/AnalyticsPage';
 import ActivityLogPage from '../pages/dashboard/activity/ActivityLogPage';
 import ChatPage from '../pages/dashboard/chat/ChatPage';
 import SettingsPage from '../pages/dashboard/settings/SettingsPage';
-import DashboardHome from '../pages/dashboard/dashboardui/Dashboard';
+import DashboardMain from '../pages/dashboard/dashboardui/DashboardMain';
 
 export default function AppRoutes() {
   return (
@@ -97,7 +97,7 @@ export default function AppRoutes() {
           <Route path="activity" element={<ActivityLogPage />} />
 
           {/* Shared pages */}
-          <Route index element={<DashboardHome />} /> 
+          <Route index element={<DashboardMain />} />
           <Route path="profile" element={<AdminProfile />} />
           {/* <Route path="notifications" element={<NotificationsPage />} /> */}
           <Route path="chat" element={<ChatPage />} />

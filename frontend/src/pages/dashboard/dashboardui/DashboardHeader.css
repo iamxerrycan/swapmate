@@ -1,0 +1,24 @@
+/* src/pages/dashboardui/DashboardHeader.css */
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1f2937;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #374151;
+}
+
+.dashboard-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #10b981;
+}
+
+.dashboard-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #10b981;
+}
