@@ -1,41 +1,75 @@
-// src/pages/dashboard/users/UsersPage.jsx
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../../../features/users/userSlice';
+import { getAllUsers } from '../../../features/admin/adminSlice';
+import { deleteAccount } from '../../../features/users/userSlice';
+import { useNavigate } from 'react-router-dom';
 import Spinner from '../../../components/ui/Spinner';
+import './UsersPage.css';
 
 export default function UsersPage() {
   const dispatch = useDispatch();
-  const { users, loading } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
+  const { users = [], isLoading = false } = useSelector(
+    (state) => state.admin || {}
+  );
+  console.log('👥 users from Redux:', users);
   useEffect(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllUsers()); // ✅ No token needed
   }, [dispatch]);
 
-  if (loading) return <Spinner />;
+  const handleDelete = (userId) => {
+    if (window.confirm('Are you sure you want to delete this user?')) {
+      dispatch(deleteAccount(userId));
+    }
+  };
 
-  return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">All Users</h2>
-      <div className="overflow-x-auto">
-        <table className="w-full bg-white shadow-md rounded">
+  return isLoading ? (
+    <Spinner />
+  ) : (
+    <div className="users-page">
+      <h2>Manage Users</h2>
+      <div className="table-wrapper">
+        <table>
           <thead>
-            <tr className="bg-gray-200">
-              <th className="py-2 px-4">Name</th>
-              <th className="py-2 px-4">Email</th>
-              <th className="py-2 px-4">Role</th>
-              <th className="py-2 px-4">Joined</th>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Joined</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user._id} className="border-t">
-                <td className="py-2 px-4">{user.name}</td>
-                <td className="py-2 px-4">{user.email}</td>
-                <td className="py-2 px-4">{user.isAdmin ? 'Admin' : 'User'}</td>
-                <td className="py-2 px-4">{new Date(user.createdAt).toLocaleDateString()}</td>
+            {users.length > 0 ? (
+              users.map((user) => (
+                <tr key={user._id}>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.isAdmin ? 'Admin' : 'User'}</td>
+                  <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                  <td>
+                    <button
+                      onClick={() =>
+                        navigate(`/dashboard/users/edit/${user._id}`)
+                      }
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="delete"
+                      onClick={() => handleDelete(user._id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5">No users found</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

@@ -34,3 +34,5 @@ swapRequestSchema.index({ fromUser: 1 });
 swapRequestSchema.index({ toUser: 1 });
 
 module.exports = mongoose.model('SwapRequest', swapRequestSchema);
+
+

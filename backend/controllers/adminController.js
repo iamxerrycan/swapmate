@@ -11,12 +11,10 @@ const {
 
 // Get all users
 exports.getAllUsers = async (req, res) => {
-  try {
-    const users = await getAllUsersService();
-    res.status(200).json(users);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+  console.log("✅ Admin Access by:", req.user); // Who is hitting the route
+  const users = await User.find();
+  console.log("📦 Sending Users to frontend:", users.length); // ✅ Number of users
+  res.json(users);
 };
 // Get all items
 exports.getAllItems = async (req, res) => {

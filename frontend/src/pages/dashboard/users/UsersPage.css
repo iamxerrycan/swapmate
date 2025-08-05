@@ -1,0 +1,37 @@
+/* src/pages/dashboard/users/UsersPage.css */
+.users-page {
+  padding: 2rem;
+  background-color: #f8f9fa;
+  color: #000;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+button {
+  margin-right: 10px;
+  padding: 6px 12px;
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button.delete {
+  background-color: #ef4444;
+}

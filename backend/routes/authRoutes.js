@@ -27,3 +27,4 @@ router.post('/forget', forgetPassword);
 router.post('/reset/:token', resetPassword);
 
 module.exports = router;
+
