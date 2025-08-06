@@ -6,7 +6,6 @@
   gap: 1rem;
   padding: 1rem;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-
 }
 
 @media (min-width: 768px) {
@@ -32,15 +31,26 @@
   }
 } */
 
+.dashboard-overview,
+.user-stats-card,
+.profile-card,
+.quick-actions-container,
+.quick-actions-list .recent-activity-container {
+  width: 100%;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  max-width: 100%;
+  box-sizing: border-box;
+}
 
- .dashboard-overview,
+@media (max-width: 450px) {
+  .dashboard-overview,
   .user-stats-card,
   .profile-card,
   .quick-actions-container,
   .quick-actions-list .recent-activity-container {
-  width: 100%;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-
-  max-width: 100%;
-  box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
