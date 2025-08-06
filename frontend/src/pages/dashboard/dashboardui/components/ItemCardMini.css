@@ -1,79 +1,135 @@
+/* Card Container */
 .item-card-mini {
-  background-color: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
   width: 100%;
   max-width: 300px;
-  margin: 1rem;
+  height: 420px;
+  perspective: 1000px;
+  margin: 1rem auto;
+}
+
+/* Flip Card Inner */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s ease;
+  transform-style: preserve-3d;
+}
+
+/* Flip on View */
+.item-card-mini.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Front & Back Faces */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  backface-visibility: hidden;
   display: flex;
   flex-direction: column;
-  transition: 0.3s ease;
+  justify-content: space-between;
+  padding: 1rem;
 }
 
-.item-card-mini:hover {
-  transform: translateY(-4px);
+/* Back Side */
+.flip-card-back {
+  transform: rotateY(180deg);
 }
 
+/* Image */
 .item-card-image {
   width: 100%;
   height: 180px;
   object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Info */
 .item-card-info {
-  padding: 1rem;
-  flex-grow: 1;
+  padding-top: 0.8rem;
+  text-align: center;
 }
 
 .item-card-title {
   font-size: 1.2rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin: 0;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 0.3rem;
 }
 
-.item-card-category {
-  font-size: 0.95rem;
-  color: #d118ff;
-}
-
+.item-card-category,
 .item-card-location {
   font-size: 0.9rem;
-  color: #6b7280;
+  color: #d1d5db;
+  margin: 0.1rem 0;
 }
 
+/* Actions */
 .item-card-actions {
   display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  gap: 1rem;
+  justify-content: space-around;
+  margin-top: 1rem;
 }
 
-.btn-view, .btn-swap {
-  flex: 1;
-  padding: 0.5rem 1rem;
+/* Buttons */
+.btn-view,
+.btn-swap,
+.btn-close {
+  padding: 0.6rem 1rem;
   border: none;
+  border-radius: 12px;
   font-weight: 600;
-  border-radius: 8px;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  color: #fff;
 }
 
+/* View Button */
 .btn-view {
-  background-color: #000000;
-  color: #ffffff;
-}
-
-.btn-swap {
-  background-color: #000000;
-  color: white;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
 .btn-view:hover {
-  background-color: #383838;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  transform: scale(1.05);
+}
+
+/* Swap Button */
+.btn-swap {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 .btn-swap:hover {
-  background-color: #292929;
+  background: linear-gradient(135deg, #059669, #22c55e);
+  transform: scale(1.05);
+}
+
+/* Close Button */
+.btn-close {
+  background-color: #111827;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 0.4rem 0.8rem;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  border-radius: 50%;
+}
+
+.btn-close:hover {
+  background-color: #000000;
+  transform: scale(1.1);
 }

@@ -2,7 +2,7 @@ import './ItemDetailsModal.css';
 
 export default function ItemDetailsModal({ item, onClose }) {
   return (
-    <div className="modal-backdrop">
+    <div className="modal-overlay">
       <div className="modal-content">
         <button className="modal-close" onClick={onClose}>
           ✕
