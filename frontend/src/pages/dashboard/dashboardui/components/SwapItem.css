@@ -56,8 +56,10 @@
 
 @media screen and (max-width: 768px) {
   /* Add responsive styles here if needed */
-  .swap-items-grid{
+  .swap-items-grid {
     margin: 0;
     padding: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
