@@ -52,19 +52,11 @@
   background: linear-gradient(to right, #818cf8, #38bdf8);
 }
 
-/* Link Text */
-.register-form p {
-  all: unset;
-  text-align: center;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  padding: 0;
-}
-
 .register-form a {
   color: #38bdf8;
   text-decoration: underline;
   transition: color 0.3s ease;
+  font-size: small;
 }
 
 .register-form a:hover {
@@ -110,4 +102,5 @@
   font-size: x-small;
   margin-top: -5px;
   margin-bottom: -2px;
+  font-size: small;
 }

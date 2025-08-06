@@ -44,7 +44,8 @@
 
 .submit-btn {
   padding: 0.8rem;
-  background: linear-gradient(to right, #6366f1, #8b5cf6);
+  /* background: linear-gradient(to right, #6366f1, #8b5cf6); */
+  background: #000000;
   border: none;
   color: white;
   border-radius: 8px;
@@ -54,9 +55,9 @@
 }
 
 .submit-btn:hover {
-  background: linear-gradient(to right, #4f46e5, #7c3aed);
+  /* background: linear-gradient(to right, #443781, #7c3aed); */
+  background: #333333;
 }
-
 .close-btn {
   position: absolute;
   top: 12px;

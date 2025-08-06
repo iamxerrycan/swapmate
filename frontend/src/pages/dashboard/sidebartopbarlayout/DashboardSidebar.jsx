@@ -53,10 +53,12 @@ export default function DashboardSidebar() {
             <Link to="/dashboard/profile" className={isActive('/dashboard/profile') ? 'active' : ''} onClick={close}>Profile</Link>
             <Link to="/dashboard/chat" className={isActive('/dashboard/chat') ? 'active' : ''} onClick={close}>Chat</Link>
             <Link to="/dashboard/settings" className={isActive('/dashboard/settings') ? 'active' : ''} onClick={close}>Settings</Link>
+            <Link to= "/dashboard/swapitem" className={isActive('/dashboard/swapitem') ? 'active' : ''} onClick={close}>Swap Item</Link>
 
             {user?.isAdmin && (
               <>
-                <Link to="/dashboard/users" className={isActive('/dashboard/users') ? 'active' : ''} onClick={close}>Users</Link>
+                <Link to="/dashboard/users" className={isActive('/dashboard/users') ? 'active' : ''} onClick={close}>Manage Users</Link>
+                <Link to="/dashboard/items" className={isActive('/dashboard/items') ? 'active' : ''} onClick={close}>Manage Items</Link>
                 <Link to="/dashboard/reports" className={isActive('/dashboard/reports') ? 'active' : ''} onClick={close}>Reports</Link>
                 <Link to="/dashboard/site-settings" className={isActive('/dashboard/site-settings') ? 'active' : ''} onClick={close}>Site Settings</Link>
               </>

@@ -49,17 +49,11 @@
   background: linear-gradient(to right, #818cf8, #38bdf8);
 }
 
-.login-form p {
-  all: unset;
-  text-align: center;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  padding: 0;
-}
 
 .login-form a {
   color: #38bdf8;
   text-decoration: underline;
+  font-size: small;
   transition: color 0.3s ease;
 }
 
@@ -98,10 +92,10 @@
   margin-bottom: 3px;
 }
 
-.login-form p{
-    all: unset;
+.login-form p {
+  all: unset;
   color: red;
-  font-size: x-small;
+  font-size: small;
   margin-top: -5px;
   margin-bottom: -2px;
 }

@@ -1,0 +1,55 @@
+/* src/pages/dashboard/components/SwapItem.css */
+
+.swap-container {
+  padding: 2rem;
+}
+
+.swap-header {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.swap-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #222;
+}
+
+/* Control Bar */
+.swap-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.swap-control-group {
+  flex: 1 1 200px;
+  min-width: 200px;
+}
+
+/* Dropdown */
+.swap-sort-select {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* Responsive Grid Layout for Items */
+.swap-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+/* No Items Message */
+.no-items-msg {
+  font-size: 1.1rem;
+  text-align: center;
+  color: #888;
+  grid-column: 1 / -1;
+}

@@ -73,21 +73,21 @@
 }
 
 .edit-btn {
-  background-color: #3b82f6;
+  background-color: #000000;
   color: white;
 }
 
 .edit-btn:hover {
-  background-color: #2563eb;
+  background-color: #292929;
 }
 
 .delete-btn {
-  background-color: #ef4444;
+  background-color: #ff0000;
   color: white;
 }
 
 .delete-btn:hover {
-  background-color: #dc2626;
+  background-color: #c20000;
 }
 
 /* Responsive tweaks */

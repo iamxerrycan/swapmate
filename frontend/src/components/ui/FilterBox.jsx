@@ -8,7 +8,8 @@ export default function FilterBox({ onFilter }) {
       <option value="Books">Books</option>
       <option value="Toys">Toys</option>
       <option value="Clothes">Clothes</option>
-      <option value="Furniture">Furniture</option>
+      {/* <option value="Furniture">Furniture</option> */}
+      <option value="Food" >Food</option>
       <option value="Other">Other</option>
     </select>
   );

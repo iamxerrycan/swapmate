@@ -10,7 +10,7 @@ import Home from '../pages/Home';
 import ItemDetails from '../pages/ItemDetails';
 import Profile from '../pages/Profile';
 // import CreateItem from '../pages/CreateItem';
-import SwapItem from '../pages/SwapRequest';
+// import SwapItem from '../pages/SwapRequest';
 
 import AppLayout from '../components/layout/AppLayoute';
 import DashboardLayout from '../pages/dashboard/sidebartopbarlayout/DashboardLayout';
@@ -29,6 +29,7 @@ import DashboardMain from '../pages/dashboard/dashboardui/DashboardMain';
 import { ImageOff, Import } from 'lucide-react';
 import ManageItems from '../pages/dashboard/dashboardui/components/ManageItems';
 import EditItem from '../pages/dashboard/dashboardui/components/EditItem';
+import SwapItem from '../pages/dashboard/dashboardui/components/SwapItem';
 
 export default function AppRoutes() {
   return (
@@ -89,6 +90,7 @@ export default function AppRoutes() {
             </AppLayout>
           }
         />
+       
       </Route>
 
       {/* 🔐 Admin Dashboard Routes */}
@@ -101,6 +103,7 @@ export default function AppRoutes() {
           <Route path="create" element={<CreateItem />} />
           <Route path="manage" element={<ManageItems />} />
           <Route path="edit/:id" element={<EditItem />} />
+          <Route path='swapitem' element={<SwapItem />} />
 
           {/* Shared pages */}
           <Route index element={<DashboardMain />} />
