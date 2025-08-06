@@ -1,6 +1,7 @@
 .login-form {
   max-width: 400px;
   margin: 5vh auto;
+  gap: 0.5rem;
   padding: 2rem;
   background-color: #1e293b;
   border-radius: 12px;
@@ -49,9 +50,11 @@
 }
 
 .login-form p {
+  all: unset;
   text-align: center;
   font-size: 0.95rem;
   line-height: 1.4;
+  padding: 0;
 }
 
 .login-form a {
@@ -87,10 +90,18 @@
   }
 }
 
-.input-error {
+.input-errorr {
   all: unset;
   color: red;
   font-size: x-small;
   margin-top: -12px;
   margin-bottom: 3px;
+}
+
+.login-form p{
+    all: unset;
+  color: red;
+  font-size: x-small;
+  margin-top: -5px;
+  margin-bottom: -2px;
 }

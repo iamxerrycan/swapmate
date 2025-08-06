@@ -2,20 +2,17 @@
 .register-form {
   max-width: 400px;
   margin: 5vh auto;
+  gap:0.5rem;
   padding: 2rem;
-  background: #1e293b;
+  background-color: #1e293b;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
   color: #f8fafc;
   animation: fadeInUp 0.5s ease-in-out;
-   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: 
-  center;
-  
+  justify-content: center;
 }
 
 /* Inputs */
@@ -57,8 +54,11 @@
 
 /* Link Text */
 .register-form p {
+  all: unset;
   text-align: center;
   font-size: 0.95rem;
+  line-height: 1.4;
+  padding: 0;
 }
 
 .register-form a {
@@ -95,10 +95,19 @@
     font-size: 0.95rem;
   }
 }
-
+/* 
 .input-error {
+  all: unset;
   color: red;
   font-size: x-small;
   margin-top: -12px;
   margin-bottom: 3px;
+} */
+
+.register-form p{
+    all: unset;
+  color: red;
+  font-size: x-small;
+  margin-top: -5px;
+  margin-bottom: -2px;
 }

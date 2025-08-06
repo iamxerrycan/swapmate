@@ -74,7 +74,7 @@ export default function Login() {
         value={formData.email}
         onChange={handleChange}
       />
-      {errors.email && <p className="input-error">{errors.email}</p>}
+      {errors.email && <p className="input-errorr">{errors.email}</p>}
 
       <input
         type="password"
@@ -83,7 +83,7 @@ export default function Login() {
         value={formData.password}
         onChange={handleChange}
       />
-      {errors.password && <p className="input-error">{errors.password}</p>}
+      {errors.password && <p className="input-errorr">{errors.password}</p>}
 
       {/* <button type="submit">Login</button> */}
 
