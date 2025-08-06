@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PlusCircle, Settings, Layers } from "lucide-react";
 import './QuickActions.css';
+import CreateItemModal from "./CreateItemModal";
 
 export default function QuickActions() {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="quick-actions-container">
@@ -12,7 +14,7 @@ export default function QuickActions() {
 
       <div className="quick-actions-list">
         <button
-          onClick={() => navigate("/dashboard/create")}
+          onClick={() => setShowModal(true)}
           className="quick-action-button quick-action-create"
         >
           <PlusCircle size={18} />
@@ -35,6 +37,8 @@ export default function QuickActions() {
           Settings
         </button>
       </div>
+
+      {showModal && <CreateItemModal onClose={() => setShowModal(false)} />}
     </div>
   );
 }

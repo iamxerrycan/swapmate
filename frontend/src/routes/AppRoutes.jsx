@@ -9,7 +9,7 @@ import ResetPassword from '../pages/auth/ResetPassword';
 import Home from '../pages/Home';
 import ItemDetails from '../pages/ItemDetails';
 import Profile from '../pages/Profile';
-import CreateItem from '../pages/CreateItem';
+// import CreateItem from '../pages/CreateItem';
 import EditItem from '../pages/EditItem';
 import SwapItem from '../pages/SwapRequest';
 
@@ -21,6 +21,7 @@ import ProtectedRoute from './ProtectedRoute';
 import UsersPage from '../pages/dashboard/users/UsersPage';
 import AdminProfile from '../pages/dashboard/profile/AdminProfile';
 import AnalyticsPage from '../pages/dashboard/analytics/AnalyticsPage';
+import CreateItem from '../pages/dashboard/dashboardui/components/CreateItemModal';
 // import NotificationsPage from '../pages/dashboard/sidebartopbarlayout/NotificationsPage';
 import ActivityLogPage from '../pages/dashboard/activity/ActivityLogPage';
 import ChatPage from '../pages/dashboard/chat/ChatPage';
@@ -95,7 +96,7 @@ export default function AppRoutes() {
           <Route path="users" element={<UsersPage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="activity" element={<ActivityLogPage />} />
-
+          <Route path="create" element={<CreateItem />} />
           {/* Shared pages */}
           <Route index element={<DashboardMain />} />
           <Route path="profile" element={<AdminProfile />} />
@@ -107,5 +108,3 @@ export default function AppRoutes() {
     </Routes>
   );
 }
-
-
