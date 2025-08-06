@@ -94,6 +94,9 @@
     font-size: 0.95rem;
     padding: 10px 14px;
   }
+  .chat-title {
+    margin-top: 2rem;
+  }
 
   .chat-send-button {
     padding: 10px 18px;
@@ -109,5 +112,13 @@
 
   .chat-send-button {
     width: 100%;
+  }
+  .chat-page-container {
+    margin: 0;
+    padding: 1rem;
+    /* margin-top: 1.5rem; */
+  }
+  .chat-title {
+    margin-top: 2rem;
   }
 }

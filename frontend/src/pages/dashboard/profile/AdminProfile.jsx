@@ -53,7 +53,7 @@ const handleDelete = () => {
 
   return (
     <div className="admin-profile-container">
-      <div className="profile-card">
+      <div className="profile-card-main">
         <div className="profile-avatar">
           {user?.profilePic ? (
             <img src={user.profilePic} alt="Profile" />
