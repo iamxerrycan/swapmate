@@ -1,0 +1,41 @@
+/* src/pages/dashboardui/UserDashboard.css */
+
+.user-dashboard {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-x: hidden; /* Prevent unexpected horizontal scroll */
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+}
+
+.dashboard-section {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Small screen fix */
+@media (max-width: 400px) {
+  .user-dashboard {
+    padding: 1rem;
+  }
+
+  .dashboard-section {
+    margin-right: 0;
+    margin-left: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}

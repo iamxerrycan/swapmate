@@ -32,7 +32,7 @@ export default function DashboardSidebar() {
   return (
     <>
       <button className="sidebar-toggle" onClick={toggle}>
-        {open ? <FiX size={24} /> : <FiMenu size={24} />}
+        {open ? <FiX size={18} /> : <FiMenu size={18} />}
       </button>
 
       <aside className={`sidebar ${open ? 'open' : ''}`}>
@@ -43,7 +43,7 @@ export default function DashboardSidebar() {
               <img src={`https://ui-avatars.com/api/?name=${user?.name}`} alt="User" className="sidebar-avatar" />
               <div>
                 <div className="sidebar-username">{user?.name}</div>
-                <div className="sidebar-role">{role}</div>
+                <div className="sidebar-role">Role: {role}</div>
               </div>
             </div>
           </div>

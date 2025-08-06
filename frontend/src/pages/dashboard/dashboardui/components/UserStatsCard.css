@@ -1,0 +1,46 @@
+/* UserStatsCard.css */
+
+.user-stats-card {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease-in-out;
+}
+
+.user-stats-card:hover {
+  transform: translateY(-2px);
+}
+
+.user-stats-card h2 {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600; /* font-semibold */
+  margin-bottom: 1rem;
+  color: #1f2937; /* Tailwind's gray-800 */
+}
+
+.user-stats-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-stats-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb; /* Tailwind's gray-200 */
+}
+
+.user-stats-item:last-child {
+  border-bottom: none;
+}
+
+.user-stats-label {
+  color: #374151; /* Tailwind's gray-700 */
+}
+
+.user-stats-value {
+  font-weight: bold;
+  color: #111827; /* Tailwind's gray-900 */
+}

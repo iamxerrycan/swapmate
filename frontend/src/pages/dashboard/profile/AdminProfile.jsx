@@ -62,7 +62,7 @@ const AdminProfile = () => {
           )}
         </div>
 
-        <div className="profile-info">
+        <div className="profile-infoo">
           <h2>{user.name}</h2>
           <p>
             <strong>Email:</strong> {user.email}

@@ -1,0 +1,42 @@
+/* DashboardOverview.css */
+
+.dashboard-overview {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .dashboard-overview {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboard-overview {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* @media (max-width: 450px) {
+  .dashboard-overview,
+  .user-stats-card,
+  .profile-card,
+  .quick-actions-container,
+  .quick-actions-list .recent-activity-container {
+    margin-left: 0;
+    padding-left: 0;
+  }
+} */
+
+
+ .dashboard-overview,
+  .user-stats-card,
+  .profile-card,
+  .quick-actions-container,
+  .quick-actions-list .recent-activity-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}

@@ -47,17 +47,17 @@
   box-shadow: 0 0 0 4px #000000;
 }
 
-.profile-info {
+.profile-infoo {
   text-align: center;
   color: #1f2937;
 }
 
-.profile-info h2 {
+.profile-infop h2 {
   font-size: 1.75rem;
   margin-bottom: 0.25rem;
 }
 
-.profile-info p {
+.profile-infop p {
   margin: 0.4rem 0;
   font-size: 0.95rem;
   color: #4b5563;
@@ -124,7 +124,7 @@
     padding: 1.5rem 1.2rem;
   }
 
-  .profile-info h2 {
+  .profile-infoo h2 {
     font-size: 1.4rem;
   }
 
@@ -132,3 +132,12 @@
     font-size: 0.95rem;
   }
 }
+
+/* .profile-infoo p {
+  all: unset;
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  margin: 4px 0;
+  font-size: 14px;
+} */

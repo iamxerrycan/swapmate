@@ -1,0 +1,85 @@
+.quick-actions-container {
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.quick-actions-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 16px;
+}
+
+.quick-actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quick-action-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 12px;
+  border: none;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.quick-action-button svg {
+  flex-shrink: 0;
+}
+
+.quick-action-create {
+  background-color: #2563eb;
+  color: white;
+}
+
+.quick-action-create:hover {
+  background-color: #1d4ed8;
+}
+
+.quick-action-manage {
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.quick-action-manage:hover {
+  background-color: #e5e7eb;
+}
+
+.quick-action-settings {
+  background-color: #1f2937;
+  color: white;
+}
+
+.quick-action-settings:hover {
+  background-color: #111827;
+}
+
+/* Responsive */
+@media screen and (max-width: 480px) {
+  .quick-actions-container {
+    padding: 16px;
+  }
+
+  .quick-actions-title {
+    font-size: 1rem;
+  }
+
+  .quick-action-button {
+    font-size: 0.875rem;
+    padding: 10px 14px;
+  }
+}

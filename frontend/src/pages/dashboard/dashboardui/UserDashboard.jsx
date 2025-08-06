@@ -1,11 +1,17 @@
 // src/pages/dashboardui/UserDashboard.jsx
 import React from 'react';
+import './UserDashboard.css';
+import DashboardOverview from './DashboardOverview';
+import DashboardHeader from './DashboardHeader';
 
 const UserDashboard = () => {
   return (
     <div className="user-dashboard">
-      <h2 className="dashboard-title">Hello User 👋</h2>
-      <p>This is your personal dashboard. Add history, quick actions, and profile data here.</p>
+      {/* <DashboardHeader/>   */}
+      <h1 className="dashboard-title">Welcome to Your Dashboard</h1>
+      <div className="dashboard-section">
+        <DashboardOverview/>
+        </div>
     </div>
   );
 };

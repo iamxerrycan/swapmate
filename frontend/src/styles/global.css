@@ -4,3 +4,14 @@ body{
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
+
+/* Ensure all elements respect padding inside width */
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
