@@ -234,3 +234,8 @@ label {
   background: transparent;
 }
 
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1f2937;
+  background: #f8fafc;
+}

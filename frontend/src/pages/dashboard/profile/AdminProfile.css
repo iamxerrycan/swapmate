@@ -1,27 +1,26 @@
-/* src/components/forms/AdminProfile.css */
+/* ================================
+   Premium Admin Profile Styling
+================================ */
 
 .admin-profile-container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 2rem 1rem;
-  background-color: linear-gradient(to bottom right, #f8fafc, #e2e8f0);
-  box-shadow: 0 4px 15px 2px rgba(0, 0, 0, 0.35);
-  /* margin-top: 2rem; */
+  padding: 3rem 1rem;
   min-height: 100vh;
+  background: linear-gradient(135deg, #f0f4f8, #e2e8f0);
 }
 
 .profile-card-main {
-  background: #ffffff;
-  border-radius: 16px;
-  /* padding: 2rem; */
-  padding: 2rem;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 20px;
+  padding: 2.5rem;
   width: 100%;
-  max-width: 500px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-
-  animation: fadeIn 0.3s ease-in-out;
+  max-width: 540px;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.4s ease-out;
 }
 
 .profile-avatar {
@@ -31,86 +30,100 @@
 }
 
 .profile-avatar img {
-  width: 96px;
-  height: 96px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 0 0 4px #000000;
+  box-shadow: 0 0 0 5px #000;
 }
 
 .avatar-placeholder {
-  width: 96px;
-  height: 96px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  background-color: #000000;
-  color: #ffffff;
-  font-size: 2rem;
+  background-color: #000;
+  color: #fff;
+  font-size: 2.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  box-shadow: 0 0 0 4px #000000;
+  box-shadow: 0 0 0 5px #000;
 }
 
 .profile-infoo {
   text-align: center;
   color: #1f2937;
+  margin-bottom: 1.5rem;
 }
 
-.profile-infop h2 {
-  font-size: 1.75rem;
-  margin-bottom: 0.25rem;
+.profile-infoo h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #111827;
 }
 
-.profile-infop p {
-  margin: 0.4rem 0;
-  font-size: 0.95rem;
+.profile-infoo p {
+  margin: 0.3rem 0;
+  font-size: 0.98rem;
   color: #4b5563;
+  line-height: 1.5;
 }
 
 .profile-actions {
   display: flex;
-  flex-direction: row;
-  gap: 0.75rem;
-  margin-top: 2rem;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
 }
 
+/* Reusable button styles */
 .btn {
   padding: 0.75rem 1.25rem;
   font-size: 1rem;
   font-weight: 600;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background 0.25s ease, transform 0.1s ease;
+  transition: all 0.25s ease;
   width: 100%;
+  max-width: 160px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .btn.update {
-  background-color: #000000;
+  background: linear-gradient(to right, #6366f1, #8b5cf6);
   color: #fff;
 }
 
 .btn.update:hover {
-  background-color: #ffffff;
+  background: #fff;
+  color: #4f46e5;
+  border: 2px solid #4f46e5;
 }
 
 .btn.logout {
-  background-color: #000000;
-  color: #ffffff;
+  background: linear-gradient(to right, #0f172a, #1e293b);
+  color: #fff;
 }
 
 .btn.logout:hover {
-  background-color: #ffffff;
+  background: #fff;
+  color: #0f172a;
+  border: 2px solid #0f172a;
 }
 
 .btn.danger {
-  background-color: #cc0000;
+  background: linear-gradient(to right, #dc2626, #b91c1c);
   color: #fff;
 }
 
 .btn.danger:hover {
-  background-color: #ffffff;
+  background: #fff;
+  color: #dc2626;
+  border: 2px solid #dc2626;
 }
 
 @keyframes fadeIn {
@@ -124,31 +137,30 @@
   }
 }
 
-@media (max-width: 480px) {
+/* ================================
+   Responsive Design
+================================ */
+@media (max-width: 600px) {
   .profile-card-main {
-    padding: 2rem;
-    margin: 0;
-    margin-top: 1.5rem;
-  }
-  .profile-actions {
-    display: flex;
-    flex-direction: column;
+    padding: 2rem 1.5rem;
+    margin-top: 1rem;
   }
 
-  .profile-infoo h2 {
-    font-size: 1.4rem;
+  .profile-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
   }
 
   .btn {
+    max-width: 100%;
+  }
+
+  .profile-infoo h2 {
+    font-size: 1.5rem;
+  }
+
+  .profile-infoo p {
     font-size: 0.95rem;
   }
 }
-
-/* .profile-infoo p {
-  all: unset;
-  display: flex;
-  align-items: center;
-  gap: 8px; 
-  margin: 4px 0;
-  font-size: 14px;
-} */

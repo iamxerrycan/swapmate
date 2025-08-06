@@ -1,65 +1,102 @@
-/* src/pages/dashboard/components/SwapItem.css */
+/* ===============================
+   Premium Swap Items Styles
+=============================== */
 
 .swap-container {
-  padding: 2rem;
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: auto;
+  background: #f9fafb;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
 .swap-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
 .swap-title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #222;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.5px;
+  position: relative;
 }
 
-/* Control Bar */
+.swap-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  margin: 8px auto 0;
+  border-radius: 4px;
+}
+
+/* Controls */
 .swap-controls {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.2rem;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .swap-control-group {
-  flex: 1 1 200px;
-  min-width: 200px;
+  flex: 1 1 240px;
+  min-width: 240px;
 }
 
 /* Dropdown */
 .swap-sort-select {
   width: 100%;
-  padding: 0.6rem 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #ccc;
+  padding: 0.75rem 1.1rem;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
   font-size: 1rem;
+  background: white;
+  transition: box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
 }
 
-/* Responsive Grid Layout for Items */
+.swap-sort-select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Grid Layout */
 .swap-items-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
-  padding: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
 }
 
-/* No Items Message */
+/* No Items Found */
 .no-items-msg {
   font-size: 1.1rem;
   text-align: center;
-  color: #888;
+  color: #9ca3af;
   grid-column: 1 / -1;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
+/* Responsive Enhancements */
 @media screen and (max-width: 768px) {
-  /* Add responsive styles here if needed */
-  .swap-items-grid {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    box-sizing: border-box;
+  .swap-container {
+    padding: 2rem 1rem;
+  }
+
+  .swap-title {
+    font-size: 1.8rem;
+  }
+
+  .swap-control-group {
+    min-width: 100%;
   }
 }
