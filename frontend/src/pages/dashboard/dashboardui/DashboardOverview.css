@@ -5,6 +5,8 @@
   grid-template-columns: 1fr;
   gap: 1rem;
   padding: 1rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+
 }
 
 @media (min-width: 768px) {
@@ -37,6 +39,8 @@
   .quick-actions-container,
   .quick-actions-list .recent-activity-container {
   width: 100%;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+
   max-width: 100%;
   box-sizing: border-box;
 }

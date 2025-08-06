@@ -25,7 +25,8 @@
   padding: 20px;
   border-radius: 16px;
   border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+
   margin-bottom: 20px;
   scroll-behavior: smooth;
 }
