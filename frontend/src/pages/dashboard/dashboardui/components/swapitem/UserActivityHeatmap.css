@@ -1,0 +1,55 @@
+.activity-heatmap {
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  margin: 1rem;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.activity-heatmap h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+  gap: 6px;
+}
+
+.heatmap-cell {
+  width: 100%;
+  aspect-ratio: 1; /* perfect square cells */
+  border-radius: 4px;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.heatmap-cell:hover {
+  transform: scale(1.1);
+}
+
+/* Activity level colors */
+.level-0 { background-color: #e0e0e0; }
+.level-1 { background-color: #c0d6e4; }
+.level-2 { background-color: #90bad2; }
+.level-3 { background-color: #5ca6c4; }
+.level-4 { background-color: #2b90b6; }
+
+/* Responsive: Stack and spacing */
+@media (max-width: 500px) {
+  .activity-heatmap {
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+
+  .activity-heatmap h3 {
+    font-size: 1rem;
+    text-align: center;
+  }
+}

@@ -1,6 +1,4 @@
-/* ===============================
-   Premium Swap Items Styles
-=============================== */
+
 
 .swap-container {
   padding: 3rem 2rem;
@@ -34,7 +32,7 @@
   border-radius: 4px;
 }
 
-/* Controls */
+
 .swap-controls {
   display: flex;
   flex-wrap: wrap;
@@ -48,7 +46,7 @@
   min-width: 240px;
 }
 
-/* Dropdown */
+
 .swap-sort-select {
   width: 100%;
   padding: 0.75rem 1.1rem;
@@ -66,7 +64,7 @@
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
-/* Grid Layout */
+
 .swap-items-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -74,7 +72,7 @@
   padding: 1rem 0;
 }
 
-/* No Items Found */
+
 .no-items-msg {
   font-size: 1.1rem;
   text-align: center;
@@ -86,7 +84,7 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
-/* Responsive Enhancements */
+
 @media screen and (max-width: 768px) {
   .swap-container {
     padding: 2rem 1rem;

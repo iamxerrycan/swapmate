@@ -1,4 +1,4 @@
-/* FilterBox.css */
+
 
 .filter-box {
   appearance: none;
@@ -6,7 +6,7 @@
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #f9f9f9; /* light background */
+  background-color: #f9f9f9; 
   color: #333;
   min-width: 180px;
   outline: none;
@@ -28,7 +28,7 @@
   background-color: #fff;
 }
 
-/* Optional: Style options in modern browsers (may be ignored in some) */
+
 .filter-box option {
   color: #000;
   background-color: #fff;

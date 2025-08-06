@@ -1,6 +1,4 @@
-/* ================================
-   Premium Admin Profile Styling
-================================ */
+
 
 .admin-profile-container {
   display: flex;
@@ -80,7 +78,7 @@
   margin-top: 1.5rem;
 }
 
-/* Reusable button styles */
+
 .btn {
   padding: 0.75rem 1.25rem;
   font-size: 1rem;
@@ -139,9 +137,7 @@
   }
 }
 
-/* ================================
-   Responsive Design
-================================ */
+
 @media (max-width: 600px) {
   .profile-card-main {
     padding: 2rem 1.5rem;

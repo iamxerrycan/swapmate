@@ -1,4 +1,4 @@
-/* EditItem.css */
+
 
 .edit-item-page {
   max-width: 600px;
@@ -119,12 +119,12 @@
 .three-buttons {
   all: unset;
   display: flex;
-  flex-direction: row;       /* Only needed once */
+  flex-direction: row;       
   justify-content: space-between;
   align-items: center;
   gap: 10px;
   margin-top: 20px;
-  flex-wrap: wrap;           /* Optional: makes buttons wrap on small screens */
+  flex-wrap: wrap;           
 }
 
 .three-buttons button {

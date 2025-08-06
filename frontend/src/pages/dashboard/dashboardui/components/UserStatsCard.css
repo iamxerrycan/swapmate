@@ -1,4 +1,4 @@
-/* UserStatsCard.css */
+
 
 .user-stats-card {
   background-color: #ffffff;
@@ -13,10 +13,10 @@
 }
 
 .user-stats-card h2 {
-  font-size: 1.125rem; /* text-lg */
-  font-weight: 600; /* font-semibold */
+  font-size: 1.125rem; 
+  font-weight: 600; 
   margin-bottom: 1rem;
-  color: #1f2937; /* Tailwind's gray-800 */
+  color: #1f2937; 
 }
 
 .user-stats-list {
@@ -29,7 +29,7 @@
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 0;
-  border-bottom: 1px solid #e5e7eb; /* Tailwind's gray-200 */
+  border-bottom: 1px solid #e5e7eb; 
 }
 
 .user-stats-item:last-child {
@@ -37,10 +37,10 @@
 }
 
 .user-stats-label {
-  color: #374151; /* Tailwind's gray-700 */
+  color: #374151; 
 }
 
 .user-stats-value {
   font-weight: bold;
-  color: #111827; /* Tailwind's gray-900 */
+  color: #111827; 
 }

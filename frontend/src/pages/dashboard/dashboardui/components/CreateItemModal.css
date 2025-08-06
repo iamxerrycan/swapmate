@@ -128,7 +128,7 @@ select option {
   background-color: #dc2626;
 }
 
-/* ✅ Fully responsive tweaks */
+
 @media (max-width: 480px) {
   .modal-box {
     padding: 1.2rem;

@@ -96,7 +96,7 @@
   background-color: #c20000;
 }
 
-/* Responsive tweaks */
+
 @media (max-width: 480px) {
   .card-actions {
     flex-direction: column;

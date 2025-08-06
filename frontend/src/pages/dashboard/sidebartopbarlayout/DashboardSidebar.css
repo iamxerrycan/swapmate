@@ -118,7 +118,7 @@
   z-index: 1000;
 }
 
-/* Desktop view */
+
 @media (min-width: 768px) {
   .sidebar {
     left: 0;

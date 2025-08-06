@@ -1,4 +1,4 @@
-/* ========= Container and Layout ========= */
+
 .home-container {
   padding: 2rem;
   max-width: 1200px;
@@ -14,7 +14,7 @@
   text-align: center;
 }
 
-/* ========= Controls (Search + Filter) ========= */
+
 .controls {
   display: flex;
   justify-content: center;
@@ -31,7 +31,7 @@
   max-width: 350px;
 }
 
-/* Input styles */
+
 .controls .search-bar,
 .controls .filter-box {
   padding: 0.6rem 1rem;
@@ -43,13 +43,13 @@
   width: 100%;
 }
 
-/* Dropdown option styling */
+
 .filter-box option {
   background-color: #fff;
   color: #333;
 }
 
-/* Responsive: Stack controls vertically on small screens */
+
 @media (max-width: 480px) {
   .controls {
     flex-direction: column;
@@ -62,7 +62,7 @@
   }
 }
 
-/* ========= Items Grid ========= */
+
 .items-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -70,7 +70,7 @@
   padding-bottom: 2rem;
 }
 
-/* ========= Status Messages ========= */
+
 .loading,
 .error,
 .no-items {

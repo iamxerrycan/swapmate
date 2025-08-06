@@ -1,4 +1,4 @@
-/* General button style */
+
 button {
   font-weight: 600;
   font-size: 1rem;
@@ -16,31 +16,31 @@ button {
   box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);
 }
 
-/* Disabled state */
+
 button[disabled] {
   opacity: 0.7;
   cursor: not-allowed;
 }
 
-/* Hover effect */
+
 button:not([disabled]):hover {
   background-color: #2980b9;
   box-shadow: 0 6px 16px rgba(41, 128, 185, 0.25);
 }
 
-/* Active click effect */
+
 button:not([disabled]):active {
   transform: scale(0.97);
 }
 
-/* Spinner wrapper and text */
+
 .btn-inner {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-/* Spinner styling */
+
 .spinner {
   width: 1rem;
   height: 1rem;
@@ -50,14 +50,14 @@ button:not([disabled]):active {
   animation: spin 0.6s linear infinite;
 }
 
-/* Spinner animation */
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 480px) {
   button {
     font-size: 0.9rem;

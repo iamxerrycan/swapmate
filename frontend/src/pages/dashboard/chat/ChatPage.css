@@ -1,4 +1,4 @@
-/* src/pages/dashboard/chat/ChatPage.css */
+
 
 .chat-page-container {
   display: flex;
@@ -68,7 +68,7 @@
   background-color: #1d4ed8;
 }
 
-/* Scrollbar customization */
+
 .chat-messages::-webkit-scrollbar {
   width: 6px;
 }
@@ -80,7 +80,7 @@
   background: transparent;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .chat-page-container {
     padding: 16px;
@@ -116,7 +116,7 @@
   .chat-page-container {
     margin: 0;
     padding: 1rem;
-    /* margin-top: 1.5rem; */
+    
   }
   .chat-title {
     margin-top: 2rem;

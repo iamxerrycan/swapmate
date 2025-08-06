@@ -1,4 +1,4 @@
-/* Common look for nav items (both links and buttons) */
+
 .nav-item {
   text-decoration: none;
   background-color: #ff4d4f;
@@ -12,13 +12,13 @@
   border: none;
 }
 
-/* Hover effect */
+
 .nav-item:hover {
   background-color: #d9363e;
   color: white;
 }
 
-/* Navbar container */
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -30,7 +30,7 @@
   flex-wrap: wrap;
 }
 
-/* Navbar sections */
+
 .nav-left,
 .nav-right {
   display: flex;
@@ -39,7 +39,7 @@
   flex-wrap: wrap;
 }
 
-/* Responsive tweaks */
+
 @media (max-width: 768px) {
   .navbar,
   .nav-left,

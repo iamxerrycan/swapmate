@@ -1,4 +1,4 @@
-/* src/pages/dashboard/DashboardLayout.css */
+
 
 .dashboard-container {
   display: flex;
@@ -6,15 +6,13 @@
   min-height: 100vh;
 }
 
-/* For large screens - row layout */
+
 @media (min-width: 768px) {
   .dashboard-container {
     flex-direction: row;
   }
 
-  /* .dashboard-main {
-    margin-left: 260px;
-  } */
+  
 }
 
 .dashboard-main {
