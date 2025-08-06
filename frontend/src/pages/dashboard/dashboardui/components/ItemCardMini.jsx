@@ -16,7 +16,7 @@ export default function ItemCardMini({ item }) {
             className="item-card-image"
           />
           <div className="item-card-info">
-            <h4 className="item-card-title">Name: {item.name}</h4>
+            <h4 className="item-card-title">Item: {item.name}</h4>
             <p className="item-card-category">Category: {item.category}</p>
             <p className="item-card-location">Address: {item.address || 'Unknown Address'}</p>
             <p className="item-card-description">Description: {item.description || 'No description.'}</p>
