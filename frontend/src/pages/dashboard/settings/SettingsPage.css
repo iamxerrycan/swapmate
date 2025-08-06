@@ -73,3 +73,19 @@ box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 .toggle-switch input:checked + .slider::before {
   transform: translateX(24px);
 }
+
+.setting-item button{
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow : 0 6px 20px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.3s ease;
+}
+
+.section-title{
+  color: #000000;
+}

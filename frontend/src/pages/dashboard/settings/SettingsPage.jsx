@@ -1,24 +1,84 @@
 import React from 'react';
 import './SettingsPage.css';
 
-const SettingsPage = () => {
+const SettingsPage = ({ isAdmin = false }) => {
   return (
     <div className="settings-container">
       <h2 className="settings-title">Settings</h2>
-      <div className="setting-item">
-        <label className="setting-label" htmlFor="emailNotifications">Email Notifications</label>
-        <label className="toggle-switch">
-          <input type="checkbox" id="emailNotifications" defaultChecked />
-          <span className="slider"></span>
-        </label>
-      </div>
-      <div className="setting-item">
-        <label className="setting-label" htmlFor="darkMode">Dark Mode</label>
-        <label className="toggle-switch">
-          <input type="checkbox" id="darkMode" />
-          <span className="slider"></span>
-        </label>
-      </div>
+
+      {/* 🔔 Notification Settings */}
+      <section className="setting-section">
+        <h3 className="section-title">Notifications</h3>
+        <div className="setting-item">
+          <label className="setting-label">Email Notifications</label>
+          <label className="toggle-switch">
+            <input type="checkbox" defaultChecked />
+            <span className="slider"></span>
+          </label>
+        </div>
+        <div className="setting-item">
+          <label className="setting-label">Push Notifications</label>
+          <label className="toggle-switch">
+            <input type="checkbox" />
+            <span className="slider"></span>
+          </label>
+        </div>
+      </section>
+
+      {/* 🎨 Display Settings */}
+      <section className="setting-section">
+        <h3 className="section-title">Appearance</h3>
+        <div className="setting-item">
+          <label className="setting-label">Dark Mode</label>
+          <label className="toggle-switch">
+            <input type="checkbox" />
+            <span className="slider"></span>
+          </label>
+        </div>
+      </section>
+
+      {/* 🔐 Security Settings */}
+      <section className="setting-section">
+        <h3 className="section-title">Security</h3>
+        <div className="setting-item">
+          <label className="setting-label">Change Password</label>
+          <button className="setting-button">Click</button>
+        </div>
+      </section>
+
+      {/* ⚙️ Admin Settings */}
+      {isAdmin && (
+        <section className="setting-section">
+          <h3 className="section-title">Admin Settings</h3>
+          <div className="setting-item">
+            <label className="setting-label">Enable Maintenance Mode</label>
+            <label className="toggle-switch">
+              <input type="checkbox" />
+              <span className="slider"></span>
+            </label>
+          </div>
+          <div className="setting-item">
+            <label className="setting-label">Allow User Registration</label>
+            <label className="toggle-switch">
+              <input type="checkbox" defaultChecked />
+              <span className="slider"></span>
+            </label>
+          </div>
+        </section>
+      )}
+
+      {/* 🧹 Data & Privacy */}
+      <section className="setting-section">
+        <h3 className="section-title">Data & Privacy</h3>
+        <div className="setting-item">
+          <label className="setting-label">Download My Data</label>
+          <button className="setting-button">Click</button>
+        </div>
+        <div className="setting-item">
+          <label className="setting-label">Delete My Account</label>
+          <button className="setting-button danger">Click</button>
+        </div>
+      </section>
     </div>
   );
 };

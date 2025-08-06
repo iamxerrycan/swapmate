@@ -9,6 +9,7 @@ import {
 import { toast } from 'react-toastify';
 import UpdateProfileForm from './UpdateProfileForm';
 import './AdminProfile.css';
+import {confirmToast} from "../../../components/ui/ConfirmToast";
 
 const AdminProfile = () => {
   const dispatch = useDispatch();
@@ -36,18 +37,19 @@ const AdminProfile = () => {
     }
   };
 
-  const handleDelete = async () => {
-    if (window.confirm('Are you sure you want to delete your account?')) {
-      try {
-        await dispatch(deleteAccount(token)).unwrap();
-        dispatch(logout());
-        toast.success('Account deleted successfully');
-        navigate('/');
-      } catch (error) {
-        toast.error(error || 'Failed to delete account');
-      }
+const handleDelete = () => {
+  confirmToast(async () => {
+    try {
+      await dispatch(deleteAccount(token)).unwrap();
+      dispatch(logout());
+      toast.success('Account deleted successfully');
+      navigate('/');
+    } catch (error) {
+      toast.error(error || 'Failed to delete account');
     }
-  };
+  });
+};
+
 
   return (
     <div className="admin-profile-container">
