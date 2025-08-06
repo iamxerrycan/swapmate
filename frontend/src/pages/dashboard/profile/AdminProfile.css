@@ -73,6 +73,8 @@
 
 .profile-actions {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 0.8rem;
   margin-top: 1.5rem;

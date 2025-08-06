@@ -59,7 +59,13 @@
 .card-actions {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+}
+.card-actions button {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.5rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
 }
 
 .edit-btn,
@@ -99,7 +105,7 @@
 
   .edit-btn,
   .delete-btn {
-    width: 100%;
+    width: 80%;
   }
 }
 
@@ -124,7 +130,6 @@
   margin-bottom: 1rem;
   border: 1px dashed #d1d5db;
 }
-
 
 .items-grid {
   display: grid;
