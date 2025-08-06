@@ -10,7 +10,6 @@ import Home from '../pages/Home';
 import ItemDetails from '../pages/ItemDetails';
 import Profile from '../pages/Profile';
 // import CreateItem from '../pages/CreateItem';
-import EditItem from '../pages/EditItem';
 import SwapItem from '../pages/SwapRequest';
 
 import AppLayout from '../components/layout/AppLayoute';
@@ -27,6 +26,9 @@ import ActivityLogPage from '../pages/dashboard/activity/ActivityLogPage';
 import ChatPage from '../pages/dashboard/chat/ChatPage';
 import SettingsPage from '../pages/dashboard/settings/SettingsPage';
 import DashboardMain from '../pages/dashboard/dashboardui/DashboardMain';
+import { ImageOff, Import } from 'lucide-react';
+import ManageItems from '../pages/dashboard/dashboardui/components/ManageItems';
+import EditItem from '../pages/dashboard/dashboardui/components/EditItem';
 
 export default function AppRoutes() {
   return (
@@ -97,6 +99,9 @@ export default function AppRoutes() {
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="activity" element={<ActivityLogPage />} />
           <Route path="create" element={<CreateItem />} />
+          <Route path="manage" element={<ManageItems />} />
+          <Route path="edit/:id" element={<EditItem />} />
+
           {/* Shared pages */}
           <Route index element={<DashboardMain />} />
           <Route path="profile" element={<AdminProfile />} />

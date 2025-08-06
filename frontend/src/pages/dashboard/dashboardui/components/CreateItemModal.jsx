@@ -7,9 +7,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import './CreateItemModal.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateItemModal({ onClose }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -55,6 +57,14 @@ export default function CreateItemModal({ onClose }) {
     }));
   };
 
+  const handleCancel = () => {
+    if (onClose) {
+      onClose();
+    } else {
+      navigate('/dashboard/manage');
+    }
+  };
+
   const validate = () => {
     const errs = {};
     if (!formData.name.trim()) errs.name = 'Name is required';
@@ -92,7 +102,7 @@ export default function CreateItemModal({ onClose }) {
       };
       await dispatch(createItem(newItem)).unwrap();
       toast.success('Item created successfully');
-      onClose(); // Close the modal
+      onClose();
     } catch (err) {
       console.error('Create item failed:', err);
       toast.error('Failed to create item');
@@ -170,7 +180,7 @@ export default function CreateItemModal({ onClose }) {
             <button type="submit" className="submit-btn">
               Submit
             </button>
-            <button type="button" className="cancel-btn" onClick={onClose}>
+            <button type="button" className="cancel-btn" onClick={handleCancel}>
               Cancel
             </button>
           </div>

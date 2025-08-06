@@ -1,0 +1,80 @@
+.item-form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  min-height: 100vh;
+  background: #f4f6f9;
+}
+
+.item-form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.item-form h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.item-form input[type="text"],
+.item-form input[type="number"],
+.item-form textarea {
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+  resize: vertical;
+}
+
+.item-form input[type="file"] {
+  padding: 0.3rem 0;
+}
+
+.submit-btn {
+  padding: 0.8rem;
+  background: linear-gradient(to right, #6366f1, #8b5cf6);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(to right, #4f46e5, #7c3aed);
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .item-form {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .item-form h2 {
+    font-size: 1.5rem;
+  }
+}
