@@ -101,18 +101,18 @@
 }
 
 .btn-view:hover {
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  background: linear-gradient(135deg, #3731a8, #521bb1);
   transform: scale(1.05);
 }
 
 /* Swap Button */
 .btn-swap {
-  background: linear-gradient(135deg, #10b981, #34d399);
+  background: linear-gradient(135deg, #00a56e, #003622);
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 .btn-swap:hover {
-  background: linear-gradient(135deg, #059669, #22c55e);
+  background: linear-gradient(135deg, #056848, #066d2c);
   transform: scale(1.05);
 }
 
@@ -132,4 +132,12 @@
 .btn-close:hover {
   background-color: #000000;
   transform: scale(1.1);
+}
+
+@media screen and (max-width: 768px) {
+  .flip-card-front {
+    max-width: 100%;
+    margin: 0;
+    padding: 1rem;
+  }
 }

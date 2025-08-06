@@ -91,7 +91,7 @@ export default function SwapItem() {
   return (
     <div className="swap-container">
       <div className="swap-header">
-        <h2 className="swap-title">🔄 Swap Items ({filteredItems.length})</h2>
+        <h2 className="swap-title">Total Swap Items ({filteredItems.length})</h2>
 
       </div>
 
