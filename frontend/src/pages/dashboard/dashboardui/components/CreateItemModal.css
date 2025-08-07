@@ -1,162 +1,163 @@
-.modal-overlay {
+:root {
+  --modal-bg: #ffffff;
+  --overlay-bg: rgba(0, 0, 0, 0.6);
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --text-color: #111827;
+  --border-color: #d1d5db;
+  --input-bg: #f9fafb;
+  --shadow-dark: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.creat-item-modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  height: 100dvh;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background: var(--overlay-bg);
   backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
-  padding: 1rem;
-  box-sizing: border-box;
+  z-index: 1000;
+  margin-top: 2rem;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .modal-box {
-  background: #ffffff;
-  color: #000000;
-  padding: 2rem;
+  background: var(--modal-bg);
+  color: var(--text-color);
+  padding: 0.5rem;
   width: 100%;
-  max-width: 550px;
-  max-height: 90dvh;
+  max-width: 520px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-dark);
   overflow-y: auto;
-  border-radius: 12px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  max-height: 90vh;
+  position: relative;
 }
 
 .modal-box::-webkit-scrollbar {
-  width: 6px;
-}
-.modal-box::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
+  width: 0;
 }
 
 .create-item-form {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  background-color: transparent;
+  gap: 1.25rem;
 }
 
-h2 {
-  color: #111827;
-  text-align: center;
-  margin-bottom: 1rem;
+.create-item-form h2 {
   font-size: 1.5rem;
+  margin-top: 2rem;
+  text-align: center;
+  color: var(--text-color);
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 input,
 select,
 textarea {
-  background: #f9fafb;
-  color: #111827;
-  border: 1px solid #d1d5db;
+  background: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
   padding: 0.75rem 1rem;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 1rem;
-  transition: border 0.3s, box-shadow 0.3s;
   width: 100%;
-  box-sizing: border-box;
+  transition: border 0.3s, box-shadow 0.3s;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
 textarea {
+  min-height: 90px;
   resize: vertical;
-  min-height: 80px;
-}
-
-select option {
-  background-color: #ffffff;
-  color: #000000;
 }
 
 .error {
-  color: #dc2626;
   font-size: 0.85rem;
-  margin-top: 0.3rem;
+  color: var(--danger);
 }
 
 .modal-buttons {
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 1rem;
-  margin-top: 1.5rem;
+  justify-content: flex-end;
 }
 
 .submit-btn,
 .cancel-btn {
-  padding: 0.75rem 1.5rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
   border: none;
-  border-radius: 6px;
-  font-weight: 500;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease;
 }
 
 .submit-btn {
-  background-color: #3b82f6;
-  color: white;
+  background-color: var(--primary);
+  color: #fff;
 }
-
 .submit-btn:hover {
-  background-color: #2563eb;
+  background-color: var(--primary-hover);
 }
 
 .cancel-btn {
-  background-color: #ef4444;
-  color: white;
+  background-color: var(--danger);
+  color: #fff;
 }
-
 .cancel-btn:hover {
-  background-color: #dc2626;
+  background-color: var(--danger-hover);
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .modal-box {
-    padding: 1.2rem;
-    max-height: 95dvh;
+    padding: 2rem;
     font-size: 0.95rem;
-  }
 
-  h2 {
-    font-size: 1.2rem;
   }
-
-  input,
-  select,
-  textarea {
-    font-size: 0.95rem;
-    padding: 0.6rem 0.9rem;
+  .creat-item-modal-overlay{
+    margin: 0;
+    padding: 0;
   }
 
   .modal-buttons {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.8rem;
-    margin-top: 1rem;
   }
 
   .submit-btn,
   .cancel-btn {
-    padding: 0.65rem;
     width: 100%;
   }
+}
+
+.creat-item-modal-overlay * {
+  touch-action: manipulation;
 }
