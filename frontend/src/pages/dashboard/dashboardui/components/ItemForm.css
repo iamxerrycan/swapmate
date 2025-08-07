@@ -1,81 +1,138 @@
-.item-form-wrapper {
+.itemform-modal-overlay {
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 1rem;
+  align-items: flex-start;  /* Don't center vertically */
+  padding-top: 40px;
+  padding-bottom: 40px;
   min-height: 100vh;
-  background: #f4f6f9;
+  background-color: rgba(0, 0, 0, 0.05); /* optional slight background */
 }
 
-.item-form {
-  background-color: #fff;
+.itemform-modal-box {
+  background: white;
   padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 500px;
-  position: relative;
+  max-width: 600px;
+  margin: 0 1rem;
+}
+
+
+/* Fade In Animation */
+@keyframes slideFadeIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Form */
+.itemform-create-item-form {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 }
 
-.item-form h2 {
-  margin: 0;
-  text-align: center;
-  font-size: 1.8rem;
-  color: #333;
-}
-
-.item-form input[type="text"],
-.item-form input[type="number"],
-.item-form textarea {
-  padding: 0.8rem 1rem;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  width: 100%;
-  resize: vertical;
-}
-
-.item-form input[type="file"] {
-  padding: 0.3rem 0;
-}
-
-.submit-btn {
-  padding: 0.8rem;
-  
-  background: #000000;
-  border: none;
-  color: white;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.submit-btn:hover {
-  
-  background: #333333;
-}
-.close-btn {
-  position: absolute;
-  top: 12px;
-  right: 16px;
+/* Headline */
+.itemform-create-item-form h2 {
   font-size: 1.5rem;
-  background: none;
-  border: none;
-  color: #555;
-  cursor: pointer;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
-@media (max-width: 600px) {
-  .item-form {
+/* Group */
+.itemform-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.itemform-form-group input,
+.itemform-form-group textarea,
+.itemform-form-group select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #000000;
+  border: 1px solid #000000;
+  transition: border 0.3s;
+}
+
+.itemform-form-group input:focus,
+.itemform-form-group textarea:focus,
+.itemform-form-group select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Error */
+.itemform-error {
+  color: #ff4d4f;
+  font-size: 0.85rem;
+  margin-top: -0.3rem;
+}
+
+/* Buttons */
+.itemform-modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.itemform-submit-btn,
+.itemform-cancel-btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.itemform-submit-btn {
+  background: #007bff;
+  color: white;
+}
+
+.itemform-submit-btn:hover {
+  background: #0056b3;
+  transform: scale(1.02);
+}
+
+.itemform-cancel-btn {
+  background: transparent;
+  color: #000000;
+  border: 1px solid #ff0000;
+}
+
+.itemform-cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.02);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .itemform-modal-box {
     padding: 1.5rem;
-    border-radius: 12px;
   }
 
-  .item-form h2 {
-    font-size: 1.5rem;
+  .itemform-create-item-form h2 {
+    font-size: 1.25rem;
+  }
+
+  .itemform-submit-btn,
+  .itemform-cancel-btn {
+    font-size: 0.95rem;
+    padding: 0.6rem;
   }
 }
