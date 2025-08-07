@@ -13,7 +13,7 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     items: itemReducer,
-    profile: swapReducer,
+    swaps: swapReducer,
     admin: adminReducer,
     users: userReducer,
   },

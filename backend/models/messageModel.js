@@ -8,7 +8,8 @@ const messageSchema = new mongoose.Schema(
     },
     reactions: [
       {
-        type: String, // like "❤️", "👍", "😂"
+        emoji: { type: String },
+        user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
       },
     ],
     replyTo: {
@@ -32,10 +33,11 @@ const messageSchema = new mongoose.Schema(
     media: {
       type: String, // URL of image or file
     },
-    isDeleted: {
-      type: Boolean,
-      default: false,
+    deletedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
+    deletedAt: Date,
     isRead: {
       type: Boolean,
       default: false,
@@ -56,4 +58,3 @@ messageSchema.index({ chatId: 1 });
 
 const Message = mongoose.model('Message', messageSchema);
 module.exports = Message;
-

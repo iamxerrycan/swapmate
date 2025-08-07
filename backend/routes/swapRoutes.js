@@ -16,10 +16,14 @@ const {
 const { protect } = require('../middleware/authMiddleware');
 
 // Create a swap request
-router.post("/", protect, createSwapRequest);
+router.post('/sendrequest', (req, res, next) => {
+  console.log('🔥 Incoming swap request');
+  next();
+}, createSwapRequest);
+
 
 // Get all swaps (admin or for dashboard)
-router.get("/", protect, getAllSwaps);
+router.get("/swaps", protect, getAllSwaps);
 
 // Get current user's swaps
 router.get("/my", protect, getUserSwapRequests);
@@ -40,3 +44,5 @@ router.put("/:id/cancel", protect, cancelSwap);
 router.delete("/:id", protect, deleteSwap);
 
 module.exports = router;
+
+

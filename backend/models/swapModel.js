@@ -17,8 +17,18 @@ const swapRequestSchema = new mongoose.Schema({
     enum: ['Pending', 'Accepted', 'Rejected', 'Cancelled', 'Completed'],
     default: 'Pending',
   },
-
+  changeLog: [
+    {
+      changedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      changes: mongoose.Schema.Types.Mixed,
+      changedAt: { type: Date, default: Date.now },
+    },
+  ],
   isDeletedByFromUser: {
+    type: Boolean,
+    default: false,
+  },
+  isDeleted: {
     type: Boolean,
     default: false,
   },
@@ -27,7 +37,7 @@ const swapRequestSchema = new mongoose.Schema({
     default: false,
   },
 
-  createdAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now, timestamps: true },
 });
 
 swapRequestSchema.index({ fromUser: 1 });

@@ -1,8 +1,13 @@
 import './ItemCardMini.css';
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 export default function ItemCardMini({ item }) {
   const [flipped, setFlipped] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSwapClick = () => {
+    navigate(`/dashboard/swapitem/${item._id}`);
+  };
 
   return (
     <div className={`item-card-mini ${flipped ? 'flipped' : ''}`}>
@@ -46,7 +51,7 @@ export default function ItemCardMini({ item }) {
             <p><strong>Created At:</strong> {new Date(item.createdAt).toLocaleString()}</p>
           </div>
           <div className="item-card-actions">
-            <button className="btn-swap" onClick={() => alert('Proceed to swap')}>Swap This Item →</button>
+            <button className="btn-swap" onClick={handleSwapClick}>Swap This Item →</button>
           </div>
         </div>
 

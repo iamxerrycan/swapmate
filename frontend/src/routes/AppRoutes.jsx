@@ -30,6 +30,7 @@ import { ImageOff, Import } from 'lucide-react';
 import ManageItems from '../pages/dashboard/dashboardui/components/ManageItems';
 import EditItem from '../pages/dashboard/dashboardui/components/EditItem';
 import SwapItem from '../pages/dashboard/dashboardui/components/SwapItem';
+import SwapItemPage from '../pages/dashboard/dashboardui/components/SwapItemPage';
 
 export default function AppRoutes() {
   return (
@@ -104,6 +105,7 @@ export default function AppRoutes() {
           <Route path="manage" element={<ManageItems />} />
           <Route path="edit/:id" element={<EditItem />} />
           <Route path='swapitem' element={<SwapItem />} />
+          <Route path="swapitem/:itemId" element={<SwapItemPage />} />
 
           {/* Shared pages */}
           <Route index element={<DashboardMain />} />
@@ -116,3 +118,4 @@ export default function AppRoutes() {
     </Routes>
   );
 }
+

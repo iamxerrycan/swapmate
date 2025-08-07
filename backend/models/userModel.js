@@ -33,6 +33,13 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    changeLog: [
+      {
+        changedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        changes: mongoose.Schema.Types.Mixed,
+        changedAt: { type: Date, default: Date.now },
+      },
+    ],
     lastSeen: Date,
     // Forgot password fields
     resetPasswordToken: String,

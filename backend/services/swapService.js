@@ -1,24 +1,38 @@
-// services/swapService.js
+const SwapRequest = require('../models/swapModel');
+const Item = require('../models/itemModel');
 
-const Swap = require("../models/swapModel");
-const Item = require("../models/itemModel");
-
-// Create a swap request
-exports.createSwapRequestService = async ({ senderId, senderItemId, receiverItemId, receiverId }) => {
-  // Check if items exist
-  const senderItem = await Item.findById(senderItemId);
-  const receiverItem = await Item.findById(receiverItemId);
-
-  if (!senderItem || !receiverItem) {
-    throw new Error("One or both items not found");
+exports.createSwapRequestService = async ({
+  fromUser,
+  toUser,
+  fromItem,
+  toItem,
+  status,
+  message,
+}) => {
+  if (!fromUser || !toUser || !toItem) {
+    throw new Error('Missing required fields');
   }
 
-  const newSwap = await Swap.create({
-    sender: senderId,
-    senderItem: senderItemId,
-    receiver: receiverId,
-    receiverItem: receiverItemId,
-    status: "pending",
+  let fromItemDoc = null;
+  if (fromItem) {
+    fromItemDoc = await Item.findById(fromItem);
+    if (!fromItemDoc) {
+      throw new Error('From item not found');
+    }
+  }
+
+  const toItemDoc = await Item.findById(toItem);
+  if (!toItemDoc) {
+    throw new Error('To item not found');
+  }
+
+  const newSwap = await SwapRequest.create({
+    fromUser,
+    fromItem: fromItem || undefined, // Make optional
+    toUser,
+    toItem,
+    status: status || 'Pending',
+    message: message || '',
   });
 
   return newSwap;
@@ -26,27 +40,27 @@ exports.createSwapRequestService = async ({ senderId, senderItemId, receiverItem
 
 // Get all swap requests for a user
 exports.getUserSwapRequestsService = async (userId) => {
-  const swaps = await Swap.find({
-    $or: [{ sender: userId }, { receiver: userId }],
+  const swaps = await SwapRequest.find({
+    $or: [{ fromUser: userId }, { toUser: userId }],
   })
-    .populate("sender", "name email")
-    .populate("receiver", "name email")
-    .populate("senderItem")
-    .populate("receiverItem");
+    .populate('fromUser', 'name email')
+    .populate('toUser', 'name email')
+    .populate('fromItem')
+    .populate('toItem');
 
   return swaps;
 };
 
 // Get swap by ID
 exports.getSwapByIdService = async (swapId) => {
-  const swap = await Swap.findById(swapId)
-    .populate("sender", "name email")
-    .populate("receiver", "name email")
-    .populate("senderItem")
-    .populate("receiverItem");
+  const swap = await SwapRequest.findById(swapId)
+    .populate('fromUser', 'name email')
+    .populate('toUser', 'name email')
+    .populate('fromItem')
+    .populate('toItem');
 
   if (!swap) {
-    throw new Error("Swap not found");
+    throw new Error('Swap not found');
   }
 
   return swap;
@@ -54,50 +68,51 @@ exports.getSwapByIdService = async (swapId) => {
 
 // Accept a swap
 exports.acceptSwapService = async (swapId) => {
-  const swap = await Swap.findById(swapId);
-  if (!swap) throw new Error("Swap not found");
+  const swap = await SwapRequest.findById(swapId);
+  if (!swap) throw new Error('Swap not found');
 
-  swap.status = "accepted";
-  await swap.save();
-  return { message: "Swap accepted", swap };
+  swap.status = 'accepted';
+await swap.save();
+
+  return { message: 'Swap accepted', swap };
 };
 
 // Reject a swap
 exports.rejectSwapService = async (swapId) => {
-  const swap = await Swap.findById(swapId);
-  if (!swap) throw new Error("Swap not found");
+  const swap = await SwapRequest.findById(swapId);
+  if (!swap) throw new Error('Swap not found');
 
-  swap.status = "rejected";
+  swap.status = 'rejected';
   await swap.save();
-  return { message: "Swap rejected", swap };
+  return { message: 'Swap rejected', swap };
 };
 
 // Cancel a swap
 exports.cancelSwapService = async (swapId, userId) => {
-  const swap = await Swap.findById(swapId);
-  if (!swap) throw new Error("Swap not found");
+  const swap = await SwapRequest.findById(swapId);
+  if (!swap) throw new Error('Swap not found');
 
-  if (String(swap.sender) !== String(userId)) {
-    throw new Error("Only the sender can cancel this swap");
+  if (String(swap.fromUser) !== String(userId)) {
+    throw new Error('Only the sender can cancel this swap');
   }
 
-  swap.status = "cancelled";
+  swap.status = 'cancelled';
   await swap.save();
-  return { message: "Swap cancelled", swap };
+  return { message: 'Swap cancelled', swap };
 };
 
 // Delete a swap (soft delete or hard depending on use-case)
 exports.deleteSwapService = async (swapId) => {
-  const swap = await Swap.findByIdAndDelete(swapId);
-  if (!swap) throw new Error("Swap not found");
-  return { message: "Swap deleted", swap };
+  const swap = await SwapRequest.findByIdAndDelete(swapId);
+  if (!swap) throw new Error('Swap not found');
+  return { message: 'Swap deleted', swap };
 };
 
 // Admin: get all swaps
 exports.getAllSwapsService = async () => {
-  return await Swap.find()
-    .populate("sender", "name email")
-    .populate("receiver", "name email")
-    .populate("senderItem")
-    .populate("receiverItem");
+  return await SwapRequest.find()
+   .populate('fromUser', 'name email')
+    .populate('toUser', 'name email')
+    .populate('fromItem')
+    .populate('toItem');
 };

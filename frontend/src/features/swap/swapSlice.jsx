@@ -7,6 +7,7 @@ import {
   updateSwapItem,
   deleteSwapItem,
   getMySwaps,
+  
   acceptSwapRequest,
   rejectSwapRequest,
   cancelSwapRequest,
@@ -17,6 +18,7 @@ import { toast } from 'react-toastify';
 export const createSwap = createAsyncThunk(
   'swap/create',
   async (itemData, thunkAPI) => {
+     console.log("Dispatching swap with payload:", itemData);
     try {
       return await createSwapItem(itemData);
     } catch (error) {

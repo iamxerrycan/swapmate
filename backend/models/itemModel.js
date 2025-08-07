@@ -10,6 +10,10 @@ const itemSchema = new mongoose.Schema({
     enum: ['Books', 'Electronics', 'Clothes', 'Toys', 'Food', 'Other'],
     required: true,
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
   description: String,
   image: String, // image URL or filename
 
@@ -68,7 +72,13 @@ const itemSchema = new mongoose.Schema({
     enum: ['New', 'Like New', 'Used', 'Broken'],
     default: 'Used',
   },
-
+  changeLog: [
+    {
+      changedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      changes: mongoose.Schema.Types.Mixed,
+      changedAt: { type: Date, default: Date.now },
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
