@@ -28,3 +28,16 @@ router.get("/dashboard/stats", getAdminStats); // For dashboard metrics
 
 
 module.exports = router;
+
+
+
+// | Method | Route                        | Description         | Body Required | Example Body (if any) |
+// | ------ | ---------------------------- | ------------------- | ------------- | --------------------- |
+// | GET    | `/api/admin/users`           | Get all users       | ❌             | –                     |
+// | PUT    | `/api/admin/block/:id`       | Block a user        | ❌             | –                     |
+// | PUT    | `/api/admin/unblock/:id`     | Unblock a user      | ❌             | –                     |
+// | DELETE | `/api/admin/delete/:id`      | Delete a user       | ❌             | –                     |
+// | GET    | `/api/admin/items`           | Get all items       | ❌             | –                     |
+// | DELETE | `/api/admin/item/:id`        | Delete an item      | ❌             | –                     |
+// | PUT    | `/api/admin/user/:id`        | Update user role    | ✅             | `{ "role": "admin" }` |
+// | GET    | `/api/admin/dashboard/stats` | Get dashboard stats | ❌             | –                     |

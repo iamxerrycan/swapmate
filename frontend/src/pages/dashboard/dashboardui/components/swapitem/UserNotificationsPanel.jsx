@@ -1,21 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import './UserNotificationsPanel.css';
 
-const dummyNotifications = [
-  { id: 1, message: 'Your item swap request was approved', time: '2 mins ago' },
-  { id: 2, message: 'Profile updated successfully', time: '1 hour ago' },
-  { id: 3, message: 'New swap offer received', time: 'Yesterday' },
-];
-
 export default function UserNotificationsPanel() {
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const res = await axios.get('/api/notifications');
+        // Make sure res.data is an array
+        setNotifications(Array.isArray(res.data) ? res.data : []);
+      } catch (err) {
+        console.error('Error fetching notifications:', err);
+        setNotifications([]);
+      }
+    };
+
+    fetchNotifications();
+  }, []);
+
   return (
     <div className="notifications-panel">
       <h3>Notifications</h3>
       <ul>
-        {dummyNotifications.map((note) => (
-          <li key={note.id}>
+        {notifications.map((note) => (
+          <li key={note._id}>
             <div className="note-message">{note.message}</div>
-            <div className="note-time">{note.time}</div>
+            <div className="note-time">{new Date(note.createdAt).toLocaleString()}</div>
           </li>
         ))}
       </ul>

@@ -19,3 +19,16 @@ router.get('/:id', protect, getUserById); // User/Admin
 
 module.exports = router;
 
+
+
+
+
+
+// | Method | Route            | Access     | Description           | Body Required | Example Body (if any)                              |
+// | ------ | ---------------- | ---------- | --------------------- | ------------- | -------------------------------------------------- |
+// | GET    | `/api/users/me`  | Protected  | Get current user info | ❌             | –                                                  |
+// | PUT    | `/api/users/me`  | Protected  | Update current user   | ✅             | `{ "name": "New Name", "email": "test@mail.com" }` |
+// | DELETE | `/api/users/me`  | Protected  | Delete own account    | ❌             | –                                                  |
+// | GET    | `/api/users`     | Admin Only | Get all users         | ❌             | –                                                  |
+// | GET    | `/api/users/:id` | Protected  | Get user by ID        | ❌             | –                                                  |
+

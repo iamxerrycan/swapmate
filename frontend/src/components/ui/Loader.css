@@ -1,5 +1,5 @@
 /* loader.css */
-.loader-overlay {
+.loader-overlay-loader {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,17 +7,19 @@
   width: 100%;
 }
 
-.spinner {
+.spinner-loader {
   width: 48px;
   height: 48px;
   border: 5px solid rgba(0, 0, 0, 0.1);
   border-top: 5px solid #00bcd4;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  box-shadow: 0 0 8px rgba(0, 188, 212, 0.4);
 }
 
+
 @media (max-width: 500px) {
-  .spinner {
+  .spinner-loader {
     width: 36px;
     height: 36px;
     border-width: 4px;

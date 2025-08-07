@@ -8,11 +8,13 @@ import ButtonLoader from '../../../../components/ui/ButtonLoader';
 import { FaExchangeAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import Loader from '../../../../components/ui/Loader';
+import useNotifications from '../../../../hooks/useNotifications';
 
 export default function SwapItemPage() {
   const { itemId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { creatNotification } = useNotifications();
 
   const [selectedUserItemId, setSelectedUserItemId] = useState('');
   const { selectedItem, isLoading } = useSelector((state) => state.items);
@@ -32,12 +34,12 @@ export default function SwapItemPage() {
   }, [itemId, dispatch]);
 
   const userItems = items.filter(
-    (item) => item.user === user.user._id || item.user?._id === user.user._id
+    (item) => item.user === user._id || item.user?._id === user._id || user?.user?._id
   );
 
   const handleRequestSwap = async () => {
     const payload = {
-      fromUser: user.user._id,
+      fromUser: user._id || user?.user._id ||user?.user?._id,
       toUser:
         typeof selectedItem.user === 'object'
           ? selectedItem.user._id
@@ -47,10 +49,21 @@ export default function SwapItemPage() {
       status: 'Pending',
     };
 
-    console.log('Payload being sent:', payload);
+    console.log('Payload being sent: sapitempagee========', payload);
 
     try {
-      await dispatch(createSwap(payload)).unwrap();
+      const createdSwap = await dispatch(createSwap(payload)).unwrap();
+
+      // 🔔 Notify the other user
+      await creatNotification({
+        receiver: payload.toUser,
+        message: 'You have received a new swap request.',
+        type: 'swap',
+        relatedItem: payload.toItem,
+        relatedSwap: createdSwap._id,
+        actionURL: `/dashboard/swaps/${createdSwap._id}`,
+      });
+
       toast.success('Swap request sent successfully');
       navigate('/dashboard/swapitem');
     } catch (err) {
@@ -59,9 +72,9 @@ export default function SwapItemPage() {
     }
   };
 
- if (isLoading || !selectedItem) {
-  return <Loader fullHeight={true} />;
-}
+  if (isLoading || !selectedItem) {
+    return <Loader fullHeight={true} />;
+  }
 
   return (
     <div className="swap-page-container">

@@ -17,7 +17,7 @@ const { protect } = require('../middleware/authMiddleware');
 
 // Create a swap request
 router.post('/sendrequest', (req, res, next) => {
-  console.log('🔥 Incoming swap request');
+  // console.log('🔥 Incoming swap request');
   next();
 }, createSwapRequest);
 
@@ -46,3 +46,24 @@ router.delete("/:id", protect, deleteSwap);
 module.exports = router;
 
 
+
+// | Method   | Route                    | Purpose                         | Body (if required)  |
+// | -------- | ------------------------ | ------------------------------- | ------------------- |
+// | `POST`   | `/api/swaps/sendrequest` | Send a swap request             | ✅ Yes *(see below)* |
+// | `GET`    | `/api/swaps/swaps`       | Get all swaps (admin/dashboard) | ❌ No                |
+// | `GET`    | `/api/swaps/my`          | Get user's swap requests        | ❌ No                |
+// | `GET`    | `/api/swaps/:id`         | Get swap by ID                  | ❌ No                |
+// | `PUT`    | `/api/swaps/:id/accept`  | Accept swap                     | ❌ No                |
+// | `PUT`    | `/api/swaps/:id/reject`  | Reject swap                     | ❌ No                |
+// | `PUT`    | `/api/swaps/:id/cancel`  | Cancel swap                     | ❌ No                |
+// | `DELETE` | `/api/swaps/:id`         | Delete swap                     | ❌ No                |
+
+
+// {
+//   "fromUser": "USER_ID_1",
+//   "toUser": "USER_ID_2",
+//   "fromItem": "ITEM_ID_1",
+//   "toItem": "ITEM_ID_2",
+//   "status": "Pending",
+//   "message": "Swap request message"
+// }

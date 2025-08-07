@@ -6,7 +6,7 @@ const itemRoutes = require("./itemRoutes");
 const adminRoutes = require("./adminRoutes");
 const userRoutes = require("./userRoutes");
 const swapRoutes = require("./swapRoutes");
-
+const notificationRoutes = require("./notificationRoutes");
 
 // Prefix each route group
 router.use("/auth", authRoutes);    
@@ -14,6 +14,7 @@ router.use("/items", itemRoutes);
 router.use("/admin", adminRoutes);
 router.use("/user", userRoutes ) 
 router.use("/swaps", swapRoutes)
+router.use("/notifications", notificationRoutes);
 
 module.exports = router;
 

@@ -28,3 +28,17 @@ router.post('/reset/:token', resetPassword);
 
 module.exports = router;
 
+
+
+
+
+// | Method | Route                    | Access    | Description               | Body Required | Example Body (if any)                                               |
+// | ------ | ------------------------ | --------- | ------------------------- | ------------- | ------------------------------------------------------------------- |
+// | POST   | `/api/auth/register`     | Public    | Register new user         | ✅             | `{ "name": "Raj", "email": "test@mail.com", "password": "123456" }` |
+// | POST   | `/api/auth/login`        | Public    | Login                     | ✅             | `{ "email": "test@mail.com", "password": "123456" }`                |
+// | POST   | `/api/auth/logout`       | Protected | Logout                    | ❌             | –                                                                   |
+// | PUT    | `/api/auth/update`       | Protected | Update profile            | ✅             | `{ "name": "New Name", "email": "new@mail.com" }`                   |
+// | GET    | `/api/auth/profile`      | Protected | Get profile               | ❌             | –                                                                   |
+// | DELETE | `/api/auth/delete`       | Protected | Delete account            | ❌             | –                                                                   |
+// | POST   | `/api/auth/forget`       | Public    | Send reset email          | ✅             | `{ "email": "test@mail.com" }`                                      |
+// | POST   | `/api/auth/reset/:token` | Public    | Reset password with token | ✅             | `{ "password": "newpassword123" }`                                  |
