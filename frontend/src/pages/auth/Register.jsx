@@ -8,7 +8,7 @@ import AuthHeader from '../../components/ui/Header';
 import { toast } from 'react-toastify';
 import { useFormValidation } from '../../hooks/useFormValidation'; // adjust path as needed
 import { useEffect } from 'react';
-import ButtonLoader from '../../components/ui/ButtonLoader';
+import Spinner from '../../components/ui/Spinner';
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -102,7 +102,13 @@ export default function Register() {
       />
       {errors.password && <p className="input-error">{errors.password}</p>}
 
-      <ButtonLoader isLoading={isSubmitting} text="Register" />
+      <button
+  type="submit"
+  className="login-button"
+  disabled={isSubmitting}
+>
+  {isSubmitting ? <Spinner small /> : 'Login'}
+</button>
 
 
       <p>
