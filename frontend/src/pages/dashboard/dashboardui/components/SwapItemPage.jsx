@@ -5,6 +5,7 @@ import { fetchItemById } from '../../../../features/items/itemSlice';
 import { createSwap } from '../../../../features/swap/swapSlice';
 import './SwapItempage.css';
 import ButtonLoader from '../../../../components/ui/ButtonLoader';
+import { FaExchangeAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 export default function SwapItemPage() {
@@ -18,10 +19,10 @@ export default function SwapItemPage() {
   const { items } = useSelector((state) => state.items); // All items from redux
   const { creatingSwap, swapError } = useSelector((state) => state.swaps);
 
-  console.log('selectedItem:', selectedItem);
-  console.log('selectedUserItemId:', selectedUserItemId);
-  console.log('items:', items);
-  console.log('user:', user);
+  // console.log('selectedItem:', selectedItem);
+  // console.log('selectedUserItemId:', selectedUserItemId);
+  // console.log('items:', items);
+  // console.log('user:', user);
 
   useEffect(() => {
     if (itemId) {
@@ -63,7 +64,10 @@ export default function SwapItemPage() {
 
   return (
     <div className="swap-page-container">
-      <h2 className="swap-title">Swap This Item</h2>
+      <h2 className="swap-title">
+        <FaExchangeAlt style={{ marginRight: '10px' }} />
+        Swap This Item
+      </h2>
 
       <div className="swap-item-details">
         <img

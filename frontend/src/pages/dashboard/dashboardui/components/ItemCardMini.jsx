@@ -28,7 +28,6 @@ export default function ItemCardMini({ item }) {
           </div>
           <div className="item-card-actions">
             <button className="btn-view" onClick={() => setFlipped(true)}>View</button>
-            <button className="btn-swap" onClick={() => alert('Redirect to swap page...')}>Swap</button>
           </div>
         </div>
 
