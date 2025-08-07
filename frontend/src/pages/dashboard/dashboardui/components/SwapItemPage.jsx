@@ -7,6 +7,7 @@ import './SwapItempage.css';
 import ButtonLoader from '../../../../components/ui/ButtonLoader';
 import { FaExchangeAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import Loader from '../../../../components/ui/Loader';
 
 export default function SwapItemPage() {
   const { itemId } = useParams();
@@ -58,8 +59,10 @@ export default function SwapItemPage() {
     }
   };
 
-  if (isLoading || !selectedItem) {
-    return <div className="loading">Loading item details...</div>;
+  if (isLoading) {
+    return (
+      <Loader fullHeight={true} />
+    );
   }
 
   return (

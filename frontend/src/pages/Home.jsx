@@ -5,6 +5,7 @@ import ItemCard from '../components/ui/ItemCard';
 import SearchBar from '../components/ui/SearchBar';
 import FilterBox from '../components/ui/FilterBox';
 import './Home.css';
+import Loader from '../components/ui/Loader';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ export default function Home() {
 </div>
 
 
-      {loading && <p className="loading">⏳ Loading items...</p>}
+      {loading && <Loader fullHeight={true} />}
       {error && <p className="error">⚠️ {error}</p>}
 
       <div className="items-grid">
