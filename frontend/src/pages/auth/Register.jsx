@@ -107,7 +107,7 @@ export default function Register() {
   className="login-button"
   disabled={isSubmitting}
 >
-  {isSubmitting ? <Spinner small /> : 'Login'}
+  {isSubmitting ? <Spinner small /> : 'Register'}
 </button>
 
 
