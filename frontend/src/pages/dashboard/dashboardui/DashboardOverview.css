@@ -4,6 +4,7 @@
   padding: 1rem;
   max-width: 1200px;
   margin: auto;
+  overflow-x: hidden;
 }
 
 /* By default, single column (mobile-first) */
@@ -24,6 +25,8 @@
 .grid-item {
   background-color: white;
   border-radius: 1rem;
+   max-width: 100%;
+  flex: 1 1 100%;
   padding: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
@@ -35,5 +38,17 @@
 
 /* Force full width across all columns */
 .full-width {
-  grid-column: 1 / -1;
+  .full-width {
+  width: 100%;           /* Use relative to parent */
+  box-sizing: border-box;
+  padding: 0 16px;        /* Add padding if needed */
+}
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-overview-container{
+    padding: 0;
+    padding-right: 0.5rem;
+  }
+  
 }
