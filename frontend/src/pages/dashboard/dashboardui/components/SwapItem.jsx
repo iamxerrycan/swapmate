@@ -9,12 +9,16 @@ import './SwapItem.css';
 export default function SwapItem() {
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.items);
+  const { user } = useSelector((state) => state.auth);
 
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
   const [sortBy, setSortBy] = useState('');
   const [userLocation, setUserLocation] = useState(null);
-  console.log('items', items);
+  console.log('User item id :', items.user?._id);
+
+  console.log('user ID', user.user?._id);
+  console.log('items swap', items);
 
   useEffect(() => {
     let query = '';
@@ -60,7 +64,14 @@ export default function SwapItem() {
 
   // Main filtered and sorted array
   const filteredItems = items
-    .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()))
+    // .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()))
+    .filter((item) => {
+      const isNotOwnItem = item?.user?._id !== user?.user?._id;
+      const matchesSearch = item.name
+        .toLowerCase()
+        .includes(search.toLowerCase());
+      return isNotOwnItem && matchesSearch;
+    })
     .sort((a, b) => {
       if (sortBy === 'newest') {
         return new Date(b.createdAt) - new Date(a.createdAt);
@@ -91,8 +102,9 @@ export default function SwapItem() {
   return (
     <div className="swap-container">
       <div className="swap-header">
-        <h2 className="swap-title">Total Swap Items ({filteredItems.length})</h2>
-
+        <h2 className="swap-title">
+          Total Swap Items ({filteredItems.length})
+        </h2>
       </div>
 
       <div className="swap-controls">
@@ -118,8 +130,7 @@ export default function SwapItem() {
         </div>
       </div>
 
-    <div className="swap-items-grid">
-
+      <div className="swap-items-grid">
         {filteredItems.length > 0 ? (
           filteredItems.map((item) => (
             <ItemCardMini key={item._id} item={item} />
