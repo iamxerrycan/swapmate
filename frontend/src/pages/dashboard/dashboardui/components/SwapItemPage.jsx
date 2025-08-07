@@ -59,11 +59,9 @@ export default function SwapItemPage() {
     }
   };
 
-  if (isLoading) {
-    return (
-      <Loader fullHeight={true} />
-    );
-  }
+ if (isLoading || !selectedItem) {
+  return <Loader fullHeight={true} />;
+}
 
   return (
     <div className="swap-page-container">
@@ -74,8 +72,8 @@ export default function SwapItemPage() {
 
       <div className="swap-item-details">
         <img
-          src={selectedItem.image || '/placeholder.png'}
-          alt={selectedItem.name}
+          src={selectedItem?.image || '/placeholder.png'}
+          alt={selectedItem?.user?.name || 'Item'}
           className="swap-item-image"
         />
         <div className="swap-item-info">
