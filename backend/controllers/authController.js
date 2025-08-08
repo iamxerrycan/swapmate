@@ -7,16 +7,16 @@ const {
   forgetPasswordService,
   resetPasswordService,
 } = require('../services/authService');
-const Activity = require('../models/ActivityModel')
+const Activity = require('../models/ActivityModel');
 
 exports.register = async (req, res) => {
   try {
     const { name, email, password, isAdmin } = req.body;
     const result = await registerUser({ name, email, password, isAdmin });
-  
+
     await Activity.create({
-      description: 'New user registered',
-      user: result._id,
+      description: 'Registered as a new user!',
+      user: result._id || result.newUser?._id || result.newUser._id,
     });
 
     res.status(201).json(result);

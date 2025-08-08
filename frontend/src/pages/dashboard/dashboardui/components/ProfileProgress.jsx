@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import './ProfileProgress.css';
 import API from '../../../../utils/api/axiosInstance';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileProgress = () => {
   const [completion, setCompletion] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCompletion = async () => {
@@ -31,7 +33,7 @@ const ProfileProgress = () => {
             </p>
           </div>
         </div>
-        <button className="profile-upgrade-btn">Upgrade</button>
+        <button className="profile-upgrade-btn"onClick={()=>navigate('/dashboard/profile')}>Upgrade</button>
       </div>
 
       <div className="profile-bar-bg">
