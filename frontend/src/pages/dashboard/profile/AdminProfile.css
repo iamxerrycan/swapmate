@@ -31,13 +31,13 @@
   animation: fadeIn 0.4s ease-out;
 }
 
-.profile-avatar {
+.profile-avatar-container  {
   display: flex;
   justify-content: center;
   margin-bottom: 1.5rem;
 }
 
-.profile-avatar img,
+.profile-avatar-container img,
 .avatar-placeholder {
   width: 100px;
   height: 100px;

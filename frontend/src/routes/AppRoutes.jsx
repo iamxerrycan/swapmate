@@ -12,8 +12,6 @@ import Profile from '../pages/Profile';
 // import CreateItem from '../pages/CreateItem';
 import UserProfile from '../pages/dashboard/users/UserProfile';
 // import SwapItem from '../pages/SwapRequest';
-
-import AppLayout from '../components/layout/AppLayoute';
 import DashboardLayout from '../pages/dashboard/sidebartopbarlayout/DashboardLayout';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -42,67 +40,8 @@ export default function AppRoutes() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
 
-      {/* 🔐 User-Protected Routes (with layout) */}
-      <Route element={<ProtectedRoute />}>
-        <Route
-          path="/home"
-          element={
-            <AppLayout>
-              <Home />
-            </AppLayout>
-          }
-        />
-        <Route
-          path="/item/:id"
-          element={
-            <AppLayout>
-              <ItemDetails />
-            </AppLayout>
-          }
-        />
-        <Route
-          path="/create-item"
-          element={
-            <AppLayout>
-              <CreateItem />
-            </AppLayout>
-          }
-        />
-        <Route
-          path="/edit-item/:id"
-          element={
-            <AppLayout>
-              <EditItem />
-            </AppLayout>
-          }
-        />
-        <Route
-          path="/swap-item/:id"
-          element={
-            <AppLayout>
-              <SwapItem />
-            </AppLayout>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <AppLayout>
-              <Profile />
-            </AppLayout>
-          }
-        />
-      </Route>
-
       {/* 🔓 Public / General User Profile */}
-      <Route
-        path="/user/:id"
-        element={
-          <AppLayout>
-            <UserProfile />
-          </AppLayout>
-        }
-      />
+      <Route path="/user/:id" element={<UserProfile />} />
 
       {/* 🔐 Admin Dashboard Routes */}
       <Route element={<ProtectedRoute allowedRoles={['admin', 'user']} />}>

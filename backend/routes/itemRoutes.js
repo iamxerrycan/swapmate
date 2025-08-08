@@ -8,32 +8,54 @@ const {
   getAllItems,
   getItemById,
   getItemsByUser,
+  getItemsBySpecificUser,
   markItemSwapped,
 } = require('../controllers/itemController');
 
-//  POST: Create new item (Protected)
+// POST: Create new item (Protected)
 router.post('/', protect, createItem);
 
-//  GET: All items with optional filter (Public)
+// GET: All items with optional filter (Public)
 router.get('/', getAllItems);
 
-
-// GET: All items by logged-in user (Protected)
+// GET: Items for logged-in user (Protected) — more specific, first
 router.get('/user/items', protect, getItemsByUser); 
 
-//  GET: Single item by ID (Public)
+// GET: Items by specific user ID (Public) — also specific, second
+router.get('/user/:id', getItemsBySpecificUser);
+
+// GET: Single item by ID (Public) — least specific, last
 router.get('/:id', getItemById);
 
-router.put('/:id/swap',protect , markItemSwapped);
+// PUT: Mark item swapped (Protected)
+router.put('/:id/swap', protect, markItemSwapped);
 
-//  PUT: Update item by ID (Protected)
-router.put('/:id',protect, updateItem);
+// PUT: Update item by ID (Protected)
+router.put('/:id', protect, updateItem);
 
 // DELETE: Delete item by ID (Protected)
-router.delete('/:id',protect, deleteItem);
-
+router.delete('/:id', protect, deleteItem);
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

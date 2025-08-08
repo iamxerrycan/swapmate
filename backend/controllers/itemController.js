@@ -186,3 +186,17 @@ exports.deleteItem = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.getItemsBySpecificUser = async (req, res) => {
+  try {
+    const items = await Item.find({ user: req.params.id });
+    if (!items.length) {
+      return res.status(404).json({ message: 'No items found for this user' });
+    }
+    res.json(items);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+

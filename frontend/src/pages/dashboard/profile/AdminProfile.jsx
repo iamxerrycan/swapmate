@@ -54,7 +54,7 @@ const AdminProfile = () => {
         
         {/* Profile Details Card */}
         <div className="profile-card-main">
-          <div className="profile-avatar">
+          <div className="profile-avatar-container">
             {user?.profilePic ? (
               <img src={user.profilePic} alt="Profile" />
             ) : (
