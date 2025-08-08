@@ -6,6 +6,8 @@ const {
   getUserByIdService,
 } = require('../services/userService');
 const User = require('../models/userModel');
+const Item = require('../models/itemModel');
+const SwapRequest = require('../models/swapModel');
 
 exports.getMe = async (req, res) => {
   try {
@@ -101,37 +103,35 @@ exports.getUserById = async (req, res) => {
 exports.getUserStats = async (req, res) => {
   try {
     const userId = req.user._id;
-    const user = await User.findById(userId); // ✅ FIXED
+    const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ message: 'Failed to get user by ID' });
+      return res.status(404).json({ message: 'User not found' });
     }
 
-    const listed = await Item.countDocuments({ user: userId });
-    const swapped = await Item.countDocuments({
-      user: userId,
-      isSwapped: true,
-    });
-    const pending = await SwapRequest.countDocuments({
-      fromUser: userId,
-      status: 'Pending',
-    });
-    const rejected = await SwapRequest.countDocuments({
-      fromUser: userId,
-      status: 'Rejected',
-    });
-    const accepted = await SwapRequest.countDocuments({
-      fromUser: userId,
-      status: 'Accepted',
-    });
-    const fulfilled = await SwapRequest.countDocuments({
-      fromUser: userId,
-      status: 'Completed',
-    });
-    const cancelled = await SwapRequest.countDocuments({
-      fromUser: userId,
-      status: 'Cancelled',
-    });
+    const [
+      listed,
+      swapped,
+      pending,
+      rejected,
+      accepted,
+      fulfilled,
+      cancelled,
+      // receivedPending,
+    ] = await Promise.all([
+      Item.countDocuments({ user: userId, isDeleted: false }),
+      Item.countDocuments({
+        user: userId,
+        isSwapped: true,
+        isDeleted: false,
+      }),
+      SwapRequest.countDocuments({ fromUser: userId, status: 'Pending' }),
+      SwapRequest.countDocuments({ fromUser: userId, status: 'Rejected' }),
+      SwapRequest.countDocuments({ fromUser: userId, status: 'Accepted' }),
+      SwapRequest.countDocuments({ fromUser: userId, status: 'Completed' }),
+      SwapRequest.countDocuments({ fromUser: userId, status: 'Cancelled' }),
+      // SwapRequest.countDocuments({ toUser: userId, status: 'Pending' }),
+    ]);
 
     res.json({
       listed,
@@ -141,10 +141,10 @@ exports.getUserStats = async (req, res) => {
       accepted,
       fulfilled,
       cancelled,
+      // received: { pending: receivedPending || 0 },
     });
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching stats:', error);
     res.status(500).json({ message: 'Server Error' });
   }
 };
-

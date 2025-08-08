@@ -12,6 +12,9 @@ const UserStatsCard = () => {
     accepted: 0,
     fulfilled: 0,
     cancelled: 0,
+    received: {
+      pending: 0,
+    },
   });
 
   const [loading, setLoading] = useState(true);
@@ -69,6 +72,10 @@ const UserStatsCard = () => {
           <span className="user-stats-label">Cancelled Requests</span>
           <span className="user-stats-value">{stats.cancelled}</span>
         </li>
+        {/* <li>
+          <span>Incoming Pending Requests</span>
+          <span>{stats.received.pending}</span>
+        </li> */}
       </ul>
     </div>
   );
