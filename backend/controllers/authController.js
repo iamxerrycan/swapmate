@@ -7,11 +7,18 @@ const {
   forgetPasswordService,
   resetPasswordService,
 } = require('../services/authService');
+const Activity = require('../models/ActivityModel')
 
 exports.register = async (req, res) => {
   try {
     const { name, email, password, isAdmin } = req.body;
     const result = await registerUser({ name, email, password, isAdmin });
+  
+    await Activity.create({
+      description: 'New user registered',
+      user: result._id,
+    });
+
     res.status(201).json(result);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -37,7 +44,11 @@ exports.updateProfile = async (req, res) => {
   try {
     const userId = req.user._id;
     const { name, email, password } = req.body;
-    const updatedUser = await updateUserService(userId, { name, email, password });
+    const updatedUser = await updateUserService(userId, {
+      name,
+      email,
+      password,
+    });
     res.status(200).json({ message: 'User updated', user: updatedUser });
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -82,6 +93,3 @@ exports.resetPassword = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-
-
-
