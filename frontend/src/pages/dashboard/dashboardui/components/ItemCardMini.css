@@ -153,15 +153,15 @@
   color: #fff;
   transform: scale(1.1);
 }
-
 @media screen and (max-width: 768px) {
   .item-card-mini {
-    height: 350px;
+    height: 400px; /* was 350px — increased for better content fit */
     max-width: 100%;
   }
 
   .flip-card-front,
   .flip-card-back {
+    height: 100%;
     padding: 1rem 0.8rem;
   }
 
@@ -179,15 +179,4 @@
   .flip-card-back p strong {
     width: 110px;
   }
-}
-
-.flip-card-front::-webkit-scrollbar,
-.flip-card-back::-webkit-scrollbar {
-  display: none;
-}
-
-.flip-card-front,
-.flip-card-back {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
