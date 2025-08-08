@@ -28,7 +28,7 @@ exports.createSwapRequestService = async ({
 
   const newSwap = await SwapRequest.create({
     fromUser,
-    fromItem: fromItem || undefined, // Make optional
+    fromItem: fromItem || null, // Make optional
     toUser,
     toItem,
     status: status || 'Pending',
@@ -72,7 +72,7 @@ exports.acceptSwapService = async (swapId) => {
   if (!swap) throw new Error('Swap not found');
 
   swap.status = 'accepted';
-await swap.save();
+  await swap.save();
 
   return { message: 'Swap accepted', swap };
 };
@@ -111,7 +111,7 @@ exports.deleteSwapService = async (swapId) => {
 // Admin: get all swaps
 exports.getAllSwapsService = async () => {
   return await SwapRequest.find()
-   .populate('fromUser', 'name email')
+    .populate('fromUser', 'name email')
     .populate('toUser', 'name email')
     .populate('fromItem')
     .populate('toItem');

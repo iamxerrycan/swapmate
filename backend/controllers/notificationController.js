@@ -22,7 +22,7 @@ const createNotification = async (req, res) => {
       receiver,
       message,
       type,
-      relatedItem,
+      relatedItem: relatedItem || null,
       relatedSwap,
       actionURL,
     });
