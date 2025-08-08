@@ -3,27 +3,18 @@ const {
   getNotificationsService,
   getUnreadCountService,
   markAsReadService,
+  getNotificationsByReceiverService,
   deleteNotificationService,
 } = require("../services/notificationService");
 
 // @desc    Create a new notification
-// controllers/notificationController.js
-
 const createNotification = async (req, res) => {
   try {
-    const {
-      receiver,
-      message,
-      type,
-      relatedItem,
-      relatedSwap,
-      actionURL,
-    } = req.body;
-
+    const { receiver, message, type, relatedItem, relatedSwap, actionURL } = req.body;
     const sender = req.user?._id;
 
     if (!sender) {
-      return res.status(401).json({ message: 'Sender (logged-in user) is missing or unauthorized' });
+      return res.status(401).json({ message: "Sender (logged-in user) is missing or unauthorized" });
     }
 
     const newNotification = await createNotificationService({
@@ -38,11 +29,10 @@ const createNotification = async (req, res) => {
 
     res.status(201).json(newNotification);
   } catch (error) {
-    console.error('❌ Notification creation failed:', error);
-    res.status(500).json({ message: 'Internal server error', error: error.message });
+    console.error("❌ Notification creation failed:", error);
+    res.status(400).json({ message: error.message || "Internal server error" });
   }
 };
-
 
 // @desc    Get all notifications for logged-in user
 const getNotifications = async (req, res) => {
@@ -50,7 +40,7 @@ const getNotifications = async (req, res) => {
     const notifications = await getNotificationsService(req.user._id);
     res.status(200).json(notifications);
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch notifications", error });
+    res.status(400).json({ message: error.message || "Failed to fetch notifications" });
   }
 };
 
@@ -60,7 +50,7 @@ const getUnreadCount = async (req, res) => {
     const count = await getUnreadCountService(req.user._id);
     res.status(200).json({ unreadCount: count });
   } catch (error) {
-    res.status(500).json({ message: "Failed to get unread count", error });
+    res.status(400).json({ message: error.message || "Failed to get unread count" });
   }
 };
 
@@ -75,7 +65,17 @@ const markNotificationAsRead = async (req, res) => {
 
     res.status(200).json(notification);
   } catch (error) {
-    res.status(500).json({ message: "Failed to mark notification as read", error });
+    res.status(400).json({ message: error.message || "Failed to mark notification as read" });
+  }
+};
+
+// @desc    Get notifications by receiver
+const getNotificationsByReceiver = async (req, res) => {
+  try {
+    const notifications = await getNotificationsByReceiverService(req.user._id);
+    res.status(200).json(notifications);
+  } catch (error) {
+    res.status(400).json({ message: error.message || "Failed to fetch notifications" });
   }
 };
 
@@ -90,7 +90,7 @@ const deleteNotification = async (req, res) => {
 
     res.status(200).json({ message: "Notification deleted" });
   } catch (error) {
-    res.status(500).json({ message: "Failed to delete notification", error });
+    res.status(400).json({ message: error.message || "Failed to delete notification" });
   }
 };
 
@@ -100,4 +100,5 @@ module.exports = {
   getUnreadCount,
   markNotificationAsRead,
   deleteNotification,
+  getNotificationsByReceiver,
 };

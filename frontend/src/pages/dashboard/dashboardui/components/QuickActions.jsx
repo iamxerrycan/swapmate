@@ -36,7 +36,20 @@ export default function QuickActions() {
           <Settings size={18} />
           Settings
         </button>
+
+        <button onClick={() => navigate("/dashboard/notifications")} className="quick-action-button quick-action-notifications">
+        
+          <Layers size={18} />
+          Notifications
+        </button>
+<button onClick={() => navigate("/dashboard/manageswap")} className="quick-action-button quick-action-swap">
+              <Layers size={18} />
+              Manage Swap
+            </button>
+
       </div>
+
+      
 
       {showModal && <CreateItemModal onClose={() => setShowModal(false)} />}
     </div>

@@ -7,8 +7,13 @@ const {
   updateProfile,
   deleteAccount,
   getAllUsers,
+  getUserStats,
   getUserById,
 } = require('../controllers/userController');
+
+
+router.get('/stats', protect, getUserStats);
+
 
 router.get('/me', protect, getMe); // Get logged-in user info
 router.put('/me', protect, updateProfile); // Update profile

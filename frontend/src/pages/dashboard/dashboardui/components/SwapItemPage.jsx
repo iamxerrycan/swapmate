@@ -14,18 +14,14 @@ export default function SwapItemPage() {
   const { itemId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { creatNotification } = useNotifications();
+  const { createNotification } = useNotifications(); // ✅ fixed name
 
   const [selectedUserItemId, setSelectedUserItemId] = useState('');
-  const { selectedItem, isLoading } = useSelector((state) => state.items);
+  const { selectedItem, isLoading, items } = useSelector(
+    (state) => state.items
+  );
   const { user } = useSelector((state) => state.auth);
-  const { items } = useSelector((state) => state.items); // All items from redux
   const { creatingSwap, swapError } = useSelector((state) => state.swaps);
-
-  // console.log('selectedItem:', selectedItem);
-  // console.log('selectedUserItemId:', selectedUserItemId);
-  // console.log('items:', items);
-  // console.log('user:', user);
 
   useEffect(() => {
     if (itemId) {
@@ -33,13 +29,19 @@ export default function SwapItemPage() {
     }
   }, [itemId, dispatch]);
 
+  // Items owned by logged-in user
   const userItems = items.filter(
-    (item) => item.user === user._id || item.user?._id === user._id || user?.user?._id
+    (item) => item.user?._id?.toString() === user?.user?._id?.toString()
   );
 
   const handleRequestSwap = async () => {
+    // if (!selectedUserItemId) {
+    //   toast.error('Please select one of your items to swap');
+    //   return;
+    // }
+
     const payload = {
-      fromUser: user._id || user?.user._id ||user?.user?._id,
+      fromUser: user._id || user?.user._id,
       toUser:
         typeof selectedItem.user === 'object'
           ? selectedItem.user._id
@@ -49,20 +51,28 @@ export default function SwapItemPage() {
       status: 'Pending',
     };
 
-    console.log('Payload being sent: sapitempagee========', payload);
-
     try {
       const createdSwap = await dispatch(createSwap(payload)).unwrap();
 
-      // 🔔 Notify the other user
-      await creatNotification({
+      // Notify the other user
+      await createNotification({
+        sender: payload.fromUser,
         receiver: payload.toUser,
         message: 'You have received a new swap request.',
-        type: 'swap',
-        relatedItem: payload.toItem,
+        type: 'swap_request',
+        relatedItem: selectedItem._id,
         relatedSwap: createdSwap._id,
         actionURL: `/dashboard/swaps/${createdSwap._id}`,
       });
+      // await createNotification({
+      //   sender: payload.fromUser,
+      //   receiver: payload.toUser,
+      //   message: 'You have received a new swap request.',
+      //   type: 'swap_request', // matches your backend enum
+      //   relatedItem: payload.toItem,
+      //   relatedSwap: createdSwap._id,
+      //   actionURL: `/dashboard/swaps/${createdSwap._id}`,
+      // });
 
       toast.success('Swap request sent successfully');
       navigate('/dashboard/swapitem');
@@ -86,7 +96,7 @@ export default function SwapItemPage() {
       <div className="swap-item-details">
         <img
           src={selectedItem?.image || '/placeholder.png'}
-          alt={selectedItem?.user?.name || 'Item'}
+          alt={selectedItem?.name || 'Item'}
           className="swap-item-image"
         />
         <div className="swap-item-info">
