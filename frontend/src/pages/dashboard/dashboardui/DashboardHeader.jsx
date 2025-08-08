@@ -6,7 +6,7 @@ const DashboardHeader = () => {
   return (
     <header className="dashboard-header">
       <div className="dashboard-left">
-        <div className="dashboard-logo">⚡ SwapMate Dashboard</div>
+        {/* <div className="dashboard-logo">⚡ SwapMate Dashboard</div> */}
       </div>
       <div className="dashboard-right">
         <input
