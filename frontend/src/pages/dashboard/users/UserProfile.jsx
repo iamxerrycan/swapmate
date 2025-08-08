@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import API from '../../../utils/api/axiosInstance';
 import './UserProfile.css';
 import { CircleUserRound } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
   const { id } = useParams();
@@ -13,9 +12,6 @@ const UserProfile = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  console.log('user', user);
-  console.log('items', items);
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -24,8 +20,7 @@ const UserProfile = () => {
 
         const itemsRes = await API.get(`/api/items/user/${id}`);
         setItems(itemsRes.data);
-      } catch (err) {
-        console.error('Failed to fetch user or items', err);
+      } catch  {
         setError('Failed to load user profile');
       } finally {
         setLoading(false);
@@ -35,28 +30,16 @@ const UserProfile = () => {
     fetchUserData();
   }, [id]);
 
-  if (loading) {
-    return <p className="loading-text">Loading...</p>;
-  }
-
-  if (error) {
-    return <p className="error-text">{error}</p>;
-  }
-
-  if (!user) {
-    return <p className="not-found-text">User not found</p>;
-  }
+  if (loading) return <p className="loading-text">Loading...</p>;
+  if (error) return <p className="error-text">{error}</p>;
+  if (!user) return <p className="not-found-text">User not found</p>;
 
   return (
     <div className="user-profile-page">
       {/* Profile Header */}
       <div className="profile-header">
         {user.profilePic ? (
-          <img
-            src={user.profilePic}
-            alt={user.name}
-            className="profile-pic"
-          />
+          <img src={user.profilePic} alt={user.name} className="profile-pic" />
         ) : (
           <CircleUserRound size={128} color="#ccc" />
         )}
@@ -65,8 +48,6 @@ const UserProfile = () => {
         {user.bio && <p className="profile-bio"><strong>Bio:</strong> {user.bio}</p>}
         <p><strong>Member Since:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
         <p><strong>Admin Status:</strong> {user.isAdmin ? 'Yes' : 'No'}</p>
-        <button onClick={() => navigate('/dashboard')}>Go to Dashboard</button>
-        {/* Add more user fields here if needed */}
       </div>
 
       {/* User Items */}
@@ -91,7 +72,12 @@ const UserProfile = () => {
                   <p><strong>Address:</strong> {item.address}</p>
                   <p><strong>Created At:</strong> {new Date(item.createdAt).toLocaleDateString()}</p>
                   <p><strong>Swap Status:</strong> {item.swapStatus}</p>
-                  {/* Add any other item fields you want to display */}
+                <button
+  className="swap-button"
+  onClick={() => navigate(`/dashboard/swapitem/${item._id}`)}
+>
+  Swap This Item
+</button>
                 </div>
               </li>
             ))}

@@ -9,6 +9,7 @@ const DashboardHeader = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const navigate = useNavigate();
+  console.log('me', me);
 
   // Get logged-in user
   useEffect(() => {
@@ -38,7 +39,7 @@ const DashboardHeader = () => {
         <div className="search-container">
           <input
             type="text"
-            placeholder="🔍 Search users..."
+            placeholder="Search users..."
             className="dashboard-search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -72,11 +73,14 @@ const DashboardHeader = () => {
         {/* Profile */}
         <div className="dashboard-avatar">
           {me?.avatar ? (
+          
             <img src={me.avatar} alt="Profile" className="profile-avatar" />
           ) : (
-            <FaUserCircle className="profile-icon-dashboard" />
+            <button className="profile-button-click" onClick={() => navigate('/dashboard/profile')}>
+            <FaUserCircle className="profile-icon-dashboard" /> 
+            </button>
           )}
-          {me && <span className="username">{me.username}</span>}
+          {me && <span className="username">{me?.name}</span>}
         </div>
       </div>
     </header>

@@ -15,10 +15,7 @@ const app = express();
 // CORS Middleware (✅ Keep this before routes & body-parser)
 app.use(
   cors({
-    origin: [
-      'http://localhost:5173',
-      'https://swapmate.netlify.app',
-    ],
+    origin: ['http://localhost:5173', 'https://swapmate.netlify.app'],
     credentials: true,
   })
 );
@@ -33,14 +30,12 @@ app.use('/api', routes);
 // Test Route (Optional)
 app.get('/', (req, res) => {
   res.send('API is running...');
-
 });
 
 app.use((req, res, next) => {
   console.log(`📥 ${req.method} ${req.url}`);
   next();
 });
-
 
 // Server
 const PORT = process.env.PORT || 5000;
