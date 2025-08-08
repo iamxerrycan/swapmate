@@ -30,6 +30,7 @@ import ManageItems from '../pages/dashboard/dashboardui/components/ManageItems';
 import EditItem from '../pages/dashboard/dashboardui/components/EditItem';
 import SwapItem from '../pages/dashboard/dashboardui/components/SwapItem';
 import SwapItemPage from '../pages/dashboard/dashboardui/components/SwapItemPage';
+import ManageSwap from '../pages/dashboard/manageswap/ManageSwap';
 
 export default function AppRoutes() {
   return (
@@ -55,6 +56,7 @@ export default function AppRoutes() {
           <Route path="edit/:id" element={<EditItem />} />
           <Route path="swapitem" element={<SwapItem />} />
           <Route path="swapitem/:itemId" element={<SwapItemPage />} />
+          <Route path="manageswap" element={<ManageSwap />} />
 
           {/* Shared pages */}
           <Route index element={<DashboardMain />} />
