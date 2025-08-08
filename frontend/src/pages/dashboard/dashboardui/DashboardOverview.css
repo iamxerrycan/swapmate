@@ -24,13 +24,15 @@
 /* Grid Item Styling */
 .grid-item {
   background-color: white;
+  border: 1px solid black; 
   border-radius: 1rem;
-   max-width: 100%;
+  max-width: 100%;
   flex: 1 1 100%;
   padding: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /*  */
   transition: transform 0.3s ease;
 }
+
 
 .grid-item:hover {
   transform: translateY(-2px);
