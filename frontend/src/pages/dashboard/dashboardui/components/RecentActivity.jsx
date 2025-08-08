@@ -5,11 +5,17 @@ import './RecentActivity.css';
 
 const RecentActivity = () => {
   const [activities, setActivities] = useState([]);
-
-  useEffect(() => {
+  const fetchActivities = () => {
     API.get('/api/activities')
       .then((res) => setActivities(res.data))
       .catch((err) => console.error('Error fetching activities:', err));
+  };
+
+  useEffect(() => {
+    fetchActivities(); // initial fetch
+
+    const interval = setInterval(fetchActivities, 5000); // refresh every 5 seconds
+    return () => clearInterval(interval); // cleanup
   }, []);
 
   return (
