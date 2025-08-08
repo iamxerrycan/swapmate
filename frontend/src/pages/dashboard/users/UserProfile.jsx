@@ -1,24 +1,27 @@
-// src/pages/UserProfile.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import API from '../../../utils/api/axiosInstance';
 import './UserProfile.css';
+import { CircleUserRound } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
-  const { id } = useParams(); // userId from URL
+  const { id } = useParams();
   const [user, setUser] = useState(null);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  console.log('user', user);
+  console.log('items', items);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Fetch user details
         const userRes = await API.get(`/api/user/${id}`);
         setUser(userRes.data);
 
-        // Fetch that user's items
         const itemsRes = await API.get(`/api/items/user/${id}`);
         setItems(itemsRes.data);
       } catch (err) {
@@ -33,51 +36,62 @@ const UserProfile = () => {
   }, [id]);
 
   if (loading) {
-    return <p className="text-center py-4">Loading...</p>;
+    return <p className="loading-text">Loading...</p>;
   }
 
   if (error) {
-    return <p className="text-red-500 text-center py-4">{error}</p>;
+    return <p className="error-text">{error}</p>;
   }
 
   if (!user) {
-    return <p className="text-center py-4">User not found</p>;
+    return <p className="not-found-text">User not found</p>;
   }
 
   return (
-    <div className="user-profile-page max-w-4xl mx-auto px-4 py-8">
+    <div className="user-profile-page">
       {/* Profile Header */}
-      <div className="profile-header flex flex-col items-center bg-white shadow-md rounded-lg p-6 mb-8">
-        <img
-          src={user.profilePic || '/default-avatar.png'}
-          alt={user.name}
-          className="w-32 h-32 rounded-full object-cover border-2 border-gray-300 mb-4"
-        />
-        <h2 className="text-2xl font-bold">{user.name}</h2>
-        <p className="text-gray-600">{user.email}</p>
-        {user.bio && <p className="mt-2 text-center text-gray-500">{user.bio}</p>}
+      <div className="profile-header">
+        {user.profilePic ? (
+          <img
+            src={user.profilePic}
+            alt={user.name}
+            className="profile-pic"
+          />
+        ) : (
+          <CircleUserRound size={128} color="#ccc" />
+        )}
+        <h2 className="profile-name">{user.name}</h2>
+        <p className="profile-email"><strong>Email:</strong> {user.email}</p>
+        {user.bio && <p className="profile-bio"><strong>Bio:</strong> {user.bio}</p>}
+        <p><strong>Member Since:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
+        <p><strong>Admin Status:</strong> {user.isAdmin ? 'Yes' : 'No'}</p>
+        <button onClick={() => navigate('/dashboard')}>Go to Dashboard</button>
+        {/* Add more user fields here if needed */}
       </div>
 
       {/* User Items */}
-      <div className="user-items bg-white shadow-md rounded-lg p-6">
-        <h3 className="text-xl font-semibold mb-4">{user.name}'s Items</h3>
+      <div className="user-items">
+        <h3 className="items-header">{user.name}'s Items</h3>
         {items.length === 0 ? (
-          <p className="text-gray-500">No items found</p>
+          <p className="no-items">No items found</p>
         ) : (
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ul className="items-grid">
             {items.map((item) => (
-              <li
-                key={item._id}
-                className="item-card border rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow"
-              >
+              <li key={item._id} className="item-card">
                 <img
                   src={item.image || '/placeholder-item.png'}
-                  alt={item.title}
-                  className="w-full h-40 object-cover"
+                  alt={item.name || item.title || 'Item Image'}
+                  className="item-image"
                 />
-                <div className="p-4">
-                  <h4 className="font-semibold">{item.title}</h4>
-                  <p className="text-gray-500 text-sm line-clamp-3">{item.description}</p>
+                <div className="item-content">
+                  <h4 className="item-title">{item.name || item.title}</h4>
+                  <p className="item-description"><strong>Description:</strong> {item.description}</p>
+                  <p><strong>Category:</strong> {item.category}</p>
+                  <p><strong>Condition:</strong> {item.condition}</p>
+                  <p><strong>Address:</strong> {item.address}</p>
+                  <p><strong>Created At:</strong> {new Date(item.createdAt).toLocaleDateString()}</p>
+                  <p><strong>Swap Status:</strong> {item.swapStatus}</p>
+                  {/* Add any other item fields you want to display */}
                 </div>
               </li>
             ))}
