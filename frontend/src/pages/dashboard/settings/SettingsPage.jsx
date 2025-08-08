@@ -1,4 +1,5 @@
 import React from 'react';
+import { Lock, Download, Trash2, Settings } from 'lucide-react'; // Icons
 import './SettingsPage.css';
 
 const SettingsPage = ({ isAdmin = false }) => {
@@ -42,7 +43,9 @@ const SettingsPage = ({ isAdmin = false }) => {
         <h3 className="section-title">Security</h3>
         <div className="setting-item">
           <label className="setting-label">Change Password</label>
-          <button className="setting-button">Click</button>
+          <button className="icon-button">
+            <Lock size={18} />
+          </button>
         </div>
       </section>
 
@@ -72,11 +75,15 @@ const SettingsPage = ({ isAdmin = false }) => {
         <h3 className="section-title">Data & Privacy</h3>
         <div className="setting-item">
           <label className="setting-label">Download My Data</label>
-          <button className="setting-button">Click</button>
+          <button className="icon-button">
+            <Download size={18} />
+          </button>
         </div>
         <div className="setting-item">
           <label className="setting-label">Delete My Account</label>
-          <button className="setting-button danger">Click</button>
+          <button className="icon-button danger">
+            <Trash2 size={18} />
+          </button>
         </div>
       </section>
     </div>
