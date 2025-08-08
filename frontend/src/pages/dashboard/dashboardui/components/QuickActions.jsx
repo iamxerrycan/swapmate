@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PlusCircle, Settings, Layers } from "lucide-react";
+import { PlusCircle, Settings, Layers, Replace ,Bell} from "lucide-react";
 import './QuickActions.css';
 import CreateItemModal from "./CreateItemModal";
 
@@ -36,7 +36,20 @@ export default function QuickActions() {
           <Settings size={18} />
           Settings
         </button>
+
+        <button onClick={() => navigate("/dashboard/notifications")} className="quick-action-button quick-action-notifications">
+        
+          <Bell size={18} />
+          Notifications
+        </button>
+<button onClick={() => navigate("/dashboard/manageswap")} className="quick-action-button quick-action-swap">
+              <Replace size={18} />
+              Manage Swap
+            </button>
+
       </div>
+
+      
 
       {showModal && <CreateItemModal onClose={() => setShowModal(false)} />}
     </div>

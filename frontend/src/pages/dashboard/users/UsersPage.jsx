@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../../features/admin/adminSlice';
 import { deleteAccount } from '../../../features/users/userSlice';
 import { useNavigate } from 'react-router-dom';
-import Spinner from '../../../components/ui/Spinner';
+import Loader from '../../../components/ui/Loader';
 import './UsersPage.css';
 
 export default function UsersPage() {
@@ -25,7 +25,7 @@ export default function UsersPage() {
   };
 
   return isLoading ? (
-    <Spinner />
+     <Loader fullHeight={true} />
   ) : (
     <div className="users-page">
       <h2>Manage Users</h2>

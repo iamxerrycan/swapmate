@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getItemById, updateItem } from '../../../features/item/itemSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../../../components/ui/Spinner';
+import Loader from '../../../components/ui/Loader';
 
 export default function UpdateItemPage() {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ export default function UpdateItemPage() {
     navigate('/dashboard/items');
   };
 
-  if (loading) return <Spinner />;
+  if (loading) return <Loader fullHeight={true} />;
 
   return (
     <div className="p-6 max-w-xl mx-auto">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   LineChart,
   Line,
@@ -6,30 +6,78 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from 'recharts';
+import API from '../../../../../utils/api/axiosInstance';
 import './UserDashboardChart.css';
 
-const data = [
-  { name: 'Mon', swaps: 4 },
-  { name: 'Tue', swaps: 2 },
-  { name: 'Wed', swaps: 6 },
-  { name: 'Thu', swaps: 3 },
-  { name: 'Fri', swaps: 7 },
-];
-
 export default function UserDashboardChart() {
+  const [chartData, setChartData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSwaps = async () => {
+      try {
+        const res = await API.get('/api/swaps/my'); // or /api/swaps/swaps for admin
+        const swaps = res.data;
+
+        // Aggregate swaps by weekday
+        const counts = {
+          Mon: 0,
+          Tue: 0,
+          Wed: 0,
+          Thu: 0,
+          Fri: 0,
+          Sat: 0,
+          Sun: 0,
+        };
+
+        swaps.forEach((swap) => {
+          const day = new Date(swap.createdAt).toLocaleDateString('en-US', {
+            weekday: 'short',
+          });
+          if (counts[day] !== undefined) {
+            counts[day] += 1;
+          }
+        });
+
+        // Convert to Recharts format
+        const formattedData = Object.keys(counts).map((day) => ({
+          name: day,
+          swaps: counts[day],
+        }));
+
+        setChartData(formattedData);
+      } catch (error) {
+        console.error('Error fetching swaps data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSwaps();
+  }, []);
+
+  if (loading) return <p>Loading chart...</p>;
+
   return (
     <div className="dashboard-chart">
       <h3>Weekly Swaps</h3>
-      <LineChart width={300} height={200} data={data}>
-        <Line type="monotone" dataKey="swaps" stroke="#8884d8" />
-        <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-      </LineChart>
+      <ResponsiveContainer width="100%" height={250}>
+        <LineChart data={chartData}>
+          <Line
+            type="monotone"
+            dataKey="swaps"
+            stroke="#6d28d9"
+            strokeWidth={3}
+            dot={{ r: 5 }}
+          />
+          <CartesianGrid stroke="#e5e7eb" />
+          <XAxis dataKey="name" />
+          <YAxis allowDecimals={false} />
+          <Tooltip />
+        </LineChart>
+      </ResponsiveContainer>
     </div>
   );
 }

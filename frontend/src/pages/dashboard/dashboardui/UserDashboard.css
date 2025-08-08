@@ -29,6 +29,9 @@
     font-size: 1.4rem;
     margin-bottom: 1rem;
   }
+  .user-dashboard{
+    padding: 0;
+  }
 
   .dashboard-section {
     padding: 0 0.5rem;

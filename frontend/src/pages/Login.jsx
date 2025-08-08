@@ -7,7 +7,7 @@ import './Login.css';
 import AuthHeader from '../components/ui/Header';
 import { toast } from 'react-toastify';
 import { useFormValidation } from '../hooks/useFormValidation';
-import ButtonLoader from '../components/ui/ButtonLoader';
+import Spinner from '../components/ui/Spinner';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -85,9 +85,9 @@ export default function Login() {
       />
       {errors.password && <p className="input-errorr">{errors.password}</p>}
 
-      {/* <button type="submit">Login</button> */}
-
-      <ButtonLoader isLoading={isSubmitting} text="Login" />
+      <button type="submit" className="login-button" disabled={isSubmitting}>
+        {isSubmitting ? <Spinner small /> : 'Login'}
+      </button>
 
       <p>
         Don’t have an account? <Link to="/register">Register</Link>

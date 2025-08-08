@@ -4,6 +4,7 @@ import { useState } from 'react';
 import API from '../../utils/api/axiosInstance';
 import FormInput from '../../components/common/FormInput';
 import styles from './ResetPassword.module.css';
+import Spinner from '../../components/ui/Spinner';
 
 export default function ResetPassword() {
   const { token } = useParams();

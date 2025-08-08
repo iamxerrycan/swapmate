@@ -1,46 +1,42 @@
-
-
 .user-stats-card {
-  background-color: #ffffff;
+  background: white;
+  padding: 1.5rem;
   border-radius: 1rem;
-  padding: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease-in-out;
-}
-
-.user-stats-card:hover {
-  transform: translateY(-2px);
-}
-
-.user-stats-card h2 {
-  font-size: 1.125rem; 
-  font-weight: 600; 
-  margin-bottom: 1rem;
-  color: #1f2937; 
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  font-family: 'Poppins', sans-serif;
 }
 
 .user-stats-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1.5rem 0;
 }
 
 .user-stats-item {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #e5e7eb; 
-}
-
-.user-stats-item:last-child {
-  border-bottom: none;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #f3f4f6;
 }
 
 .user-stats-label {
-  color: #374151; 
+  font-weight: 500;
+  color: #374151;
 }
 
 .user-stats-value {
-  font-weight: bold;
-  color: #111827; 
+  font-weight: 600;
+  color: #111827;
+}
+
+.charts-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.chart-container {
+  background: #f9fafb;
+  padding: 1rem;
+  border-radius: 1rem;
 }

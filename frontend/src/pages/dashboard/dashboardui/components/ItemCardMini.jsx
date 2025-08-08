@@ -1,6 +1,8 @@
 import './ItemCardMini.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Eye, X, ArrowLeftRight } from 'lucide-react';
+
 export default function ItemCardMini({ item }) {
   const [flipped, setFlipped] = useState(false);
   const navigate = useNavigate();
@@ -27,14 +29,17 @@ export default function ItemCardMini({ item }) {
             <p className="item-card-description">Description: {item.description || 'No description.'}</p>
           </div>
           <div className="item-card-actions">
-            <button className="btn-view" onClick={() => setFlipped(true)}>View</button>
-            <button className="btn-swap" onClick={() => alert('Redirect to swap page...')}>Swap</button>
+            <button className="btn-view" onClick={() => setFlipped(true)}>
+              <Eye size={16} /> View
+            </button>
           </div>
         </div>
 
         {/* Back Side */}
         <div className="flip-card-back">
-          <button className="btn-close" onClick={() => setFlipped(false)}>✕</button>
+          <button className="btn-close-swap" onClick={() => setFlipped(false)}>
+            <X size={18} />
+          </button>
           <div className="item-card-info">
             <h4 className="item-card-title">{item.name}</h4>
             <p><strong>Category:</strong> {item.category}</p>
@@ -51,7 +56,9 @@ export default function ItemCardMini({ item }) {
             <p><strong>Created At:</strong> {new Date(item.createdAt).toLocaleString()}</p>
           </div>
           <div className="item-card-actions">
-            <button className="btn-swap" onClick={handleSwapClick}>Swap This Item →</button>
+            <button className="btn-swap" onClick={handleSwapClick}>
+              <ArrowLeftRight size={16} /> Swap This Item
+            </button>
           </div>
         </div>
 

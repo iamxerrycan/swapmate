@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');
 const Item = require('../models/itemModel');
 const {
- markItemSwappedService,
+  markItemSwappedService,
   deleteItemService,
   updateItemService,
   createItemService,
@@ -10,6 +10,7 @@ const {
   getItemByIdService,
   getItemsByUserService,
 } = require('../services/itemService');
+const Activity = require('../models/ActivityModel');
 
 //  Create a new item
 exports.createItem = async (req, res) => {
@@ -33,6 +34,10 @@ exports.createItem = async (req, res) => {
       location: coordinates, // 👈 renamed for service compatibility
       image,
       userId,
+    });
+    await Activity.create({
+      description: `Created a new item: ${name}`,
+      user: userId, // link to the actual user
     });
 
     res.status(201).json(item);
@@ -112,23 +117,23 @@ exports.markItemSwapped = async (req, res) => {
 exports.updateItem = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  // ✅ Validate ObjectId
+  // Validate ObjectId
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ message: "Invalid item ID" });
+    return res.status(400).json({ message: 'Invalid item ID' });
   }
 
   let updateData = { ...req.body };
 
-  // ✅ If coordinates are present, convert to GeoJSON format
+  // If coordinates are present, convert to GeoJSON format
   if (req.body.coordinates) {
     updateData.location = {
-      type: "Point",
+      type: 'Point',
       coordinates: req.body.coordinates, // [lng, lat]
     };
     delete updateData.coordinates; // remove raw coordinates from body
   }
 
-  // ✅ Optionally handle image (if using multer)
+  // Optionally handle image (if using multer)
   if (req.file?.filename) {
     updateData.image = req.file.filename;
   }
@@ -136,12 +141,11 @@ exports.updateItem = asyncHandler(async (req, res) => {
   const updatedItem = await updateItemService(id, updateData);
 
   if (!updatedItem) {
-    return res.status(404).json({ message: "Item not found" });
+    return res.status(404).json({ message: 'Item not found' });
   }
 
   res.status(200).json(updatedItem);
 });
-
 
 // delete item by id
 
@@ -162,7 +166,6 @@ exports.deleteItem = async (req, res) => {
   console.log('🗑 DELETE /items/:id hit with ID:', req.params.id);
   console.log('🔐 Token found:', req.headers.authorization);
 
-
   try {
     const itemId = req.params.id;
 
@@ -176,8 +179,24 @@ exports.deleteItem = async (req, res) => {
       return res.status(404).json({ message: 'Item not found' });
     }
 
-    res.status(200).json({ message: 'Item deleted successfully', item: deletedItem });
+    res
+      .status(200)
+      .json({ message: 'Item deleted successfully', item: deletedItem });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.getItemsBySpecificUser = async (req, res) => {
+  try {
+    const items = await Item.find({ user: req.params.id });
+    if (!items.length) {
+      return res.status(404).json({ message: 'No items found for this user' });
+    }
+    res.json(items);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+

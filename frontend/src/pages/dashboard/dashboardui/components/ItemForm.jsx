@@ -1,4 +1,3 @@
-// src/components/forms/ItemForm.jsx
 import React from 'react';
 import './ItemForm.css';
 
@@ -11,12 +10,12 @@ export default function ItemForm({
   isEditMode,
 }) {
   return (
-    <div className="modal-overlay">
-      <div className="modal-box">
-        <form className="create-item-form" onSubmit={handleSubmit}>
+    <div className="itemform-modal-overlay">
+      <div className="itemform-modal-box">
+        <form className="itemform-create-item-form" onSubmit={handleSubmit}>
           <h2>{isEditMode ? 'Edit Item' : 'Create New Item'}</h2>
 
-          <div className="form-group">
+          <div className="itemform-form-group">
             <input
               type="text"
               name="name"
@@ -24,10 +23,10 @@ export default function ItemForm({
               value={formData.name}
               onChange={handleChange}
             />
-            {errors.name && <p className="error">{errors.name}</p>}
+            {errors.name && <p className="itemform-error">{errors.name}</p>}
           </div>
 
-          <div className="form-group">
+          <div className="itemform-form-group">
             <select
               name="category"
               value={formData.category}
@@ -41,20 +40,24 @@ export default function ItemForm({
               <option value="Food">Food</option>
               <option value="Other">Other</option>
             </select>
-            {errors.category && <p className="error">{errors.category}</p>}
+            {errors.category && (
+              <p className="itemform-error">{errors.category}</p>
+            )}
           </div>
 
-          <div className="form-group">
+          <div className="itemform-form-group">
             <textarea
               name="description"
               placeholder="Item Description"
               value={formData.description}
               onChange={handleChange}
             />
-            {errors.description && <p className="error">{errors.description}</p>}
+            {errors.description && (
+              <p className="itemform-error">{errors.description}</p>
+            )}
           </div>
 
-          <div className="form-group">
+          <div className="itemform-form-group">
             <input
               type="text"
               name="address"
@@ -62,10 +65,12 @@ export default function ItemForm({
               value={formData.address}
               onChange={handleChange}
             />
-            {errors.address && <p className="error">{errors.address}</p>}
+            {errors.address && (
+              <p className="itemform-error">{errors.address}</p>
+            )}
           </div>
 
-          <div className="form-group">
+          <div className="itemform-form-group">
             <input
               type="text"
               name="coordinates"
@@ -75,12 +80,16 @@ export default function ItemForm({
             />
           </div>
 
-          <div className="modal-buttons">
-            <button type="submit" className="submit-btn">
+          <div className="itemform-modal-buttons">
+            <button type="submit" className="itemform-submit-btn">
               {isEditMode ? 'Update Item' : 'Submit'}
             </button>
             {onClose && (
-              <button type="button" className="cancel-btn" onClick={onClose}>
+              <button
+                type="button"
+                className="itemform-cancel-btn"
+                onClick={onClose}
+              >
                 Cancel
               </button>
             )}

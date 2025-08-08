@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllItems } from '../../../features/item/itemSlice';
 import Spinner from '../../../components/ui/Spinner';
+import Loader from '../../../components/ui/Loader';
 
 export default function ItemsPage() {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ export default function ItemsPage() {
     dispatch(getAllItems());
   }, [dispatch]);
 
-  if (loading) return <Spinner />;
+  if (loading) return <Loader fullHeight={true} />;
 
   return (
     <div className="p-6">

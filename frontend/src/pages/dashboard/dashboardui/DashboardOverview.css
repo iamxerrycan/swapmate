@@ -4,6 +4,7 @@
   padding: 1rem;
   max-width: 1200px;
   margin: auto;
+  overflow-x: hidden;
 }
 
 /* By default, single column (mobile-first) */
@@ -23,11 +24,17 @@
 /* Grid Item Styling */
 .grid-item {
   background-color: white;
+  border: 1px solid black; 
   border-radius: 1rem;
+  max-width: 100%;
+  flex: 1 1 100%;
   padding: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /*  */
   transition: transform 0.3s ease;
 }
+
+
+
 
 .grid-item:hover {
   transform: translateY(-2px);
@@ -35,5 +42,20 @@
 
 /* Force full width across all columns */
 .full-width {
-  grid-column: 1 / -1;
+  .full-width {
+  width: 100%;           /* Use relative to parent */
+  box-sizing: border-box;
+  padding: 0 16px;        /* Add padding if needed */
+}
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-overview-container{
+    padding: 0;
+    padding-right: 0.5rem;
+  }
+  .grid-item{
+    margin-bottom: 1rem;
+  }
+  
 }

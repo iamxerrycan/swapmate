@@ -1,3 +1,5 @@
+/* Premium Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 .item-card-mini {
   width: 100%;
@@ -6,8 +8,10 @@
   margin: auto;
   perspective: 1200px;
   border-radius: 20px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.3px;
+  color: #1f2937;
 }
-
 
 .flip-card-inner {
   position: relative;
@@ -18,16 +22,13 @@
   border-radius: 20px;
 }
 
-
 .item-card-mini.flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
 
-
 .flip-card-front,
 .flip-card-back {
   position: absolute;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   width: 100%;
   height: 100%;
   background: linear-gradient(135deg, #ffffff, #f3f4f6);
@@ -43,11 +44,9 @@
   box-sizing: border-box;
 }
 
-
 .flip-card-back {
   transform: rotateY(180deg);
 }
-
 
 .item-card-image {
   width: 100%;
@@ -58,20 +57,18 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
-
 .item-card-info {
   text-align: left;
   flex: 1;
   overflow-y: auto;
   padding: 0.2rem;
   font-size: 0.95rem;
-  color: #1f2937;
 }
 
 .item-card-title {
   font-size: 1.4rem;
   font-weight: 700;
-  color: #37c6ff;
+  color: #6d4a81; /* Premium Blue */
   margin-bottom: 0.6rem;
   text-align: center;
   text-transform: capitalize;
@@ -82,21 +79,21 @@
 .item-card-description {
   font-size: 0.95rem;
   margin: 0.3rem 0;
-  color: #4b5563;
+  color: #4b5563; /* Soft gray for premium look */
 }
-
 
 .flip-card-back p {
   margin: 0.3rem 0;
   font-size: 0.9rem;
   line-height: 1.4;
+  color: #374151; /* Dark premium text */
 }
+
 .flip-card-back p strong {
   color: #6b7280;
   display: inline-block;
   width: 130px;
 }
-
 
 .item-card-actions {
   display: flex;
@@ -106,9 +103,8 @@
   flex-wrap: wrap;
 }
 
-
 .btn-view,
-.btn-swap{
+.btn-swap {
   padding: 0.6rem 1.2rem;
   border: none;
   border-radius: 14px;
@@ -120,7 +116,6 @@
   min-width: 110px;
 }
 
-
 .btn-view {
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
@@ -131,45 +126,42 @@
   transform: scale(1.05);
 }
 
-
 .btn-swap {
-  background: linear-gradient(135deg, #00a56e, #003622);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  background: linear-gradient(135deg, #b60be0, #c60bff);
+  box-shadow: 0 4px 12px rgba(255, 18, 255, 0.3);
 }
 
 .btn-swap:hover {
-  background: linear-gradient(135deg, #047857, #065f46);
+  background: linear-gradient(135deg, #880ac2, #b34df7);
   transform: scale(1.05);
 }
 
-
-.btn-close {
+.btn-close-swap {
   background-color: #ffffff;
-  color: #ff0000;
+  color: #000000;
   font-size: 1.2rem;
   padding: 0.4rem 0.8rem;
   position: absolute;
   top: 12px;
   right: 12px;
   z-index: 10;
-  border-radius: 50%;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 }
 
 .btn-close:hover {
   background-color: #000000;
+  color: #fff;
   transform: scale(1.1);
 }
-
-
 @media screen and (max-width: 768px) {
   .item-card-mini {
-    height: 350px;
+    height: 400px; /* was 350px — increased for better content fit */
     max-width: 100%;
   }
 
   .flip-card-front,
   .flip-card-back {
+    height: 100%;
     padding: 1rem 0.8rem;
   }
 
@@ -187,17 +179,4 @@
   .flip-card-back p strong {
     width: 110px;
   }
-}
-
-
-
-.flip-card-front::-webkit-scrollbar,
-.flip-card-back::-webkit-scrollbar {
-  display: hidden;
-}
-
-.flip-card-front,
-.flip-card-back {
-  -ms-overflow-style: hidden;  
-  scrollbar-width: hidden;     
 }

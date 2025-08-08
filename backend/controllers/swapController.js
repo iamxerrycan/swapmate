@@ -16,7 +16,7 @@ const {
 // @access  Private
 exports.createSwapRequest = async (req, res) => {
   try {
-    console.log('Request body controller:', req.body);
+    // console.log('Request body controller:', req.body);
     const swap = await createSwapRequestService(req.body);
     res.status(201).json(swap);
   } catch (error) {

@@ -152,3 +152,30 @@
     padding: 0.5rem 1rem;
   }
 }
+
+
+.icon-button {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.icon-button:hover {
+  background: linear-gradient(135deg, #4338ca, #6d28d9);
+  transform: scale(1.1);
+}
+
+.icon-button.danger {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+.icon-button.danger:hover {
+  background: linear-gradient(135deg, #b91c1c, #991b1b);
+}

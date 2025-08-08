@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './ManageItems.css';
 import { confirmToast } from '../../../../components/ui/ConfirmToast';
+import Loader from '../../../../components/ui/Loader';
 
 export default function ManageItems() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ export default function ManageItems() {
       <h2 className="manage-title">Manage Your Items</h2>
 
       {loading ? (
-        <p className="loading">Loading...</p>
+        <Loader fullHeight={true} />
       ) : items.length === 0 ? (
         <div className="no-items">
           <p>No items found</p>

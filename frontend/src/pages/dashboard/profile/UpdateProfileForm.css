@@ -53,8 +53,8 @@
 }
 
 .profile-modal__close-btn {
-  font-size: 1.8rem;
-  background: none;
+  font-size: 1rem;
+  background: transparent;
   border: none;
   color: var(--label-color);
   cursor: pointer;
@@ -62,7 +62,7 @@
 }
 
 .profile-modal__close-btn:hover {
-  color: var(--danger);
+  color: transparent;
 }
 
 .profile-modal__avatar-section {
@@ -179,3 +179,4 @@
     padding: 0.6rem 1.2rem;
   }
 }
+

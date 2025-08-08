@@ -4,12 +4,12 @@ import './ForgotPassword.css';
 import AuthHeader from '../../components/ui/Header';
 import API from '../../utils/api/axiosInstance';
 import { toast } from 'react-toastify';
-import ButtonLoader from '../../components/ui/ButtonLoader';
+import Spinner from '../../components/ui/Spinner';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
-   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isValidEmail = (email) => {
     return /\S+@\S+\.\S+/.test(email); // Basic email format check
@@ -44,7 +44,7 @@ export default function ForgotPassword() {
       setError(
         err.response?.data?.message || 'Something went wrong. Try again later.'
       );
-    }finally{
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -61,7 +61,9 @@ export default function ForgotPassword() {
       />
       {error && <p className="input-error">{error}</p>}
 
-     <ButtonLoader isLoading={isSubmitting} text="Sending Link" />
+      <button type="submit" className="login-button" disabled={isSubmitting}>
+        {isSubmitting ? <Spinner small /> : 'Reset Password'}
+      </button>
 
       <p>
         Already have an account? <Link to="/">Login</Link>

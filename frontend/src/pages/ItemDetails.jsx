@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import API from '../utils/api/axiosInstance';
 import './ItemDetails.css';
+import Loader from '../components/ui/Loader';
 
 export default function ItemDetails() {
   const { id } = useParams();
@@ -47,7 +48,7 @@ export default function ItemDetails() {
   }, [id, items, user]);
 
   if (error) return <p className="error">{error}</p>;
-  if (!item) return <p className="loading">Loading item details...</p>;
+  if (!item) return  <Loader fullHeight={true} />;
 
   const itemOwnerId =
     typeof item.user === 'string' ? item.user : item.user?._id;

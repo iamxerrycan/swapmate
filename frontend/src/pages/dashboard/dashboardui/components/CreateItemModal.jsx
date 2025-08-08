@@ -110,12 +110,12 @@ export default function CreateItemModal({ onClose }) {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-box">
+    <div className="create-item-creat-item-modal-overlay">
+      <div className="create-item-modal-box">
         <form className="create-item-form" onSubmit={handleSubmit}>
           <h2>Create New Item</h2>
 
-          <div className="form-group">
+          <div className="create-item-create-item-form">
             <input
               type="text"
               name="name"
@@ -126,7 +126,7 @@ export default function CreateItemModal({ onClose }) {
             {errors.name && <p className="error">{errors.name}</p>}
           </div>
 
-          <div className="form-group">
+          <div className="create-item-form-group">
             <select
               name="category"
               value={formData.category}
@@ -143,7 +143,7 @@ export default function CreateItemModal({ onClose }) {
             {errors.category && <p className="error">{errors.category}</p>}
           </div>
 
-          <div className="form-group">
+          <div className="create-item-form-group">
             <textarea
               name="description"
               placeholder="Item Description"
@@ -155,7 +155,7 @@ export default function CreateItemModal({ onClose }) {
             )}
           </div>
 
-          <div className="form-group">
+          <div className="create-item-form-group">
             <input
               type="text"
               name="address"
@@ -166,7 +166,7 @@ export default function CreateItemModal({ onClose }) {
             {errors.address && <p className="error">{errors.address}</p>}
           </div>
 
-          <div className="form-group">
+          <div className="create-item-form-group">
             <input
               type="text"
               name="coordinates"
@@ -176,13 +176,13 @@ export default function CreateItemModal({ onClose }) {
             />
           </div>
 
-          <div className="modal-buttons">
-            <button type="submit" className="submit-btn">
+          <div className="create-item-modal-buttons">
+            <button type="submit" className="create-item-submit-btn">
               Submit
             </button>
-            <button type="button" className="cancel-btn" onClick={handleCancel}>
-              Cancel
-            </button>
+          <button type="button" className="create-item-cancel-btn" onClick={handleCancel}>
+  Cancel
+</button>
           </div>
         </form>
       </div>
