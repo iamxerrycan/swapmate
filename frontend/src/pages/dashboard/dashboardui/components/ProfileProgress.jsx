@@ -23,7 +23,7 @@ const ProfileProgress = () => {
     <div className="profile-card">
       <div className="profile-header">
         <div className="profile-info">
-          <FaUserCircle className="text-4xl text-blue-600" />
+          <FaUserCircle className="profile-icon-progress" />
           <div>
             <h2 className="profile-title">Profile Completion</h2>
             <p className="profile-subtext">

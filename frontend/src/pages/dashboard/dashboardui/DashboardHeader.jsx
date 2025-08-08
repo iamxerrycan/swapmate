@@ -1,5 +1,6 @@
 import React from 'react';
 import './DashboardHeader.css';
+import { FaUser, FaUserCircle } from 'react-icons/fa';
 
 const DashboardHeader = () => {
   return (
@@ -14,7 +15,8 @@ const DashboardHeader = () => {
           className="dashboard-search"
         />
         <div className="dashboard-avatar">
-          <img src="/avatar.png" alt="User Avatar" />
+          {/* <img src="/avatar.png" alt="User Avatar" /> */}
+          <FaUserCircle className="profile-icon-dashboard" />
         </div>
       </div>
     </header>
