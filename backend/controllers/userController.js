@@ -8,6 +8,7 @@ const {
 const User = require('../models/userModel');
 const Item = require('../models/itemModel');
 const SwapRequest = require('../models/swapModel');
+const mongoose = require('mongoose');
 
 exports.getMe = async (req, res) => {
   try {
@@ -79,8 +80,6 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getUserById = async (req, res) => {
   const { id } = req.params;
-
-  // ✅ Step 3 Fix — Validate ObjectId
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: 'Invalid user ID' });
   }
@@ -146,5 +145,33 @@ exports.getUserStats = async (req, res) => {
   } catch (error) {
     console.error('Error fetching stats:', error);
     res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+
+
+//profile completion controller
+exports.getProfileCompletion = async (req, res) => {
+  try {
+    const userId = req.user._id; 
+    const user = await User.findById(userId).lean();
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const totalFields = 4; // ignoring password
+    let filledFields = 0;
+
+    if (user.name) filledFields++;
+    if (user.email) filledFields++;
+    if (user.profilePic) filledFields++;
+    if (user.bio) filledFields++;
+
+    const completion = Math.round((filledFields / totalFields) * 100);
+
+    res.json({ completion });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

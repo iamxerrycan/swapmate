@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import './ProfileProgress.css';
+import API from '../../../../utils/api/axiosInstance';
 
 const ProfileProgress = () => {
-  const completion = 75;
+  const [completion, setCompletion] = useState(0);
+
+  useEffect(() => {
+    const fetchCompletion = async () => {
+      try {
+        const { data } = await API.get('/api/user/profile-completion');
+        setCompletion(data?.completion || 0);
+      } catch (err) {
+        console.error('Error fetching profile completion:', err);
+      }
+    };
+
+    fetchCompletion();
+  }, []);
 
   return (
     <div className="profile-card">
@@ -12,7 +26,9 @@ const ProfileProgress = () => {
           <FaUserCircle className="text-4xl text-blue-600" />
           <div>
             <h2 className="profile-title">Profile Completion</h2>
-            <p className="profile-subtext">Complete your profile to unlock all features</p>
+            <p className="profile-subtext">
+              Complete your profile to unlock all features
+            </p>
           </div>
         </div>
         <button className="profile-upgrade-btn">Upgrade</button>

@@ -7,6 +7,7 @@ const {
   updateProfile,
   deleteAccount,
   getAllUsers,
+  getProfileCompletion,
   getUserStats,
   getUserById,
 } = require('../controllers/userController');
@@ -14,7 +15,7 @@ const {
 
 router.get('/stats', protect, getUserStats);
 
-
+router.get('/profile-completion', protect, getProfileCompletion);
 router.get('/me', protect, getMe); // Get logged-in user info
 router.put('/me', protect, updateProfile); // Update profile
 router.delete('/me', protect, deleteAccount); // Delete own account
