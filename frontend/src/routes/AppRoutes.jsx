@@ -10,6 +10,7 @@ import Home from '../pages/Home';
 import ItemDetails from '../pages/ItemDetails';
 import Profile from '../pages/Profile';
 // import CreateItem from '../pages/CreateItem';
+import UserProfile from '../pages/dashboard/users/UserProfile';
 // import SwapItem from '../pages/SwapRequest';
 
 import AppLayout from '../components/layout/AppLayoute';
@@ -91,8 +92,17 @@ export default function AppRoutes() {
             </AppLayout>
           }
         />
-       
       </Route>
+
+      {/* 🔓 Public / General User Profile */}
+      <Route
+        path="/user/:id"
+        element={
+          <AppLayout>
+            <UserProfile />
+          </AppLayout>
+        }
+      />
 
       {/* 🔐 Admin Dashboard Routes */}
       <Route element={<ProtectedRoute allowedRoles={['admin', 'user']} />}>
@@ -104,11 +114,12 @@ export default function AppRoutes() {
           <Route path="create" element={<CreateItem />} />
           <Route path="manage" element={<ManageItems />} />
           <Route path="edit/:id" element={<EditItem />} />
-          <Route path='swapitem' element={<SwapItem />} />
+          <Route path="swapitem" element={<SwapItem />} />
           <Route path="swapitem/:itemId" element={<SwapItemPage />} />
 
           {/* Shared pages */}
           <Route index element={<DashboardMain />} />
+          {/* <Route path="user/:id" element={<UserProfile />} /> */}
           <Route path="profile" element={<AdminProfile />} />
           {/* <Route path="notifications" element={<NotificationsPage />} /> */}
           <Route path="chat" element={<ChatPage />} />
@@ -118,4 +129,3 @@ export default function AppRoutes() {
     </Routes>
   );
 }
-
