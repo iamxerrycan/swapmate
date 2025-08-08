@@ -1,4 +1,3 @@
-// src/main.jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
@@ -12,7 +11,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
-      <ToastContainer position="top-center" theme="dark" style={{ marginTop: '1rem' }} autoClose={3000} />
+      <ToastContainer
+        className="custom-toast-container"
+        toastClassName="custom-toast"
+        position="top-center"
+        theme="dark"
+        autoClose={3000}
+      />
     </Provider>
   </React.StrictMode>
 );

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import API from '../../../utils/api/axiosInstance';
 import './UserProfile.css';
-import { CircleUserRound } from 'lucide-react';
+import { CircleUserRound , Undo2} from 'lucide-react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UserProfile = () => {
   const { id } = useParams();
@@ -10,25 +12,40 @@ const UserProfile = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [me, setMe] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchData = async () => {
       try {
+        // Get logged-in user
+        const meRes = await API.get('/api/user/me');
+        setMe(meRes.data);
+
+        // Get profile user
         const userRes = await API.get(`/api/user/${id}`);
         setUser(userRes.data);
 
+        // Get items for that user
         const itemsRes = await API.get(`/api/items/user/${id}`);
         setItems(itemsRes.data);
-      } catch  {
+      } catch {
         setError('Failed to load user profile');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUserData();
+    fetchData();
   }, [id]);
+
+  const handleSwapClick = (itemId) => {
+    if (me && user && me._id === user._id) {
+      toast.info("You can't swap your own item");
+      return;
+    }
+    navigate(`/dashboard/swapitem/${itemId}`);
+  };
 
   if (loading) return <p className="loading-text">Loading...</p>;
   if (error) return <p className="error-text">{error}</p>;
@@ -48,6 +65,10 @@ const UserProfile = () => {
         {user.bio && <p className="profile-bio"><strong>Bio:</strong> {user.bio}</p>}
         <p><strong>Member Since:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
         <p><strong>Admin Status:</strong> {user.isAdmin ? 'Yes' : 'No'}</p>
+         <button onClick={() => navigate('/dashboard')}>
+      <Undo2 size={20} /> {/* Use the icon component */}
+    </button>
+        
       </div>
 
       {/* User Items */}
@@ -72,12 +93,14 @@ const UserProfile = () => {
                   <p><strong>Address:</strong> {item.address}</p>
                   <p><strong>Created At:</strong> {new Date(item.createdAt).toLocaleDateString()}</p>
                   <p><strong>Swap Status:</strong> {item.swapStatus}</p>
-                <button
-  className="swap-button"
-  onClick={() => navigate(`/dashboard/swapitem/${item._id}`)}
->
-  Swap This Item
-</button>
+
+                  <button
+                    className="swap-button"
+                    onClick={() => handleSwapClick(item._id)}
+                    disabled={me && user && me._id === user._id}
+                  >
+                    Swap This Item
+                  </button>
                 </div>
               </li>
             ))}
