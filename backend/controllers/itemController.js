@@ -117,14 +117,14 @@ exports.markItemSwapped = async (req, res) => {
 exports.updateItem = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  // ✅ Validate ObjectId
+  // Validate ObjectId
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: 'Invalid item ID' });
   }
 
   let updateData = { ...req.body };
 
-  // ✅ If coordinates are present, convert to GeoJSON format
+  // If coordinates are present, convert to GeoJSON format
   if (req.body.coordinates) {
     updateData.location = {
       type: 'Point',
@@ -133,7 +133,7 @@ exports.updateItem = asyncHandler(async (req, res) => {
     delete updateData.coordinates; // remove raw coordinates from body
   }
 
-  // ✅ Optionally handle image (if using multer)
+  // Optionally handle image (if using multer)
   if (req.file?.filename) {
     updateData.image = req.file.filename;
   }

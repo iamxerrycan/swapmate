@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './UserNotificationsPanel.css';
-import API from '../../../../../utils/api/axiosInstance';
+import API from '../../../utils/api/axiosInstance';
 import { Link } from 'react-router-dom';
 
 export default function UserNotificationsPanel() {

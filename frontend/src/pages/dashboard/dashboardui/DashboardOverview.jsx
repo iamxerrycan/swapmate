@@ -7,7 +7,7 @@ import QuickActions from './components/QuickActions';
 import UserActivityHeatmap from './components/swapitem/UserActivityHeatmap';
 import UserDashboardChart from './components/swapitem/UserDashboardChart';
 import UpcomingEvents from './components/swapitem/UpcomingEvents';
-import UserNotificationsPanel from './components/swapitem/UserNotificationsPanel';
+import UserNotificationsPanel from '../notifications/UserNotificationsPanel';
 
 const DashboardOverview = () => {
   return (

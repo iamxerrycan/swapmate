@@ -1,6 +1,6 @@
 // src/components/NotificationsIconWithCount.jsx
 import React, { useState } from 'react';
-import useNotifications from '../../../../hooks/useNotifications';
+import useNotifications from '../../../hooks/useNotifications';
 import UserNotificationsPanel from './swapitem/UserNotificationsPanel';
 import './NotificationsIconWithCount.css';
 
