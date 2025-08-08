@@ -10,6 +10,7 @@ const Item = require('../models/itemModel');
 const SwapRequest = require('../models/swapModel');
 const mongoose = require('mongoose');
 
+
 exports.getMe = async (req, res) => {
   try {
     const user = await getMeService(req.user._id);
@@ -148,12 +149,10 @@ exports.getUserStats = async (req, res) => {
   }
 };
 
-
-
 //profile completion controller
 exports.getProfileCompletion = async (req, res) => {
   try {
-    const userId = req.user._id; 
+    const userId = req.user._id;
     const user = await User.findById(userId).lean();
 
     if (!user) {
@@ -173,5 +172,27 @@ exports.getProfileCompletion = async (req, res) => {
     res.json({ completion });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+exports.searchUsers = async (req, res) => {
+  try {
+    const q = req.query.q?.trim();
+    if (!q) {
+      return res.json([]); // return empty list if no query
+    }
+
+    const users = await User.find({
+      $or: [
+        { name: { $regex: q, $options: 'i' } },
+        { email: { $regex: q, $options: 'i' } },
+      ],
+    })
+    // }).select('name email profilePic');
+
+    res.json(users);
+  } catch (err) {
+    console.error('Search error:', err);
+    res.status(500).json({ message: 'Server error' });
   }
 };

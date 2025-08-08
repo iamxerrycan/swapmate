@@ -19,3 +19,6 @@ router.use('/notifications', notificationRoutes);
 router.use('/activities', activityRoutes);
 
 module.exports = router;
+
+
+
