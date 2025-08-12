@@ -8,7 +8,8 @@
   text-align: center;
   font-weight: 700;
   font-size: 1.5rem;
-  margin-bottom: 16px;
+  margin-top: 30px;
+
 }
 
 .chat-list {
@@ -73,5 +74,12 @@
   text-align: center;
   box-shadow: 0 0 5px rgba(255,59,48,0.6);
   user-select: none;
+}
+
+.chat-list-empty{
+  display: flex;
+  text-align: center;
+  margin-left: 40%;
+
 }
 
