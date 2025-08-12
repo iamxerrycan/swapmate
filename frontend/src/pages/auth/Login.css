@@ -5,64 +5,111 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  gap: 0.75rem;
-  padding: 2.5rem;
-  background-color: #1e293b;
+  gap: 0.4rem;
+  padding: 2.5rem 3rem;
+  background-color: #ffffff; /* pure white background */
   border-radius: 16px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12); /* soft shadow */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #f8fafc;
+  color: #333333; /* dark text */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   animation: fadeInUp 0.6s ease-out;
+  user-select: none;
 }
 
 .login-form input {
   width: 100%;
-  height: 42px;
+  height: 44px;
   font-size: 1rem;
-  background-color: #334155;
-  color: #f1f5f9;
-  border: none;
-  border-radius: 20px;
-  padding: 0 1rem;
+  background-color: #f9f9f9; /* very light grey */
+  color: #222222;
+  border: 1.8px solid #ddd;
+  border-radius: 12px;
+  padding: 0 1.25rem;
   outline: none;
-  transition: background 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+  font-weight: 500;
+  user-select: text;
+}
+
+.login-form input::placeholder {
+  color: #999999;
+  font-weight: 400;
 }
 
 .login-form input:focus {
-  background-color: #475569;
-  border: 1px solid #7dd3fc;
+  background-color: #fff;
+  border-color: #4f46e5; /* Indigo-600 */
+  box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
 }
 
 .login-form button {
-  padding: 0.75rem;
-  font-size: 1rem;
-  background: linear-gradient(to right, #6366f1, #60a5fa);
+  padding: 0.85rem;
+  font-size: 1.1rem;
+  background: linear-gradient(
+    90deg,
+    #4f46e5 0%,
+    #6366f1 100%
+  ); /* Indigo gradient */
   color: white;
   border: none;
-  border-radius: 25px;
-  width: 60%;
-  font-weight: bold;
+  border-radius: 28px;
+  width: 70%;
+  font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.3s ease;
+  box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
 }
 
-.login-form button:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(to right, #818cf8, #38bdf8);
+.login-form button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45);
+}
+
+.login-form button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .login-form a {
-  color: #38bdf8;
-  text-decoration: underline;
-  font-size: small;
+  color: #4f46e5; /* Indigo */
+  text-decoration: none;
+  font-size: 0.9rem;
   transition: color 0.3s ease;
+  user-select: text;
 }
 
 .login-form a:hover {
-  color: #0ea5e9;
+  color: #3730a3; /* Indigo-900 */
+  text-decoration: underline;
+}
+
+.input-errorr {
+  color: #ef4444; /* red-500 */
+  font-size: 0.85rem;
+  margin-top: -10px;
+  margin-bottom: 6px;
+  font-weight: 500;
+  user-select: none;
+}
+
+.login-form p {
+  font-size: 0.95rem;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  color: #555;
+  user-select: none;
+  text-align: center;
 }
 
 @keyframes fadeInUp {
@@ -76,31 +123,15 @@
   }
 }
 
-.input-errorr {
-  all: unset;
-  color: red;
-  font-size: x-small;
-  margin-top: -12px;
-  margin-bottom: 3px;
-}
-
-.login-form p {
-  all: unset;
-  color: red;
-  font-size: small;
-  margin-top: -5px;
-  margin-bottom: -2px;
-}
-
 @media (max-width: 500px) {
   .login-form {
-    padding: 2rem 1.5rem;
+    padding: 2rem 2rem;
     width: 92%;
   }
 
   .login-form input,
   .login-form button {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .login-form button {
@@ -108,24 +139,10 @@
   }
 }
 
-.login-button {
-  width: 60%;
-  margin-bottom: 10px;
-  padding: 0.75rem;
-  font-size: 1rem;
-  background: linear-gradient(to right, #6366f1, #60a5fa);
-  color: white;
-  border: none;
-  border-radius: 25px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.login-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+.login-form p {
+  all: unset;
+  color: red;
+  font-size: 0.85rem;
+  margin-top: -5px;
+  margin-bottom: -2px;
 }

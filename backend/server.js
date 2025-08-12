@@ -6,7 +6,6 @@ const socketIo = require('socket.io');
 const cors = require('cors');
 const http = require('http');
 
-
 // Load environment variables
 env.config();
 
@@ -16,24 +15,39 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 
+// Allowed origins array (add your frontend URLs here)
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://swapmate.netlify.app',
+];
 
 // CORS Middleware (Keep this before routes & body-parser)
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL],
+    origin: function (origin, callback) {
+      // allow requests with no origin like mobile apps or curl
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg =
+          'The CORS policy for this site does not allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     credentials: true,
   })
 );
 
 // Socket.io setup
 const io = socketIo(server, {
-  cors: { origin: [process.env.FRONTEND_URL], credentials: true },
+  cors: {
+    origin: allowedOrigins,
+    credentials: true,
+  },
 });
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 
 app.use('/api', routes);
 
@@ -48,7 +62,4 @@ server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-
 module.exports = app;
-
-
