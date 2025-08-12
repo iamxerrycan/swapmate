@@ -5,6 +5,7 @@ import './UserProfile.css';
 import { CircleUserRound , Undo2} from 'lucide-react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from '../../../components/ui/Loader';
 
 const UserProfile = () => {
   const { id } = useParams();

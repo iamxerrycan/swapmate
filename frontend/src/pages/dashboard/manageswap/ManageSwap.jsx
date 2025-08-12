@@ -76,7 +76,10 @@ const ManageSwap = () => {
                   <td data-label="From Item">{swap.fromItem?.name || '-'}</td>
                   <td data-label="To Item">{swap.toItem?.name || '-'}</td>
                   <td data-label="Message">{swap.message || '-'}</td>
-                  <td data-label="Status" className={`status status-${swap.status.toLowerCase()}`}>
+                  <td
+                    data-label="Status"
+                    className={`status status-${swap.status.toLowerCase()}`}
+                  >
                     {swap.status}
                   </td>
                   <td data-label="Actions" className="actions">
@@ -107,13 +110,24 @@ const ManageSwap = () => {
                         )}
                       </>
                     )}
-                    <button
-                      className="btn delete"
-                      disabled={actionLoadingId === swap._id}
-                      onClick={() => handleAction(swap._id, 'delete')}
-                    >
-                      Delete
-                    </button>
+                    {swap.status === 'Accepted' ? (
+                      <button
+                        className="btn chat"
+                        onClick={() =>
+                          console.log('Open chat for swap', swap._id)
+                        }
+                      >
+                        Chat
+                      </button>
+                    ) : (
+                      <button
+                        className="btn delete"
+                        disabled={actionLoadingId === swap._id}
+                        onClick={() => handleAction(swap._id, 'delete')}
+                      >
+                        Delete
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
