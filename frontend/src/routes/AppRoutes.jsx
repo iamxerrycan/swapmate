@@ -1,7 +1,7 @@
 // src/routes/AppRoutes.jsx
 import { Routes, Route } from 'react-router-dom';
 
-import Login from '../pages/Login';
+import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import ResetPassword from '../pages/auth/ResetPassword';

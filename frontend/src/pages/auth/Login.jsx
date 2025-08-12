@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { setCredentials } from '../features/auth/authSlice';
-import { authService } from '../features/auth/authService';
+import { setCredentials } from '../../features/auth/authSlice';
+import { authService } from '../../features/auth/authService';
 import './Login.css';
-import AuthHeader from '../components/ui/Header';
+import AuthHeader from '../../components/ui/Header';
 import { toast } from 'react-toastify';
-import { useFormValidation } from '../hooks/useFormValidation';
-import Spinner from '../components/ui/Spinner';
+import { useFormValidation } from '../../hooks/useFormValidation';
+import Spinner from '../../components/ui/Spinner';
 
 export default function Login() {
   const dispatch = useDispatch();
