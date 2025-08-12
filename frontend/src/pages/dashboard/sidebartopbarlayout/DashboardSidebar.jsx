@@ -1,16 +1,39 @@
 // src/pages/dashboard/components/DashboardSidebar.jsx
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../../features/auth/authSlice';
 import './DashboardSidebar.css';
+import API from '../../../utils/api/axiosInstance';
 
 export default function DashboardSidebar() {
   const { user: userWrapper } = useSelector((state) => state.auth);
   const user = userWrapper?.user;
   const dispatch = useDispatch();
   const location = useLocation();
+  const [totalUnread, setTotalUnread] = useState(0);
+  const currentUserId = user?._id || localStorage.getItem('userId');
+
+ const fetchUnreadCount = React.useCallback(() => {
+  if (currentUserId) {
+    API.get(`/api/chat/unread-count?userId=${currentUserId}`)
+      .then((res) => setTotalUnread(res.data.totalUnread))
+      .catch((err) => console.error('Failed to fetch unread count:', err));
+  }
+}, [currentUserId]);
+
+useEffect(() => {
+  fetchUnreadCount();
+
+  const intervalId = setInterval(() => {
+    fetchUnreadCount();
+  }, 2000);
+
+  return () => clearInterval(intervalId);
+}, [fetchUnreadCount]);
+
 
   const [open, setOpen] = useState(false);
   const toggle = () => setOpen(!open);
@@ -18,11 +41,11 @@ export default function DashboardSidebar() {
 
   useEffect(() => {
     if (open) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     }
-    return () => (document.body.style.overflow = "");
+    return () => (document.body.style.overflow = '');
   }, [open]);
 
   const isActive = (path) => location.pathname === path;
@@ -40,7 +63,11 @@ export default function DashboardSidebar() {
           <div className="sidebar-header">
             <div className="sidebar-logo">SwapMate</div>
             <div className="sidebar-user">
-              <img src={`https://ui-avatars.com/api/?name=${user?.name}`} alt="User" className="sidebar-avatar" />
+              <img
+                src={`https://ui-avatars.com/api/?name=${user?.name}`}
+                alt="User"
+                className="sidebar-avatar"
+              />
               <div>
                 <div className="sidebar-username">{user?.name}</div>
                 <div className="sidebar-role">Role: {role}</div>
@@ -49,23 +76,91 @@ export default function DashboardSidebar() {
           </div>
 
           <nav className="sidebar-nav">
-            <Link to="/dashboard" className={isActive('/dashboard') ? 'active' : ''} onClick={close}>Dashboard</Link>
-            <Link to="/dashboard/profile" className={isActive('/dashboard/profile') ? 'active' : ''} onClick={close}>Profile</Link>
-            <Link to="/dashboard/chat" className={isActive('/dashboard/chat') ? 'active' : ''} onClick={close}>Chat</Link>
-            <Link to="/dashboard/settings" className={isActive('/dashboard/settings') ? 'active' : ''} onClick={close}>Settings</Link>
-            <Link to= "/dashboard/swapitem" className={isActive('/dashboard/swapitem') ? 'active' : ''} onClick={close}>Swap Item</Link>
+            <Link
+              to="/dashboard"
+              className={isActive('/dashboard') ? 'active' : ''}
+              onClick={close}
+            >
+              Dashboard
+            </Link>
+            <Link
+              to="/dashboard/profile"
+              className={isActive('/dashboard/profile') ? 'active' : ''}
+              onClick={close}
+            >
+              Profile
+            </Link>
+
+            <Link
+              to="/dashboard/chat"
+              className={isActive('/dashboard/chat') ? 'active' : ''}
+              onClick={close}
+            >
+              Chat
+              {totalUnread > 0 && (
+                <span className="unread-badge">
+                  {totalUnread > 99 ? '99+' : totalUnread}
+                </span>
+              )}
+            </Link>
+            <Link
+              to="/dashboard/settings"
+              className={isActive('/dashboard/settings') ? 'active' : ''}
+              onClick={close}
+            >
+              Settings
+            </Link>
+            <Link
+              to="/dashboard/swapitem"
+              className={isActive('/dashboard/swapitem') ? 'active' : ''}
+              onClick={close}
+            >
+              Swap Item
+            </Link>
 
             {user?.isAdmin && (
               <>
-                <Link to="/dashboard/users" className={isActive('/dashboard/users') ? 'active' : ''} onClick={close}>Manage Users</Link>
-                <Link to="/dashboard/items" className={isActive('/dashboard/items') ? 'active' : ''} onClick={close}>Manage Items</Link>
-                <Link to="/dashboard/reports" className={isActive('/dashboard/reports') ? 'active' : ''} onClick={close}>Reports</Link>
-                <Link to="/dashboard/site-settings" className={isActive('/dashboard/site-settings') ? 'active' : ''} onClick={close}>Site Settings</Link>
+                <Link
+                  to="/dashboard/users"
+                  className={isActive('/dashboard/users') ? 'active' : ''}
+                  onClick={close}
+                >
+                  Manage Users
+                </Link>
+                <Link
+                  to="/dashboard/items"
+                  className={isActive('/dashboard/items') ? 'active' : ''}
+                  onClick={close}
+                >
+                  Manage Items
+                </Link>
+                <Link
+                  to="/dashboard/reports"
+                  className={isActive('/dashboard/reports') ? 'active' : ''}
+                  onClick={close}
+                >
+                  Reports
+                </Link>
+                <Link
+                  to="/dashboard/site-settings"
+                  className={
+                    isActive('/dashboard/site-settings') ? 'active' : ''
+                  }
+                  onClick={close}
+                >
+                  Site Settings
+                </Link>
               </>
             )}
           </nav>
 
-          <button className="logout-button" onClick={() => { handleLogout(); close(); }}>
+          <button
+            className="logout-button"
+            onClick={() => {
+              handleLogout();
+              close();
+            }}
+          >
             Log out
           </button>
         </div>

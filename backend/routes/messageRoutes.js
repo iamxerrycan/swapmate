@@ -11,7 +11,13 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    const message = new Message({ chatId, sender, receiver, content });
+    const message = new Message({
+      chatId,
+      sender,
+      receiver,
+      content,
+      readBy: [sender],
+    });
     await message.save();
     res.status(201).json(message);
   } catch (err) {
@@ -19,6 +25,26 @@ router.post('/', async (req, res) => {
   }
 });
 
+
+
+// PUT /api/messages/read/:chatId
+router.put('/read/:chatId', async (req, res) => {
+  const { chatId } = req.params;
+  const userId = req.body.userId; // from auth or request body
+
+  if (!userId) return res.status(400).json({ error: 'userId required' });
+
+  try {
+    await Message.updateMany(
+      { chatId, readBy: { $ne: userId } },
+      { $push: { readBy: userId } }
+    );
+    res.json({ message: 'Messages marked as read' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update read status' });
+  }
+});
+
+
+
 module.exports = router;
-
-
