@@ -1,8 +1,8 @@
-/* src/pages/dashboardui/UserDashboard.css */
+
 
 .user-dashboard {
   padding: 1rem;
-  background-color: #f9fafb; /* Light premium background */
+  background-color: #f9fafb; 
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
   font-weight: 700;
   margin-bottom: 1.5rem;
   text-align: center;
-  color: #1f2937; /* Tailwind's gray-800 */
+  color: #1f2937; 
 }
 
 .dashboard-section {
@@ -23,7 +23,7 @@
   gap: 1rem;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .dashboard-title {
     font-size: 1.4rem;

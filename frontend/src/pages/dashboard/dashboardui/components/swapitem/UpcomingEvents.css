@@ -59,7 +59,7 @@
   color: #6b7280;
 }
 
-/* Responsive */
+
 @media screen and (max-width: 600px) {
   .upcoming-events {
     padding: 1rem;

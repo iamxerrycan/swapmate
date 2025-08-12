@@ -92,7 +92,7 @@
   margin-bottom: -2px;
 }
 
-/* ✅ Responsive Fixes */
+
 @media (max-width: 500px) {
   .login-form {
     padding: 2rem 1.5rem;

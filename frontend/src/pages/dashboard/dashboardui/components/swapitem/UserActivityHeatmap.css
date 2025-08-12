@@ -24,7 +24,7 @@
 
 .heatmap-cell {
   width: 100%;
-  aspect-ratio: 1; /* perfect square cells */
+  aspect-ratio: 1; 
   border-radius: 4px;
   transition: transform 0.2s ease;
   cursor: pointer;
@@ -34,14 +34,14 @@
   transform: scale(1.1);
 }
 
-/* Activity level colors */
+
 .level-0 { background-color: #e0e0e0; }
 .level-1 { background-color: #c0d6e4; }
 .level-2 { background-color: #90bad2; }
 .level-3 { background-color: #5ca6c4; }
 .level-4 { background-color: #2b90b6; }
 
-/* Responsive: Stack and spacing */
+
 @media (max-width: 500px) {
   .activity-heatmap {
     padding: 1rem;

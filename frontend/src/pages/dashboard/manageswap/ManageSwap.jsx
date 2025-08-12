@@ -6,18 +6,17 @@ const ManageSwap = () => {
   const [swaps, setSwaps] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  console.log('swaps', swaps);
+  const [actionLoadingId, setActionLoadingId] = useState(null);
+
+  const currentUserId = localStorage.getItem('userId');
 
   const fetchSwaps = async () => {
-    console.log('Fetching swaps...');
     setLoading(true);
     try {
       const { data } = await API.get('/api/swaps/my');
-      console.log('Received data:', data);
       setSwaps(Array.isArray(data) ? data : []);
       setError(null);
     } catch (err) {
-      console.error('Fetch error:', err);
       setError(err.response?.data?.error || err.message);
     } finally {
       setLoading(false);
@@ -29,6 +28,7 @@ const ManageSwap = () => {
   }, []);
 
   const handleAction = async (id, action) => {
+    setActionLoadingId(id);
     let method = 'put';
     let url = `/api/swaps/${id}/${action}`;
     if (action === 'delete') {
@@ -40,45 +40,17 @@ const ManageSwap = () => {
       fetchSwaps();
     } catch (err) {
       alert(err.response?.data?.error || err.message);
+    } finally {
+      setActionLoadingId(null);
     }
   };
-
-  const currentUserId = localStorage.getItem('userId');
 
   if (loading) return <p className="loading-text">Loading swaps...</p>;
   if (error) return <p className="error-text">Error: {error}</p>;
 
-  // Replace these links with your actual routes
-  const cardLinks = [
-    {
-      title: 'Dashboard',
-      description: 'Go to main dashboard',
-      url: '/dashboard',
-    },
-    {
-      title: 'Manage Swaps',
-      description: 'Create, update, cancel swaps',
-      url: '/dashboard/manageswap',
-    },
-    {
-      title: 'All Swaps',
-      description: 'View all swaps (admin)',
-      url: '/dashboard/allswaps',
-    },
-  ];
-
   return (
     <div className="manage-swap-wrapper">
       <h1 className="page-title">Manage Swaps</h1>
-
-      <div className="card-grid">
-        {cardLinks.map(({ title, description, url }) => (
-          <a key={title} href={url} className="dashboard-card">
-            <h3>{title}</h3>
-            <p>{description}</p>
-          </a>
-        ))}
-      </div>
 
       <section className="swap-table-section">
         {swaps.length === 0 ? (
@@ -99,32 +71,35 @@ const ManageSwap = () => {
             <tbody>
               {swaps.map((swap) => (
                 <tr key={swap._id}>
-                  <td>{swap.fromUser?.name || 'N/A'}</td>
-                  <td>{swap.toUser?.name || 'N/A'}</td>
-                  <td>{swap.fromItem?.name || '-'}</td>
-                  <td>{swap.toItem?.name || '-'}</td>
-                  <td>{swap.message || '-'}</td>
-                  <td className={`status status-${swap.status.toLowerCase()}`}>
+                  <td data-label="From User">{swap.fromUser?.name || 'N/A'}</td>
+                  <td data-label="To User">{swap.toUser?.name || 'N/A'}</td>
+                  <td data-label="From Item">{swap.fromItem?.name || '-'}</td>
+                  <td data-label="To Item">{swap.toItem?.name || '-'}</td>
+                  <td data-label="Message">{swap.message || '-'}</td>
+                  <td data-label="Status" className={`status status-${swap.status.toLowerCase()}`}>
                     {swap.status}
                   </td>
-                  <td className="actions">
+                  <td data-label="Actions" className="actions">
                     {swap.status === 'Pending' && (
                       <>
                         <button
                           className="btn accept"
+                          disabled={actionLoadingId === swap._id}
                           onClick={() => handleAction(swap._id, 'accept')}
                         >
                           Accept
                         </button>
                         <button
                           className="btn reject"
+                          disabled={actionLoadingId === swap._id}
                           onClick={() => handleAction(swap._id, 'reject')}
                         >
                           Reject
                         </button>
-                        {swap.fromUser?._id === currentUserId && (
+                        {swap.fromUser?._id?.toString() === currentUserId && (
                           <button
                             className="btn cancel"
+                            disabled={actionLoadingId === swap._id}
                             onClick={() => handleAction(swap._id, 'cancel')}
                           >
                             Cancel
@@ -134,6 +109,7 @@ const ManageSwap = () => {
                     )}
                     <button
                       className="btn delete"
+                      disabled={actionLoadingId === swap._id}
                       onClick={() => handleAction(swap._id, 'delete')}
                     >
                       Delete

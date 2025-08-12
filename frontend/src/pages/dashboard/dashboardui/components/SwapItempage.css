@@ -19,7 +19,7 @@
 .swap-item-details {
   display: flex;
   gap: 2rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* blackish shadow */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); 
   margin-bottom: 2rem;
   align-items: flex-start;
   border-radius: 10px;
@@ -34,7 +34,7 @@
   object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-  /* border: 1px solid #58d0ff; */
+  
 }
 
 .swap-item-info h3 {

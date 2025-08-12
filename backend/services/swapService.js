@@ -71,7 +71,7 @@ exports.acceptSwapService = async (swapId) => {
   const swap = await SwapRequest.findById(swapId);
   if (!swap) throw new Error('Swap not found');
 
-  swap.status = 'accepted';
+  swap.status = 'Accepted';
   await swap.save();
 
   return { message: 'Swap accepted', swap };
@@ -82,7 +82,7 @@ exports.rejectSwapService = async (swapId) => {
   const swap = await SwapRequest.findById(swapId);
   if (!swap) throw new Error('Swap not found');
 
-  swap.status = 'rejected';
+  swap.status = 'Rejected';
   await swap.save();
   return { message: 'Swap rejected', swap };
 };
@@ -96,7 +96,7 @@ exports.cancelSwapService = async (swapId, userId) => {
     throw new Error('Only the sender can cancel this swap');
   }
 
-  swap.status = 'cancelled';
+  swap.status = 'Cancelled';
   await swap.save();
   return { message: 'Swap cancelled', swap };
 };

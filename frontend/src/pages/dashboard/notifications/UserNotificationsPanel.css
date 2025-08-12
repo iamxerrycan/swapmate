@@ -1,4 +1,4 @@
-/* UserNotificationsPanel.css */
+
 
 .notifications-panel {
   background-color: #ffffff;
@@ -61,7 +61,7 @@
   margin-top: 0.4rem;
 }
 
-/* Responsive Design */
+
 @media (max-width: 600px) {
   .notifications-panel {
     padding: 1rem;

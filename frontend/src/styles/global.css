@@ -225,27 +225,24 @@ body {
 
 
 
-/* 
-===================================================
-   🌐 Global Styles for Toast Notification
-=================================================== */
 
 
 
-/* Toast container styling */
+
+
 .custom-toast-container {
   width: 90vw;
   max-width: 400px;
-  margin: 1rem auto !important; /* override react-toastify default */
+  margin: 1rem auto !important; 
   padding: 0;
   box-sizing: border-box;
   z-index: 9999;
-  pointer-events: none; /* Prevent interaction outside the toast */
+  pointer-events: none; 
 }
 
-/* Individual toast styling */
+
 .custom-toast {
-  pointer-events: auto; /* Enable interaction on toasts */
+  pointer-events: auto; 
   background: linear-gradient(135deg, #4a148c, #7b1fa2);
   color: #fff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -261,7 +258,7 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover and focus effect */
+
 .custom-toast:hover, 
 .custom-toast:focus {
   transform: scale(1.03);
@@ -269,7 +266,7 @@ body {
   cursor: pointer;
 }
 
-/* Responsive text sizing */
+
 @media (max-width: 768px) {
   .custom-toast-container {
     max-width: 95vw;
@@ -289,7 +286,3 @@ body {
 }
 
 
-/* 
-===================================================
-   🌐 Global Styles for Toast Notification
-=================================================== */

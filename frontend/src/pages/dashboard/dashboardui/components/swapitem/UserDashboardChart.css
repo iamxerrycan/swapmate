@@ -23,7 +23,7 @@
   height: 250px;
 }
 
-/* Responsive - optional extra fine tuning */
+
 @media screen and (max-width: 600px) {
   .dashboard-chart {
     padding: 1rem;

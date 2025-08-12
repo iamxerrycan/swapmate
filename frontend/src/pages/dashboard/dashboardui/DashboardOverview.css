@@ -1,4 +1,4 @@
-/* DashboardOverview.css */
+
 
 .dashboard-overview-container {
   padding: 1rem;
@@ -7,21 +7,21 @@
   overflow-x: hidden;
 }
 
-/* By default, single column (mobile-first) */
+
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
 }
 
-/* For screen widths 768px and above, use two columns */
+
 @media screen and (min-width: 768px) {
   .dashboard-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Grid Item Styling */
+
 .grid-item {
   background-color: white;
   border: 1px solid black; 
@@ -29,7 +29,7 @@
   max-width: 100%;
   flex: 1 1 100%;
   padding: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /*  */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); 
   transition: transform 0.3s ease;
 }
 
@@ -40,12 +40,12 @@
   transform: translateY(-2px);
 }
 
-/* Force full width across all columns */
+
 .full-width {
   .full-width {
-  width: 100%;           /* Use relative to parent */
+  width: 100%;           
   box-sizing: border-box;
-  padding: 0 16px;        /* Add padding if needed */
+  padding: 0 16px;        
 }
 }
 
