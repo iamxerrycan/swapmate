@@ -31,6 +31,7 @@ import EditItem from '../pages/dashboard/dashboardui/components/EditItem';
 import SwapItem from '../pages/dashboard/dashboardui/components/SwapItem';
 import SwapItemPage from '../pages/dashboard/dashboardui/components/SwapItemPage';
 import ManageSwap from '../pages/dashboard/manageswap/ManageSwap';
+import NotificationsPage from '../pages/dashboard/notifications/NotificationsPage';
 
 export default function AppRoutes() {
   return (
@@ -57,6 +58,7 @@ export default function AppRoutes() {
           <Route path="swapitem" element={<SwapItem />} />
           <Route path="swapitem/:itemId" element={<SwapItemPage />} />
           <Route path="manageswap" element={<ManageSwap />} />
+          <Route path="notifications" element={<NotificationsPage />} />
 
           {/* Shared pages */}
           <Route index element={<DashboardMain />} />
