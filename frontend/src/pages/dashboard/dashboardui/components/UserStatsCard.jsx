@@ -1,11 +1,12 @@
 import React from 'react';
 import './UserStatsCard.css';
 import useUserStats from '../../../../hooks/UseUserStats';
+import Loader from '../../../../components/ui/Loader';
 
 const UserStatsCard = () => {
   const { stats, loading, error } = useUserStats();
 
-  if (loading) return <div className="user-stats-card">Loading stats...</div>;
+  if (loading) return <div className="user-stats-card"><Loader fullHeight={true} /></div>;
   if (error) return <div className="user-stats-card error">{error}</div>;
 
   return (

@@ -47,7 +47,7 @@ const UserProfile = () => {
     navigate(`/dashboard/swapitem/${itemId}`);
   };
 
-  if (loading) return <p className="loading-text">Loading...</p>;
+  if (loading) return <p className="loading-text"> {<Loader fullHeight={true} />}</p>;
   if (error) return <p className="error-text">{error}</p>;
   if (!user) return <p className="not-found-text">User not found</p>;
 

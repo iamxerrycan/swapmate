@@ -10,6 +10,7 @@ import {
 } from 'recharts';
 import API from '../../../../../utils/api/axiosInstance';
 import './UserDashboardChart.css';
+import Loader from '../../../../../components/ui/Loader';
 
 export default function UserDashboardChart() {
   const [chartData, setChartData] = useState([]);
@@ -58,7 +59,7 @@ export default function UserDashboardChart() {
     fetchSwaps();
   }, []);
 
-  if (loading) return <p>Loading chart...</p>;
+  if (loading) return <p>{<Loader fullHeight={true} />}</p>;
 
   return (
     <div className="dashboard-chart">

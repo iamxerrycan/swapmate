@@ -6,6 +6,7 @@ import AdminDashboard from './AdminDashboard';
 import UserDashboard from './UserDashboard';
 import DashboardHeader from './DashboardHeader';
 import './DashboardMain.css';
+import Loader from '../../../components/ui/Loader';
 
 const DashboardMain = () => {
   const user = useSelector((state) => state.auth.user);
@@ -13,7 +14,7 @@ const DashboardMain = () => {
   const userType = user.user;
   console.log('usertype', userType);
   console.log('usermaindash', user);
-  if (!user) return <div>Loading...</div>;
+  if (!user) return <div>{<Loader fullHeight={true} />}</div>;
 
   return (
     <div className="dashboardmain-container">
