@@ -190,13 +190,10 @@ exports.deleteItem = async (req, res) => {
 exports.getItemsBySpecificUser = async (req, res) => {
   try {
     const items = await Item.find({ user: req.params.id });
-    if (!items.length) {
-      return res.status(404).json({ message: 'No items found for this user' });
-    }
+
+    // Agar items empty hain, toh bhi 200 OK with empty array bhejo
     res.json(items);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
-
-

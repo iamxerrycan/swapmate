@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+import { useChat } from '../../../hooks/useChat';
 import API from '../../../utils/api/axiosInstance';
 import './ChatPage.css';
 
 const ChatPage = () => {
   const { chatId } = useParams();
   const location = useLocation();
-  const currentUserId = localStorage.getItem('userId');
+  const { currentUserId, markMessagesRead, sendMessage } = useChat();
 
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -26,16 +27,10 @@ const ChatPage = () => {
 
   useEffect(() => {
     if (!chatId || !currentUserId) return;
+    markMessagesRead(chatId);
+  }, [chatId, currentUserId, markMessagesRead]);
 
-    API.put(`/api/messages/read/${chatId}`, { userId: currentUserId })
-      .then(() => {
-        console.log('Messages marked as read');
-        // Optional: you can refetch chats or update unread count elsewhere if needed
-      })
-      .catch((err) => console.error('Mark read failed:', err));
-  }, [chatId, currentUserId]);
-
-  const sendMessage = async () => {
+  const handleSendMessage = async () => {
     if (!input.trim()) return;
 
     const receiver =
@@ -48,43 +43,27 @@ const ChatPage = () => {
     }
 
     try {
-      await API.post(`/api/messages`, {
-        chatId,
-        sender: currentUserId,
-        receiver,
-        content: input,
-      });
+      await sendMessage({ chatId, receiverId: receiver, content: input });
       setInput('');
       const { data } = await API.get(`/api/chat/${chatId}/messages`);
       setMessages(data);
     } catch (error) {
-      console.error(
-        'Send message failed:',
-        error.response?.data || error.message
-      );
+      console.error('Send message failed:', error.response?.data || error.message);
     }
   };
 
   return (
     <div className="chat-container">
-      <h2 className="chat-header">
-        Chat with {location.state?.otherUser?.name || 'User'}
-      </h2>
+      <h2 className="chat-header">Chat with {location.state?.otherUser?.name || 'User'}</h2>
       <div className="chat-window">
         {messages.map((msg) => {
           const isSender = msg.sender._id === currentUserId;
           return (
-            <div
-              key={msg._id}
-              className={`message-row ${isSender ? 'sender' : 'receiver'}`}
-            >
+            <div key={msg._id} className={`message-row ${isSender ? 'sender' : 'receiver'}`}>
               <div className="message-bubble">
                 {msg.content}
                 <div className="timestamp">
-                  {new Date(msg.createdAt).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
+                  {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </div>
               </div>
             </div>
@@ -98,17 +77,11 @@ const ChatPage = () => {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') sendMessage();
-          }}
+          onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
           placeholder="Type a message..."
           className="chat-input"
         />
-        <button
-          onClick={sendMessage}
-          disabled={!input.trim()}
-          className="send-button"
-        >
+        <button onClick={handleSendMessage} disabled={!input.trim()} className="send-button">
           Send
         </button>
       </div>

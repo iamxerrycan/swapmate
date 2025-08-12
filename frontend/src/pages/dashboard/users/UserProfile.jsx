@@ -77,14 +77,23 @@ const UserProfile = () => {
     }
   };
 
-  if (loading) return <p className="loading-text"> {<Loader fullHeight={true} />}</p>;
+  if (loading)
+    return (
+      <div className="loading-text">
+        <Loader fullHeight={true} />
+      </div>
+    );
+
   if (error) return <p className="error-text">{error}</p>;
   if (!user) return <p className="not-found-text">User not found</p>;
 
   return (
     <div className="user-profile-page">
       {/* Profile Header */}
-      <div className="profile-header" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+      <div
+        className="profile-header"
+        style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
+      >
         {user.profilePic ? (
           <img src={user.profilePic} alt={user.name} className="profile-pic" />
         ) : (
@@ -92,10 +101,21 @@ const UserProfile = () => {
         )}
         <div>
           <h2 className="profile-name">{user.name}</h2>
-          <p className="profile-email"><strong>Email:</strong> {user.email}</p>
-          {user.bio && <p className="profile-bio"><strong>Bio:</strong> {user.bio}</p>}
-          <p><strong>Member Since:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
-          <p><strong>Admin Status:</strong> {user.isAdmin ? 'Yes' : 'No'}</p>
+          <p className="profile-email">
+            <strong>Email:</strong> {user.email}
+          </p>
+          {user.bio && (
+            <p className="profile-bio">
+              <strong>Bio:</strong> {user.bio}
+            </p>
+          )}
+          <p>
+            <strong>Member Since:</strong>{' '}
+            {new Date(user.createdAt).toLocaleDateString()}
+          </p>
+          <p>
+            <strong>Admin Status:</strong> {user.isAdmin ? 'Yes' : 'No'}
+          </p>
           {/* Chat Button */}
           <button
             onClick={handleChatClick}
@@ -113,7 +133,10 @@ const UserProfile = () => {
             Chat with {user.name}
           </button>
           {/* Back button */}
-          <button onClick={() => navigate('/dashboard')} style={{ marginLeft: '1rem' }}>
+          <button
+            onClick={() => navigate('/dashboard')}
+            style={{ marginLeft: '1rem' }}
+          >
             <Undo2 size={20} />
           </button>
         </div>
@@ -135,12 +158,25 @@ const UserProfile = () => {
                 />
                 <div className="item-content">
                   <h4 className="item-title">{item.name || item.title}</h4>
-                  <p className="item-description"><strong>Description:</strong> {item.description}</p>
-                  <p><strong>Category:</strong> {item.category}</p>
-                  <p><strong>Condition:</strong> {item.condition}</p>
-                  <p><strong>Address:</strong> {item.address}</p>
-                  <p><strong>Created At:</strong> {new Date(item.createdAt).toLocaleDateString()}</p>
-                  <p><strong>Swap Status:</strong> {item.swapStatus}</p>
+                  <p className="item-description">
+                    <strong>Description:</strong> {item.description}
+                  </p>
+                  <p>
+                    <strong>Category:</strong> {item.category}
+                  </p>
+                  <p>
+                    <strong>Condition:</strong> {item.condition}
+                  </p>
+                  <p>
+                    <strong>Address:</strong> {item.address}
+                  </p>
+                  <p>
+                    <strong>Created At:</strong>{' '}
+                    {new Date(item.createdAt).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>Swap Status:</strong> {item.swapStatus}
+                  </p>
 
                   <button
                     className="swap-button"

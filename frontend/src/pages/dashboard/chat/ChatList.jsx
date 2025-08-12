@@ -1,22 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import API from '../../../utils/api/axiosInstance';
+import { useChat } from '../../../hooks/useChat';
 import './ChatList.css';
 
 const ChatList = () => {
-  const [chats, setChats] = useState([]);
+  const { chats, loadingChats, errorChats, currentUserId } = useChat();
   const navigate = useNavigate();
-  const currentUserId = localStorage.getItem('userId');
-  console.log('chats', chats);
-  
-
-  useEffect(() => {
-    if (!currentUserId) return;
-
-    API.get(`/api/chat?userId=${currentUserId}`)
-      .then((res) => setChats(res.data))
-      .catch((err) => console.error(err));
-  }, [currentUserId]);
 
   const openChat = (chat) => {
     const otherUser = chat.participants.find((p) => p._id !== currentUserId);
@@ -30,11 +19,14 @@ const ChatList = () => {
     });
   };
 
+  if (loadingChats) return <p>Loading chats...</p>;
+  if (errorChats) return <p>Error: {errorChats}</p>;
+
   return (
     <div className="chat-list-container">
-      <h2 className="chat-list-header">Your Chats</h2>
+      <h2>Your Chats</h2>
       {chats.length === 0 ? (
-        <p className="chat-list-empty">No chats yet</p>
+        <p>No chats yet</p>
       ) : (
         <ul className="chat-list">
           {chats.map((chat) => {
@@ -60,9 +52,7 @@ const ChatList = () => {
                 </div>
 
                 {unread > 0 && (
-                  <div className="chat-unread-badge">
-                    {unread > 99 ? '99+' : unread}
-                  </div>
+                  <div className="chat-unread-badge">{unread > 99 ? '99+' : unread}</div>
                 )}
               </li>
             );
