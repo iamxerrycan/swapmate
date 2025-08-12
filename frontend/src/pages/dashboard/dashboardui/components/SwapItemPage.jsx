@@ -4,11 +4,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { fetchItemById } from '../../../../features/items/itemSlice';
 import { createSwap } from '../../../../features/swap/swapSlice';
 import './SwapItempage.css';
-import ButtonLoader from '../../../../components/ui/ButtonLoader';
+import Spinner from '../../../../components/ui/Spinner';
 import { FaExchangeAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import Loader from '../../../../components/ui/Loader';
 import useNotifications from '../../../../hooks/useNotifications';
+import { ImageOff } from 'lucide-react';
 
 export default function SwapItemPage() {
   const { itemId } = useParams();
@@ -94,11 +95,18 @@ export default function SwapItemPage() {
       </h2>
 
       <div className="swap-item-details">
-        <img
-          src={selectedItem?.image || '/placeholder.png'}
-          alt={selectedItem?.name || 'Item'}
-          className="swap-item-image"
-        />
+        
+{selectedItem.image ? (
+  <img
+    src={selectedItem.image}
+    alt={selectedItem.name || "Item Image"}
+    className="item-card-image"
+  />
+) : (
+  <div className="item-card-noimage">
+    <ImageOff size={48} color="#999" />
+  </div>
+)}
         <div className="swap-item-info">
           <h3>{selectedItem.name}</h3>
           <p>
@@ -136,7 +144,7 @@ export default function SwapItemPage() {
           className="swap-request-button"
           disabled={creatingSwap}
         >
-          {creatingSwap ? <ButtonLoader /> : 'Send Swap Request'}
+          {creatingSwap ? <Spinner /> : 'Send Swap Request'}
         </button>
 
         {swapError && <p className="error-msg">{swapError}</p>}

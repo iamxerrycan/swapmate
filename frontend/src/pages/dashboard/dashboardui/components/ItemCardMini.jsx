@@ -2,7 +2,7 @@ import './ItemCardMini.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, X, ArrowLeftRight } from 'lucide-react';
-
+import { ImageOff } from 'lucide-react';
 export default function ItemCardMini({ item }) {
   const [flipped, setFlipped] = useState(false);
   const navigate = useNavigate();
@@ -17,11 +17,17 @@ export default function ItemCardMini({ item }) {
 
         {/* Front Side */}
         <div className="flip-card-front">
-          <img
-            src={item.image || '/placeholder.jpg'}
-            alt={item.name}
-            className="item-card-image"
-          />
+         {item.image ? (
+  <img
+    src={item.image}
+    alt={item.name || "Item Image"}
+    className="item-card-image"
+  />
+) : (
+  <div className="item-card-noimage">
+    <ImageOff size={48} color="#999" />
+  </div>
+)}
           <div className="item-card-info">
             <h4 className="item-card-title">Item: {item.name}</h4>
             <p className="item-card-category">Category: {item.category}</p>

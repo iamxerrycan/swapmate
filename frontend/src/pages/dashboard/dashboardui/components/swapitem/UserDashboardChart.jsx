@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Loader from '../../../../../components/ui/Loader';
 import {
   LineChart,
   Line,
@@ -10,7 +11,6 @@ import {
 } from 'recharts';
 import API from '../../../../../utils/api/axiosInstance';
 import './UserDashboardChart.css';
-import Loader from '../../../../../components/ui/Loader';
 
 export default function UserDashboardChart() {
   const [chartData, setChartData] = useState([]);
@@ -59,7 +59,7 @@ export default function UserDashboardChart() {
     fetchSwaps();
   }, []);
 
-  if (loading) return <p>{<Loader fullHeight={true} />}</p>;
+  if (loading) return <div> {<Loader fullHeight={true} />}</div>;
 
   return (
     <div className="dashboard-chart">

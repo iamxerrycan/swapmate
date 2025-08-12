@@ -2,6 +2,7 @@
 import React from 'react';
 import useUserStats from '../../../../../hooks/UseUserStats';
 import LineChart from './LineChart';
+import Loader from '../../../../../components/ui/Loader';
 
 const UserTransactionsLineChart = () => {
   const { stats, loading, error } = useUserStats();

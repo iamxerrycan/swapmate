@@ -2,6 +2,7 @@
 import React from 'react';
 import useUserStats from '../../../../../hooks/UseUserStats';
 import PieChart from './PieChart';
+import Loader from '../../../../../components/ui/Loader';
 
 const UserStatusPieChart = () => {
   const { stats, loading, error } = useUserStats();

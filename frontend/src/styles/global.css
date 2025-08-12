@@ -266,6 +266,10 @@ body {
   cursor: pointer;
 }
 
+.custom-toast , .custom-toast-container p{
+  color: white;
+}
+
 
 @media (max-width: 768px) {
   .custom-toast-container {
@@ -280,6 +284,7 @@ body {
 @media (max-width: 480px) {
   .custom-toast {
     font-size: 0.85rem;
+    margin-left: 2rem; ;
     padding: 0.5rem 0.75rem;
     border-radius: 10px;
   }
