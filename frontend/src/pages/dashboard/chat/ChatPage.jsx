@@ -1,70 +1,115 @@
-import React, { useState, useEffect } from 'react';
-import MessageItem from './MessageItem';
-import io from 'socket.io-client';
-import './ChatPage.css';
+import React, { useEffect, useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
+import API from '../../../utils/api/axiosInstance';
 
-const socket = io(import.meta.env.VITE_API_BASE_URL, { withCredentials: true });
+const ChatPage = () => {
+  const { chatId } = useParams();
+  const location = useLocation();
+  const currentUserId = localStorage.getItem('userId');
+  console.log('currentUserId', currentUserId);
+  console.log('location', location);
+  console.log('chatId', chatId);
 
-const ChatPage = ({ currentUser, receiverId }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
 
   useEffect(() => {
-    if (currentUser && receiverId) {
-      socket.emit('joinRoom', { senderId: currentUser._id, receiverId });
+    if (!chatId) return;
 
-      socket.on('receiveMessage', (message) => {
-        setMessages((prev) => [...prev, message]);
-      });
+    // Correct API path with /api prefix
+    API.get(`/api/chat/${chatId}/messages`)
+      .then((res) => setMessages(res.data))
+      .catch((err) => console.error(err));
+  }, [chatId]);
 
-      fetch(`${import.meta.env.VITE_API_BASE_URL}/api/messages/${receiverId}`, {
-        credentials: 'include',
-      })
-        .then(res => res.json())
-        .then(data => setMessages(data));
+  const sendMessage = async () => {
+    if (!input.trim()) return;
+
+    const receiver =
+      location.state?.otherUser?._id ||
+      location.state?.participants?.find((p) => p._id !== currentUserId)?._id;
+
+    if (!receiver) {
+      console.error('Receiver is missing. Cannot send message.');
+      alert('Chat receiver information is missing. Please reopen the chat.');
+      return;
     }
 
-    return () => {
-      socket.off('receiveMessage');
-    };
-  }, [currentUser, receiverId]);
+    try {
+      console.log('Sending message:', {
+        chatId,
+        sender: currentUserId,
+        receiver,
+        content: input,
+      });
 
-  const handleSend = () => {
-    if (input.trim()) {
-      const messageData = {
-        senderId: currentUser._id,
-        receiverId,
-        text: input,
-      };
+      await API.post(`/api/messages`, {
+        chatId,
+        sender: currentUserId,
+        receiver,
+        content: input,
+      });
 
-      socket.emit('sendMessage', messageData);
-      setMessages((prev) => [...prev, { ...messageData, self: true }]);
       setInput('');
+
+      const { data } = await API.get(`/api/chat/${chatId}/messages`);
+      setMessages(data);
+    } catch (error) {
+      console.error(
+        'Send message failed:',
+        error.response?.data || error.message
+      );
     }
   };
 
   return (
-    <div className="chat-page-container">
-      <h2 className="chat-title">Chat Support</h2>
-
-      <div className="chat-messages">
-        {messages.map((msg, idx) => (
-          <MessageItem key={idx} message={msg} />
+    <div>
+      <h2>Chat</h2>
+      <div
+        style={{
+          maxHeight: '400px',
+          overflowY: 'auto',
+          border: '1px solid #ccc',
+          padding: 10,
+        }}
+      >
+        {messages.map((msg) => (
+          <div
+            key={msg._id}
+            style={{
+              textAlign: msg.sender._id === currentUserId ? 'right' : 'left',
+              margin: '5px 0',
+            }}
+          >
+            <span
+              style={{
+                padding: '8px 12px',
+                borderRadius: 20,
+                backgroundColor:
+                  msg.sender._id === currentUserId ? '#DCF8C6' : '#fff',
+                border: '1px solid #ccc',
+                display: 'inline-block',
+              }}
+            >
+              {msg.content}
+            </span>
+          </div>
         ))}
       </div>
 
-      <div className="chat-input-container">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message..."
-          className="chat-input"
-        />
-        <button onClick={handleSend} className="chat-send-button">
-          Send
-        </button>
-      </div>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') sendMessage();
+        }}
+        placeholder="Type a message..."
+        style={{ width: '80%', padding: 8 }}
+      />
+      <button onClick={sendMessage} disabled={!input.trim()}>
+        Send
+      </button>
     </div>
   );
 };

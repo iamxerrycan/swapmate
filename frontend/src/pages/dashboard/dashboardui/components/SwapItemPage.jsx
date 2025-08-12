@@ -36,10 +36,10 @@ export default function SwapItemPage() {
   );
 
   const handleRequestSwap = async () => {
-    if (!selectedUserItemId) {
-      toast.error('Please select one of your items to swap');
-      return;
-    }
+    // if (!selectedUserItemId) {
+    //   toast.error('Please select one of your items to swap');
+    //   return;
+    // }
 
     const payload = {
       fromUser: user._id || user?.user._id,

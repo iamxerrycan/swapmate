@@ -4,6 +4,8 @@ const connectDB = require('./config/db');
 const routes = require('./routes/allRoutes');
 const socketIo = require('socket.io');
 const cors = require('cors');
+const http = require('http');
+
 
 // Load environment variables
 env.config();
@@ -12,18 +14,20 @@ env.config();
 connectDB();
 
 const app = express();
+const server = http.createServer(app);
+
 
 // CORS Middleware (✅ Keep this before routes & body-parser)
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://swapmate.netlify.app'],
+    origin: [process.env.FRONTEND_URL],
     credentials: true,
   })
 );
 
 // Socket.io setup
 const io = socketIo(server, {
-  cors: { origin: ['http://localhost:5173'], credentials: true },
+  cors: { origin: [process.env.FRONTEND_URL], credentials: true },
 });
 
 // Body Parsers (✅ Required before using req.body)
@@ -45,8 +49,11 @@ app.use((req, res, next) => {
 
 // Server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`✅ Server is running on port ${PORT}`);
 });
 
+
 module.exports = app;
+
+

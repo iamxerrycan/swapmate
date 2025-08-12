@@ -47,7 +47,10 @@ export default function Login() {
 
     try {
       setIsSubmitting(true);
+      console.log('formData', formData);
       const data = await authService.login(formData);
+      console.log('data', data);
+      localStorage.setItem('userId', data?.user?._id);
       dispatch(setCredentials({ user: data, token: data.token }));
       toast.success('Login successful!');
 
