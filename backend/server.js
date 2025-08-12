@@ -2,6 +2,7 @@ const express = require('express');
 const env = require('dotenv');
 const connectDB = require('./config/db');
 const routes = require('./routes/allRoutes');
+const socketIo = require('socket.io');
 const cors = require('cors');
 
 // Load environment variables
@@ -19,6 +20,11 @@ app.use(
     credentials: true,
   })
 );
+
+// Socket.io setup
+const io = socketIo(server, {
+  cors: { origin: ['http://localhost:5173'], credentials: true },
+});
 
 // Body Parsers (✅ Required before using req.body)
 app.use(express.json());

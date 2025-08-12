@@ -8,6 +8,10 @@ const userRoutes = require('./userRoutes');
 const swapRoutes = require('./swapRoutes');
 const notificationRoutes = require('./notificationRoutes');
 const activityRoutes = require('./activityRoutes');
+const chatRoutes = require('./chatRoutes');
+
+//chat routes
+router.use('/chat', chatRoutes);
 
 // Prefix each route group
 router.use('/auth', authRoutes);
