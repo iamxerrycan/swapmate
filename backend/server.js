@@ -17,7 +17,7 @@ const app = express();
 const server = http.createServer(app);
 
 
-// CORS Middleware (✅ Keep this before routes & body-parser)
+// CORS Middleware (Keep this before routes & body-parser)
 app.use(
   cors({
     origin: [process.env.FRONTEND_URL],
@@ -30,11 +30,11 @@ const io = socketIo(server, {
   cors: { origin: [process.env.FRONTEND_URL], credentials: true },
 });
 
-// Body Parsers (✅ Required before using req.body)
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes (✅ Correctly mounted)
+
 app.use('/api', routes);
 
 // Test Route (Optional)
@@ -42,15 +42,10 @@ app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-app.use((req, res, next) => {
-  console.log(`📥 ${req.method} ${req.url}`);
-  next();
-});
-
 // Server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-  console.log(`✅ Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
 
 
