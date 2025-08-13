@@ -1,32 +1,49 @@
-.login-form {
+/* ================================
+   Common Auth Form Styles
+   ================================ */
+.auth-form {
   max-width: 400px;
   width: 90%;
   position: fixed;
+  text-align: center;
+  gap: 0.4rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  gap: 0.4rem;
-  padding: 2.5rem 3rem;
-  background-color: #ffffff; /* pure white background */
+  padding: 2rem 2.5rem;
+  background-color: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-  /* soft shadow */
+  border: 1px solid #5675c9;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
-  border: 1px solid #5675c9;
   align-items: center;
   justify-content: center;
-  color: #333333; /* dark text */
+  color: #333333;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   animation: fadeInUp 0.6s ease-out;
   user-select: none;
 }
 
-.login-form input {
+/* Form-specific spacing */
+.login-form {
+  gap: 0.4rem;
+}
+.register-form {
+  gap: 0.4rem;
+}
+.forgot-form {
+  gap: 1rem;
+}
+
+/* ================================
+   Input Fields
+   ================================ */
+.auth-form input {
   width: 100%;
   height: 44px;
   font-size: 1rem;
-  background-color: #f9f9f9; /* very light grey */
+  background-color: #f9f9f9;
   color: #222222;
   border: 1.8px solid #ddd;
   border-radius: 12px;
@@ -38,25 +55,25 @@
   user-select: text;
 }
 
-.login-form input::placeholder {
+.auth-form input::placeholder {
   color: #999999;
   font-weight: 400;
 }
 
-.login-form input:focus {
+.auth-form input:focus {
   background-color: #fff;
-  border-color: #4f46e5; /* Indigo-600 */
+  border-color: #4f46e5;
   box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
 }
 
-.login-form button {
+/* ================================
+   Buttons
+   ================================ */
+.auth-form button {
+  margin-top: 1rem;
   padding: 0.85rem;
   font-size: 1.1rem;
-  background: linear-gradient(
-    90deg,
-    #4f46e5 0%,
-    #6366f1 100%
-  ); /* Indigo gradient */
+  background: linear-gradient(90deg, #4f46e5 0%, #6366f1 100%);
   color: white;
   border: none;
   border-radius: 28px;
@@ -71,49 +88,55 @@
   user-select: none;
 }
 
-.login-form button:hover:not(:disabled) {
+.auth-form button:hover:not(:disabled) {
   transform: translateY(-3px);
   background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
   box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45);
 }
 
-.login-form button:disabled {
+.auth-form button:disabled {
   opacity: 0.65;
   cursor: not-allowed;
   box-shadow: none;
 }
 
-.login-form a {
-  color: #4f46e5; /* Indigo */
+/* ================================
+   Links
+   ================================ */
+.auth-form a {
+  margin-top: 1rem;
+  color: #4f46e5;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   transition: color 0.3s ease;
   user-select: text;
 }
 
-.login-form a:hover {
-  color: #3730a3; /* Indigo-900 */
+.auth-form a:hover {
+  color: #3730a3;
   text-decoration: underline;
 }
 
+/* ================================
+   Error Texts
+   ================================ */
+.input-error,
 .input-errorr {
-  color: #ef4444; /* red-500 */
+  color: #ef4444;
   font-size: 0.85rem;
-  margin-top: -10px;
-  margin-bottom: 6px;
+  margin-top: -5px;
+
+  margin-bottom: -6px;
   font-weight: 500;
   user-select: none;
-}
-
-.login-form p {
-  font-size: 0.95rem;
-  margin-top: 12px;
-  margin-bottom: 6px;
-  color: #555;
-  user-select: none;
+  width: 100%;
   text-align: center;
+  padding-left: 5px;
 }
 
+/* ================================
+   Animation
+   ================================ */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -125,26 +148,19 @@
   }
 }
 
+/* ================================
+   Responsive
+   ================================ */
 @media (max-width: 500px) {
-  .login-form {
+  .auth-form {
     padding: 2rem 2rem;
     width: 92%;
   }
-
-  .login-form input,
-  .login-form button {
+  .auth-form input,
+  .auth-form button {
     font-size: 1rem;
   }
-
-  .login-form button {
+  .auth-form button {
     width: 100%;
   }
-}
-
-.login-form p {
-  all: unset;
-  color: red;
-  font-size: 0.85rem;
-  margin-top: -5px;
-  margin-bottom: -2px;
 }

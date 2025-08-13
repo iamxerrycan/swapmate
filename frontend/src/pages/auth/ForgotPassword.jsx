@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './ForgotPassword.css';
+import './auth.css';
 import AuthHeader from '../../components/ui/Header';
 import API from '../../utils/api/axiosInstance';
 import { toast } from 'react-toastify';
@@ -50,7 +50,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <form className="forgot-form" onSubmit={handleSubmit}>
+    <form className="auth-form" onSubmit={handleSubmit}>
       <AuthHeader title="Forgot Password" />
 
       <input

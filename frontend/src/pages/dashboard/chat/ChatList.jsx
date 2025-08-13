@@ -30,34 +30,37 @@ const ChatList = () => {
         <p>No chats yet</p>
       ) : (
         <ul className="chat-list">
-          {chats.map((chat) => {
-            const otherUser = chat.participants.find((p) => p._id !== currentUserId);
-            const unread = chat.unreadCount || 0;
+          {chats
+            // Filter out chats without a valid otherUser
+            .filter((chat) => chat.participants.some((p) => p._id !== currentUserId && p?.name))
+            .map((chat) => {
+              const otherUser = chat.participants.find((p) => p._id !== currentUserId);
+              const unread = chat.unreadCount || 0;
 
-            return (
-              <li
-                key={chat._id}
-                onClick={() => openChat(chat)}
-                className={`chat-list-item ${unread > 0 ? 'unread' : ''}`}
-              >
-                <div className="chat-list-avatar">
-                  {otherUser.avatar ? (
-                    <img src={otherUser.avatar} alt={otherUser.name} />
-                  ) : (
-                    otherUser.name.charAt(0).toUpperCase()
+              return (
+                <li
+                  key={chat._id}
+                  onClick={() => openChat(chat)}
+                  className={`chat-list-item ${unread > 0 ? 'unread' : ''}`}
+                >
+                  <div className="chat-list-avatar">
+                    {otherUser?.avatar ? (
+                      <img src={otherUser.avatar} alt={otherUser.name} />
+                    ) : (
+                      otherUser?.name?.charAt(0)?.toUpperCase()
+                    )}
+                  </div>
+
+                  <div className="chat-list-info">
+                    <div className="chat-list-name">{otherUser?.name}</div>
+                  </div>
+
+                  {unread > 0 && (
+                    <div className="chat-unread-badge">{unread > 99 ? '99+' : unread}</div>
                   )}
-                </div>
-
-                <div className="chat-list-info">
-                  <div className="chat-list-name">{otherUser.name}</div>
-                </div>
-
-                {unread > 0 && (
-                  <div className="chat-unread-badge">{unread > 99 ? '99+' : unread}</div>
-                )}
-              </li>
-            );
-          })}
+                </li>
+              );
+            })}
         </ul>
       )}
     </div>

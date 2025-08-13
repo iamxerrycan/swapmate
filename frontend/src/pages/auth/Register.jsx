@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { setCredentials } from '../../features/auth/authSlice';
 import { authService } from '../../features/auth/authService';
-import './Register.css';
+import './auth.css';
 import AuthHeader from '../../components/ui/Header';
 import { toast } from 'react-toastify';
 import { useFormValidation } from '../../hooks/useFormValidation'; // adjust path as needed
@@ -72,7 +72,7 @@ export default function Register() {
   };
 
   return (
-    <form className="register-form" onSubmit={handleSubmit}>
+    <form className="auth-form" onSubmit={handleSubmit}>
       <AuthHeader title="Register" />
 
       <input
