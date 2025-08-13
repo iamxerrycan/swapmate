@@ -1,75 +1,53 @@
+// controllers/userController.js
 const {
   getMeService,
   updateProfileService,
   deleteAccountService,
   getAllUsersService,
-  getUserByIdService,
 } = require('../services/userService');
 const User = require('../models/userModel');
 const Item = require('../models/itemModel');
 const SwapRequest = require('../models/swapModel');
 const mongoose = require('mongoose');
 
-
+// Get logged-in user's details
 exports.getMe = async (req, res) => {
   try {
     const user = await getMeService(req.user._id);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+    if (!user) return res.status(404).json({ message: 'User not found' });
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
+// Update user profile
 exports.updateProfile = async (req, res) => {
   try {
     const userId = req.user._id;
     const { name, email, password } = req.body;
-    console.log('Updating profile for user:', userId);
-    console.log('Request body:', req.body);
-    console.log('name email password', name, email, password);
 
-    const updatedUser = await updateProfileService(userId, {
-      name,
-      email,
-      password, // If you hash password, handle it inside the service
-    });
+    const updatedUser = await updateProfileService(userId, { name, email, password });
+    if (!updatedUser) return res.status(404).json({ message: 'User not found or update failed' });
 
-    if (!updatedUser) {
-      return res
-        .status(404)
-        .json({ message: 'User not found or update failed' });
-    }
-
-    res.status(200).json({
-      message: 'User profile updated successfully',
-      user: updatedUser,
-    });
+    res.status(200).json({ message: 'User profile updated successfully', user: updatedUser });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
+// Delete user account
 exports.deleteAccount = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const deletedUser = await deleteAccountService(userId);
-
-    if (!deletedUser) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    res.status(200).json({
-      message: 'User deleted successfully',
-      user: deletedUser,
-    });
+    const deletedUser = await deleteAccountService(req.user._id);
+    if (!deletedUser) return res.status(404).json({ message: 'User not found' });
+    res.status(200).json({ message: 'User deleted successfully', user: deletedUser });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
+// Get all users
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await getAllUsersService();
@@ -79,94 +57,53 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
+// Get user by ID
 exports.getUserById = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: 'Invalid user ID' });
   }
-
   try {
     const user = await User.findById(id);
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
+    if (!user) return res.status(404).json({ message: 'User not found' });
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: 'Server Error', error: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
-// controllers/userController.js
-
+// Get user stats
 exports.getUserStats = async (req, res) => {
   try {
     const userId = req.user._id;
     const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+    const [listed, swapped, pending, rejected, accepted, fulfilled, cancelled] =
+      await Promise.all([
+        Item.countDocuments({ user: userId, isDeleted: false }),
+        Item.countDocuments({ user: userId, isSwapped: true, isDeleted: false }),
+        SwapRequest.countDocuments({ fromUser: userId, status: 'Pending' }),
+        SwapRequest.countDocuments({ fromUser: userId, status: 'Rejected' }),
+        SwapRequest.countDocuments({ fromUser: userId, status: 'Accepted' }),
+        SwapRequest.countDocuments({ fromUser: userId, status: 'Completed' }),
+        SwapRequest.countDocuments({ fromUser: userId, status: 'Cancelled' }),
+      ]);
 
-    const [
-      listed,
-      swapped,
-      pending,
-      rejected,
-      accepted,
-      fulfilled,
-      cancelled,
-      // receivedPending,
-    ] = await Promise.all([
-      Item.countDocuments({ user: userId, isDeleted: false }),
-      Item.countDocuments({
-        user: userId,
-        isSwapped: true,
-        isDeleted: false,
-      }),
-      SwapRequest.countDocuments({ fromUser: userId, status: 'Pending' }),
-      SwapRequest.countDocuments({ fromUser: userId, status: 'Rejected' }),
-      SwapRequest.countDocuments({ fromUser: userId, status: 'Accepted' }),
-      SwapRequest.countDocuments({ fromUser: userId, status: 'Completed' }),
-      SwapRequest.countDocuments({ fromUser: userId, status: 'Cancelled' }),
-      // SwapRequest.countDocuments({ toUser: userId, status: 'Pending' }),
-    ]);
-
-    res.json({
-      listed,
-      swapped,
-      pending,
-      rejected,
-      accepted,
-      fulfilled,
-      cancelled,
-      // received: { pending: receivedPending || 0 },
-    });
+    res.json({ listed, swapped, pending, rejected, accepted, fulfilled, cancelled });
   } catch (error) {
-    console.error('Error fetching stats:', error);
     res.status(500).json({ message: 'Server Error' });
   }
 };
 
-//profile completion controller
+// Get profile completion percentage
 exports.getProfileCompletion = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const user = await User.findById(userId).lean();
+    const user = await User.findById(req.user._id).lean();
+    if (!user) return res.status(404).json({ message: 'User not found' });
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    const totalFields = 4; // ignoring password
-    let filledFields = 0;
-
-    if (user.name) filledFields++;
-    if (user.email) filledFields++;
-    if (user.profilePic) filledFields++;
-    if (user.bio) filledFields++;
-
+    const totalFields = 4;
+    const filledFields = ['name', 'email', 'profilePic', 'bio'].filter(field => user[field]).length;
     const completion = Math.round((filledFields / totalFields) * 100);
 
     res.json({ completion });
@@ -175,24 +112,19 @@ exports.getProfileCompletion = async (req, res) => {
   }
 };
 
+// Search users by name or email
 exports.searchUsers = async (req, res) => {
   try {
     const q = req.query.q?.trim();
-    if (!q) {
-      return res.json([]); // return empty list if no query
-    }
-
+    if (!q) return res.json([]);
     const users = await User.find({
       $or: [
         { name: { $regex: q, $options: 'i' } },
         { email: { $regex: q, $options: 'i' } },
       ],
-    })
-    // }).select('name email profilePic');
-
+    });
     res.json(users);
   } catch (err) {
-    console.error('Search error:', err);
     res.status(500).json({ message: 'Server error' });
   }
 };

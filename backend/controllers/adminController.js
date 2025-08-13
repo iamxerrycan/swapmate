@@ -1,5 +1,5 @@
 const {
-   getAllUsersService,
+  getAllUsersService,
   getAllItemsService,
   deleteUserService,
   deleteItemService,
@@ -11,11 +11,10 @@ const {
 
 // Get all users
 exports.getAllUsers = async (req, res) => {
-  console.log("✅ Admin Access by:", req.user); // Who is hitting the route
   const users = await User.find();
-  console.log("📦 Sending Users to frontend:", users.length); // ✅ Number of users
   res.json(users);
 };
+
 // Get all items
 exports.getAllItems = async (req, res) => {
   try {
@@ -25,10 +24,11 @@ exports.getAllItems = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 // Delete a user
 exports.deleteUser = async (req, res) => {
   try {
-    const userId = req.params.id; // User ID from URL
+    const userId = req.params.id;
     if (!userId) {
       return res.status(400).json({ message: 'User ID is required' });
     }
@@ -38,10 +38,11 @@ exports.deleteUser = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
 // Delete an item
 exports.deleteItem = async (req, res) => {
   try {
-    const itemId = req.params.id; // Item ID from URL
+    const itemId = req.params.id;
     if (!itemId) {
       return res.status(400).json({ message: 'Item ID is required' });
     }
@@ -51,16 +52,15 @@ exports.deleteItem = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
 // Update user role
 exports.updateUserRole = async (req, res) => {
   try {
-    const userId = req.params.id; // User ID from URL
-    const { isAdmin } = req.body; // New role from request body
-
+    const userId = req.params.id;
+    const { isAdmin } = req.body;
     if (!userId || typeof isAdmin !== 'boolean') {
       return res.status(400).json({ message: 'User ID and isAdmin are required' });
     }
-
     const updatedUser = await updateUserRoleService(userId, isAdmin);
     res.status(200).json({ message: 'User role updated successfully', user: updatedUser });
   } catch (err) {
@@ -71,7 +71,7 @@ exports.updateUserRole = async (req, res) => {
 // Block a user
 exports.blockUser = async (req, res) => {
   try {
-    const userId = req.params.id; // User ID from URL
+    const userId = req.params.id;
     if (!userId) {
       return res.status(400).json({ message: 'User ID is required' });
     }
@@ -85,7 +85,7 @@ exports.blockUser = async (req, res) => {
 // Unblock a user
 exports.unblockUser = async (req, res) => {
   try {
-    const userId = req.params.id; // User ID from URL
+    const userId = req.params.id;
     if (!userId) {
       return res.status(400).json({ message: 'User ID is required' });
     }
@@ -105,5 +105,3 @@ exports.getAdminStats = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-

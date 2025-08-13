@@ -74,7 +74,9 @@ exports.getUnreadCount = async (req, res) => {
   if (!currentUserId) return res.status(400).json({ error: 'userId missing' });
 
   try {
-    const userChats = await Chat.find({ participants: currentUserId }).select('_id');
+    const userChats = await Chat.find({ participants: currentUserId }).select(
+      '_id'
+    );
     const chatIds = userChats.map((chat) => chat._id);
 
     const totalUnread = await Message.countDocuments({

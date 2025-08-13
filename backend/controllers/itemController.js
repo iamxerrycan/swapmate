@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');
 const Item = require('../models/itemModel');
+const Activity = require('../models/ActivityModel');
 const {
   markItemSwappedService,
   deleteItemService,
@@ -10,34 +11,27 @@ const {
   getItemByIdService,
   getItemsByUserService,
 } = require('../services/itemService');
-const Activity = require('../models/ActivityModel');
 
-//  Create a new item
+// Create a new item
 exports.createItem = async (req, res) => {
   try {
-    const userId = req.user._id; // from auth middleware
-    const {
-      name,
-      category,
-      description,
-      address,
-      coordinates, // expecting [longitude, latitude]
-    } = req.body;
-
-    const image = req.file?.filename || null; // if using multer for image upload
+    const userId = req.user._id;
+    const { name, category, description, address, coordinates } = req.body;
+    const image = req.file?.filename || null;
 
     const item = await createItemService({
       name,
       category,
       description,
       address,
-      location: coordinates, // 👈 renamed for service compatibility
+      location: coordinates,
       image,
       userId,
     });
+
     await Activity.create({
       description: `Created a new item: ${name}`,
-      user: userId, // link to the actual user
+      user: userId,
     });
 
     res.status(201).json(item);
@@ -46,7 +40,7 @@ exports.createItem = async (req, res) => {
   }
 };
 
-//  Get all items (optional filter)
+// Get all items with optional filters
 exports.getAllItems = async (req, res) => {
   try {
     const { category, lat, lng, radius } = req.query;
@@ -57,7 +51,7 @@ exports.getAllItems = async (req, res) => {
   }
 };
 
-//  Get single item by ID
+// Get single item by ID
 exports.getItemById = async (req, res) => {
   try {
     const item = await getItemByIdService(req.params.id);
@@ -67,11 +61,10 @@ exports.getItemById = async (req, res) => {
   }
 };
 
-// Get items by user
+// Get items by logged-in user
 exports.getItemsByUser = async (req, res) => {
   try {
-    const userId = req.user._id; // from auth middleware
-    console.log('Querying items for user:', userId);
+    const userId = req.user._id;
     if (!userId) {
       return res.status(400).json({ message: 'User ID is required' });
     }
@@ -82,13 +75,10 @@ exports.getItemsByUser = async (req, res) => {
   }
 };
 
-//  Controller to mark item as swapped
+// Mark item as swapped
 exports.markItemSwapped = async (req, res) => {
   try {
-    const itemId = req.params.id; // item ID from URL
-    if (!itemId) {
-      return res.status(400).json({ message: 'Item ID is required' });
-    }
+    const itemId = req.params.id;
     const { swappedWithUserId } = req.body;
 
     if (!itemId || !swappedWithUserId) {
@@ -114,26 +104,24 @@ exports.markItemSwapped = async (req, res) => {
   }
 };
 
+// Update item
 exports.updateItem = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  // Validate ObjectId
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: 'Invalid item ID' });
   }
 
   let updateData = { ...req.body };
 
-  // If coordinates are present, convert to GeoJSON format
   if (req.body.coordinates) {
     updateData.location = {
       type: 'Point',
-      coordinates: req.body.coordinates, // [lng, lat]
+      coordinates: req.body.coordinates,
     };
-    delete updateData.coordinates; // remove raw coordinates from body
+    delete updateData.coordinates;
   }
 
-  // Optionally handle image (if using multer)
   if (req.file?.filename) {
     updateData.image = req.file.filename;
   }
@@ -147,25 +135,8 @@ exports.updateItem = asyncHandler(async (req, res) => {
   res.status(200).json(updatedItem);
 });
 
-// delete item by id
-
-// exports.deleteItem = async (req, res) => {
-//   try {
-//     const itemId = req.params.id; // Item ID from URL
-//     if (!itemId) {
-//       return res.status(400).json({ message: 'Item ID is required' });
-//     }
-//     const item = await deleteItemService(itemId);
-//     res.status(200).json({ message: 'Item deleted successfully', item });
-//   } catch (err) {
-//     res.status(404).json({ message: err.message });
-//   }
-// };
-
+// Delete item by ID
 exports.deleteItem = async (req, res) => {
-  console.log('🗑 DELETE /items/:id hit with ID:', req.params.id);
-  console.log('🔐 Token found:', req.headers.authorization);
-
   try {
     const itemId = req.params.id;
 
@@ -179,19 +150,16 @@ exports.deleteItem = async (req, res) => {
       return res.status(404).json({ message: 'Item not found' });
     }
 
-    res
-      .status(200)
-      .json({ message: 'Item deleted successfully', item: deletedItem });
+    res.status(200).json({ message: 'Item deleted successfully', item: deletedItem });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
+// Get items by specific user ID
 exports.getItemsBySpecificUser = async (req, res) => {
   try {
     const items = await Item.find({ user: req.params.id });
-
-    // Agar items empty hain, toh bhi 200 OK with empty array bhejo
     res.json(items);
   } catch (err) {
     res.status(500).json({ message: err.message });

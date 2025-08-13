@@ -11,12 +11,9 @@ const {
   getAllSwapsService,
 } = require('../services/swapService');
 
-// @desc    Create new swap request
-// @route   POST /api/swaps
-// @access  Private
+// Create new swap request
 exports.createSwapRequest = async (req, res) => {
   try {
-    // console.log('Request body controller:', req.body);
     const swap = await createSwapRequestService(req.body);
     res.status(201).json(swap);
   } catch (error) {
@@ -24,9 +21,10 @@ exports.createSwapRequest = async (req, res) => {
   }
 };
 
+// Get swap requests for logged-in user
 exports.getUserSwapRequests = async (req, res) => {
   try {
-    const userId = req.user?._id; // logged in user id yahin se lena hai
+    const userId = req.user?._id;
     const swaps = await SwapRequest.find({
       $or: [{ fromUser: userId }, { toUser: userId }],
     })
@@ -41,21 +39,7 @@ exports.getUserSwapRequests = async (req, res) => {
   }
 };
 
-// @desc    Get all swap requests for a user
-// @route   GET /api/swaps/user/:userId
-// @access  Private
-// exports.getUserSwapRequests = async (req, res) => {
-//   try {
-//     const swaps = await getUserSwapRequestsService(req.params.userId);
-//     res.status(200).json(swaps);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-
-// @desc    Get single swap request by ID
-// @route   GET /api/swaps/:id
-// @access  Private
+// Get single swap request by ID
 exports.getSwapById = async (req, res) => {
   try {
     const swap = await getSwapByIdService(req.params.id);
@@ -65,9 +49,7 @@ exports.getSwapById = async (req, res) => {
   }
 };
 
-// @desc    Accept a swap
-// @route   PUT /api/swaps/:id/accept
-// @access  Private
+// Accept a swap
 exports.acceptSwap = async (req, res) => {
   try {
     const swap = await acceptSwapService(req.params.id);
@@ -77,9 +59,7 @@ exports.acceptSwap = async (req, res) => {
   }
 };
 
-// @desc    Reject a swap
-// @route   PUT /api/swaps/:id/reject
-// @access  Private
+// Reject a swap
 exports.rejectSwap = async (req, res) => {
   try {
     const swap = await rejectSwapService(req.params.id);
@@ -89,9 +69,7 @@ exports.rejectSwap = async (req, res) => {
   }
 };
 
-// @desc    Cancel a swap (by sender)
-// @route   PUT /api/swaps/:id/cancel
-// @access  Private
+// Cancel a swap (by sender)
 exports.cancelSwap = async (req, res) => {
   try {
     const swap = await cancelSwapService(req.params.id, req.user._id);
@@ -101,9 +79,7 @@ exports.cancelSwap = async (req, res) => {
   }
 };
 
-// @desc    Delete a swap (soft delete)
-// @route   DELETE /api/swaps/:id
-// @access  Private
+// Delete a swap
 exports.deleteSwap = async (req, res) => {
   try {
     const swap = await deleteSwapService(req.params.id);
@@ -113,9 +89,7 @@ exports.deleteSwap = async (req, res) => {
   }
 };
 
-// @desc    Admin: Get all swap requests
-// @route   GET /api/swaps
-// @access  Admin
+// Admin: Get all swap requests
 exports.getAllSwaps = async (req, res) => {
   try {
     const swaps = await getAllSwapsService();
