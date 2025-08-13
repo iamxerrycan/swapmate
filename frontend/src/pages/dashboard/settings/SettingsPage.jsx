@@ -1,8 +1,33 @@
 import React from 'react';
 import { Lock, Download, Trash2, Settings } from 'lucide-react'; // Icons
 import './SettingsPage.css';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../../features/auth/authSlice';
+import { deleteAccount } from '../../../features/users/userSlice';
+import { toast } from 'react-toastify';
+import { confirmToast } from '../../../components/ui/ConfirmToast';
+
 
 const SettingsPage = ({ isAdmin = false }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const token = user.token;
+
+  const handleDelete = () => {
+    confirmToast(async () => {
+      try {
+        await dispatch(deleteAccount(token)).unwrap();
+        dispatch(logout());
+        toast.success('Account deleted successfully');
+        navigate('/');
+      } catch (error) {
+        toast.error(error || 'Failed to delete account');
+      }
+    });
+  };
+
   return (
     <div className="settings-container">
       <h2 className="settings-title">Settings</h2>
@@ -81,7 +106,7 @@ const SettingsPage = ({ isAdmin = false }) => {
         </div>
         <div className="setting-item">
           <label className="setting-label">Delete My Account</label>
-          <button className="icon-button danger">
+          <button className="icon-button danger" onClick={handleDelete}>
             <Trash2 size={18} />
           </button>
         </div>
