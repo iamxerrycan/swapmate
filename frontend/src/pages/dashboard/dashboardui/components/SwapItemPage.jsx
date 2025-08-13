@@ -15,7 +15,7 @@ export default function SwapItemPage() {
   const { itemId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { createNotification } = useNotifications(); // ✅ fixed name
+  const { createNotification } = useNotifications(); 
 
   const [selectedUserItemId, setSelectedUserItemId] = useState('');
   const { selectedItem, isLoading, items } = useSelector(
