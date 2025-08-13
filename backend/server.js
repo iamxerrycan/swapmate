@@ -2,7 +2,9 @@ const express = require('express');
 const env = require('dotenv');
 const connectDB = require('./config/db');
 const routes = require('./routes/allRoutes');
+const socketIo = require('socket.io');
 const cors = require('cors');
+const http = require('http');
 
 // Load environment variables
 env.config();
@@ -11,20 +13,42 @@ env.config();
 connectDB();
 
 const app = express();
+const server = http.createServer(app);
 
-// CORS Middleware (✅ Keep this before routes & body-parser)
+// Allowed origins array (add your frontend URLs here)
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://swapmate.netlify.app',
+];
+
+// CORS Middleware (Keep this before routes & body-parser)
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://swapmate.netlify.app'],
+    origin: function (origin, callback) {
+      // allow requests with no origin like mobile apps or curl
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg =
+          'The CORS policy for this site does not allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     credentials: true,
   })
 );
 
-// Body Parsers (✅ Required before using req.body)
+// Socket.io setup
+const io = socketIo(server, {
+  cors: {
+    origin: allowedOrigins,
+    credentials: true,
+  },
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes (✅ Correctly mounted)
 app.use('/api', routes);
 
 // Test Route (Optional)
@@ -32,15 +56,10 @@ app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-app.use((req, res, next) => {
-  console.log(`📥 ${req.method} ${req.url}`);
-  next();
-});
-
 // Server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`✅ Server is running on port ${PORT}`);
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 module.exports = app;

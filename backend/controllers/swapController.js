@@ -24,17 +24,34 @@ exports.createSwapRequest = async (req, res) => {
   }
 };
 
-// @desc    Get all swap requests for a user
-// @route   GET /api/swaps/user/:userId
-// @access  Private
 exports.getUserSwapRequests = async (req, res) => {
   try {
-    const swaps = await getUserSwapRequestsService(req.params.userId);
+    const userId = req.user?._id; // logged in user id yahin se lena hai
+    const swaps = await SwapRequest.find({
+      $or: [{ fromUser: userId }, { toUser: userId }],
+    })
+      .populate('fromUser', 'name email')
+      .populate('toUser', 'name email')
+      .populate('fromItem')
+      .populate('toItem');
+
     res.status(200).json(swaps);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
+// @desc    Get all swap requests for a user
+// @route   GET /api/swaps/user/:userId
+// @access  Private
+// exports.getUserSwapRequests = async (req, res) => {
+//   try {
+//     const swaps = await getUserSwapRequestsService(req.params.userId);
+//     res.status(200).json(swaps);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
 
 // @desc    Get single swap request by ID
 // @route   GET /api/swaps/:id

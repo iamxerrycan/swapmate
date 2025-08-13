@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { setCredentials } from '../features/auth/authSlice';
-import { authService } from '../features/auth/authService';
+import { setCredentials } from '../../features/auth/authSlice';
+import { authService } from '../../features/auth/authService';
 import './Login.css';
-import AuthHeader from '../components/ui/Header';
+import AuthHeader from '../../components/ui/Header';
 import { toast } from 'react-toastify';
-import { useFormValidation } from '../hooks/useFormValidation';
-import Spinner from '../components/ui/Spinner';
+import { useFormValidation } from '../../hooks/useFormValidation';
+import Spinner from '../../components/ui/Spinner';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -47,7 +47,10 @@ export default function Login() {
 
     try {
       setIsSubmitting(true);
+      console.log('formData', formData);
       const data = await authService.login(formData);
+      console.log('data', data);
+      localStorage.setItem('userId', data?.user?._id);
       dispatch(setCredentials({ user: data, token: data.token }));
       toast.success('Login successful!');
 

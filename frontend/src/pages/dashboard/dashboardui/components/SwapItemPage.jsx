@@ -4,11 +4,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { fetchItemById } from '../../../../features/items/itemSlice';
 import { createSwap } from '../../../../features/swap/swapSlice';
 import './SwapItempage.css';
-import ButtonLoader from '../../../../components/ui/ButtonLoader';
+import Spinner from '../../../../components/ui/Spinner';
 import { FaExchangeAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import Loader from '../../../../components/ui/Loader';
 import useNotifications from '../../../../hooks/useNotifications';
+import { ImageOff } from 'lucide-react';
 
 export default function SwapItemPage() {
   const { itemId } = useParams();
@@ -54,25 +55,26 @@ export default function SwapItemPage() {
     try {
       const createdSwap = await dispatch(createSwap(payload)).unwrap();
 
+      // Get the selected user item name
+      const senderItem = userItems.find(
+        (item) => item._id === selectedUserItemId
+      );
+
+      // Create a personalized message
+      const message = `${user?.user?.name || user?.name} wants to swap their "${
+        senderItem?.name
+      }" for your "${selectedItem.name}".`;
+
       // Notify the other user
       await createNotification({
         sender: payload.fromUser,
         receiver: payload.toUser,
-        message: 'You have received a new swap request.',
+        message,
         type: 'swap_request',
         relatedItem: selectedItem._id,
         relatedSwap: createdSwap._id,
         actionURL: `/dashboard/swaps/${createdSwap._id}`,
       });
-      // await createNotification({
-      //   sender: payload.fromUser,
-      //   receiver: payload.toUser,
-      //   message: 'You have received a new swap request.',
-      //   type: 'swap_request', // matches your backend enum
-      //   relatedItem: payload.toItem,
-      //   relatedSwap: createdSwap._id,
-      //   actionURL: `/dashboard/swaps/${createdSwap._id}`,
-      // });
 
       toast.success('Swap request sent successfully');
       navigate('/dashboard/swapitem');
@@ -94,11 +96,17 @@ export default function SwapItemPage() {
       </h2>
 
       <div className="swap-item-details">
-        <img
-          src={selectedItem?.image || '/placeholder.png'}
-          alt={selectedItem?.name || 'Item'}
-          className="swap-item-image"
-        />
+        {selectedItem.image ? (
+          <img
+            src={selectedItem.image}
+            alt={selectedItem.name || 'Item Image'}
+            className="item-card-image"
+          />
+        ) : (
+          <div className="item-card-noimage">
+            <ImageOff size={48} color="#999" />
+          </div>
+        )}
         <div className="swap-item-info">
           <h3>{selectedItem.name}</h3>
           <p>
@@ -136,7 +144,7 @@ export default function SwapItemPage() {
           className="swap-request-button"
           disabled={creatingSwap}
         >
-          {creatingSwap ? <ButtonLoader /> : 'Send Swap Request'}
+          {creatingSwap ? <Spinner /> : 'Send Swap Request'}
         </button>
 
         {swapError && <p className="error-msg">{swapError}</p>}

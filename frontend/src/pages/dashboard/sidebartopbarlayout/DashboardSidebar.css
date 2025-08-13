@@ -136,3 +136,14 @@
     display: none;
   }
 }
+
+.unread-badge {
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 12px;
+  padding: 2px 7px;
+  margin-left: 6px;
+  vertical-align: middle;
+}

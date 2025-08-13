@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Loader from '../../../../../components/ui/Loader';
 import {
   LineChart,
   Line,
@@ -58,7 +59,7 @@ export default function UserDashboardChart() {
     fetchSwaps();
   }, []);
 
-  if (loading) return <p>Loading chart...</p>;
+  if (loading) return <div> {<Loader fullHeight={true} />}</div>;
 
   return (
     <div className="dashboard-chart">

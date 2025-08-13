@@ -9,7 +9,7 @@ import {
 import { toast } from 'react-toastify';
 import UpdateProfileForm from './UpdateProfileForm';
 import './AdminProfile.css';
-import { confirmToast } from "../../../components/ui/ConfirmToast";
+import { confirmToast } from '../../../components/ui/ConfirmToast';
 import { LogOut, Trash2, Pencil } from 'lucide-react';
 
 const AdminProfile = () => {
@@ -51,7 +51,10 @@ const AdminProfile = () => {
   return (
     <div className="admin-profile-container">
       <div className="profile-wrapper">
-        
+        <div className="profile-header-yahoo">
+          <h1>Your Profile</h1>
+        </div>
+
         {/* Profile Details Card */}
         <div className="profile-card-main">
           <div className="profile-avatar-container">
@@ -65,11 +68,23 @@ const AdminProfile = () => {
           </div>
           <div className="profile-infoo">
             <h2>{user.name}</h2>
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Role:</strong> {user.isAdmin ? 'Admin' : 'User'}</p>
-            <p><strong>Status:</strong> {user.isOnline ? '🟢 Online' : '⚪ Offline'}</p>
-            <p><strong>User ID:</strong> {user._id}</p>
-            <p><strong>Joined:</strong> {new Date(user.createdAt).toLocaleString()}</p>
+            <p>
+              <strong>Email:</strong> {user.email}
+            </p>
+            <p>
+              <strong>Role:</strong> {user.isAdmin ? 'Admin' : 'User'}
+            </p>
+            <p>
+              <strong>Status:</strong>{' '}
+              {user.isOnline ? '🟢 Online' : '⚪ Offline'}
+            </p>
+            <p>
+              <strong>User ID:</strong> {user._id}
+            </p>
+            <p>
+              <strong>Joined:</strong>{' '}
+              {new Date(user.createdAt).toLocaleString()}
+            </p>
           </div>
         </div>
 
@@ -88,7 +103,6 @@ const AdminProfile = () => {
             </button>
           </div>
         </div>
-
       </div>
 
       {showForm && (

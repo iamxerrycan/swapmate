@@ -1,14 +1,12 @@
 // src/routes/AppRoutes.jsx
 import { Routes, Route } from 'react-router-dom';
 
-import Login from '../pages/Login';
+import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import ResetPassword from '../pages/auth/ResetPassword';
+import ChatList from '../pages/dashboard/chat/ChatList';
 
-import Home from '../pages/Home';
-import ItemDetails from '../pages/ItemDetails';
-import Profile from '../pages/Profile';
 // import CreateItem from '../pages/CreateItem';
 import UserProfile from '../pages/dashboard/users/UserProfile';
 // import SwapItem from '../pages/SwapRequest';
@@ -30,6 +28,8 @@ import ManageItems from '../pages/dashboard/dashboardui/components/ManageItems';
 import EditItem from '../pages/dashboard/dashboardui/components/EditItem';
 import SwapItem from '../pages/dashboard/dashboardui/components/SwapItem';
 import SwapItemPage from '../pages/dashboard/dashboardui/components/SwapItemPage';
+import ManageSwap from '../pages/dashboard/manageswap/ManageSwap';
+import NotificationsPage from '../pages/dashboard/notifications/NotificationsPage';
 
 export default function AppRoutes() {
   return (
@@ -55,13 +55,16 @@ export default function AppRoutes() {
           <Route path="edit/:id" element={<EditItem />} />
           <Route path="swapitem" element={<SwapItem />} />
           <Route path="swapitem/:itemId" element={<SwapItemPage />} />
+          <Route path="manageswap" element={<ManageSwap />} />
+          <Route path="notifications" element={<NotificationsPage />} />
 
           {/* Shared pages */}
           <Route index element={<DashboardMain />} />
           {/* <Route path="user/:id" element={<UserProfile />} /> */}
           <Route path="profile" element={<AdminProfile />} />
           {/* <Route path="notifications" element={<NotificationsPage />} /> */}
-          <Route path="chat" element={<ChatPage />} />
+          <Route path="/dashboard/chat" element={<ChatList />} />
+          <Route path="/dashboard/chat/:chatId" element={<ChatPage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Route>
