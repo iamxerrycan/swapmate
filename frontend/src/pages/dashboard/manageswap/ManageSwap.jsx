@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import API from '../../../utils/api/axiosInstance';
 import './ManageSwap.css';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../../components/ui/Loader';
 
 const ManageSwap = () => {
   const [swaps, setSwaps] = useState([]);
@@ -74,7 +75,7 @@ const ManageSwap = () => {
     }
   };
 
-  if (loading) return <p className="loading-text">Loading swaps...</p>;
+  if (loading) return <Loader fullHeight={true} />;
   if (error) return <p className="error-text">Error: {error}</p>;
 
   return (

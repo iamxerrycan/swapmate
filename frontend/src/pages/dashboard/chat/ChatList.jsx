@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useChat } from '../../../hooks/useChat';
+import Loader from '../../../components/ui/Loader';
 import './ChatList.css';
 
 const ChatList = () => {
@@ -19,7 +20,7 @@ const ChatList = () => {
     });
   };
 
-  if (loadingChats) return <p>Loading chats...</p>;
+  if (loadingChats) return <Loader fullHeight={true} />;
   if (errorChats) return <p>Error: {errorChats}</p>;
 
   return (
