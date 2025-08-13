@@ -9,9 +9,11 @@
   padding: 2.5rem 3rem;
   background-color: #ffffff; /* pure white background */
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12); /* soft shadow */
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  /* soft shadow */
   display: flex;
   flex-direction: column;
+  border: 1px solid #5675c9;
   align-items: center;
   justify-content: center;
   color: #333333; /* dark text */

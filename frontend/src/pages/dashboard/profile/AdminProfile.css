@@ -9,7 +9,9 @@
 
 .profile-wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
   gap: 2rem;
   background-color: white;
   flex-wrap: wrap;
@@ -26,7 +28,7 @@
   padding: 2rem;
   flex: 1;
   min-width: 320px;
-  border: 1px solid rgba(226, 232, 240, 0.6);
+  border: 1px solid rgba(52, 125, 221, 0.6);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   animation: fadeIn 0.4s ease-out;
 }
@@ -147,3 +149,5 @@
     
   }
 }
+
+

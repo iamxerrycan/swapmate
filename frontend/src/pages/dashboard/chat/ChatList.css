@@ -1,7 +1,16 @@
 .chat-list-container {
   max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center ;
+  align-items: center;
   margin: auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.chat-list-container h2{
+  text-align: center;
+  margin-top: 2rem;
 }
 
 .chat-list-header {
@@ -27,7 +36,10 @@
   transition: background-color 0.2s ease;
   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
   margin-bottom: 12px;
+  box-shadow: 1px 3px 3px rgba(0, 0, 0, 0.2);
   user-select: none;
+  border: 1px solid #5675c9;
+  min-width: 300px;
   position: relative;
 }
 
@@ -83,3 +95,10 @@
 
 }
 
+@media screen and (max-width: 768px) {
+  .chat-list-container {
+    max-width: 100%;
+    margin-top: 2.5rem;
+  }
+  
+}
