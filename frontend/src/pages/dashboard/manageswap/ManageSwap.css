@@ -187,24 +187,13 @@
   }
 }
 
-/* .status-accepted , .status-cancelled ,.status-completed , .status-pending ,.status-rejected {
-  
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-  transition: background-color 0.3s ease;
-  border-radius: 8px;
-  font-display: bold;
-  cursor: default;
-  padding-right: 5px;
-  padding-left: 5px;
-} */
-
 .status {
   display: inline-block;
-  padding: 4px 14px;
-  border-radius: 16px;
+  padding: 4px 14px;       
+  border-radius: 16px;    
   font-weight: 600;
   font-size: 0.85rem;
   text-align: center;
-  white-space: normal;
-  word-break: break-word;
+  white-space: nowrap;      
 }
+
