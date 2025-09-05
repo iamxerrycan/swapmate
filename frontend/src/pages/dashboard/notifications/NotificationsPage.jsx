@@ -76,7 +76,7 @@ export default function NotificationsPage() {
           <thead>
             <tr>
               <th>Message</th>
-              <th>Type</th>
+              {/* <th>Type</th> */}
               <th>Date</th>
               <th>Actions</th>
             </tr>
@@ -88,7 +88,7 @@ export default function NotificationsPage() {
                 className={note.isRead ? 'read' : 'unread'}
               >
                 <td>{note.message}</td>
-                <td>{note.type}</td>
+                {/* <td>{note.type}</td> */}
                 <td>{new Date(note.createdAt).toLocaleString()}</td>
                 <td>
                   <button
