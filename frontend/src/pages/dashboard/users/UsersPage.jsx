@@ -13,9 +13,9 @@ export default function UsersPage() {
   const { users = [], isLoading = false } = useSelector(
     (state) => state.admin || {}
   );
-  console.log('👥 users from Redux:', users);
+ 
   useEffect(() => {
-    dispatch(getAllUsers()); // ✅ No token needed
+    dispatch(getAllUsers()); 
   }, [dispatch]);
 
   const handleDelete = (userId) => {

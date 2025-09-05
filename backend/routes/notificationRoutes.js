@@ -21,8 +21,6 @@ router.post(
   '/',
   protect,
   (req, res, next) => {
-    console.log('🔥 Incoming POST /api/notifications');
-    console.log('📦 Body:', req.body);
     next();
   },
   createNotification

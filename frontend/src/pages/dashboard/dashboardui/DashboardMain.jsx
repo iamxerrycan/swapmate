@@ -12,8 +12,7 @@ const DashboardMain = () => {
   const user = useSelector((state) => state.auth.user);
 
   const userType = user.user;
-  console.log('usertype', userType);
-  console.log('usermaindash', user);
+
   if (!user) return <div>{<Loader fullHeight={true} />}</div>;
 
   return (

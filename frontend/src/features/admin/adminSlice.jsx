@@ -121,9 +121,8 @@ const adminSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAllUsers.fulfilled, (state, action) => {
-        console.log('Fetched users:', action.payload);
         state.isLoading = false;
-        state.users = action.payload; // This should be an array
+        state.users = action.payload;
       })
       .addCase(getAllUsers.rejected, (state) => {
         state.isLoading = false;

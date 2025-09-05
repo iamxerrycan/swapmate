@@ -13,7 +13,6 @@ const ManageSwap = () => {
   const currentUserId = localStorage.getItem('userId');
   const navigate = useNavigate();
 
-  console.log('swaps', swaps);
 
   // Fetch swaps for the logged in user
   const fetchSwaps = async () => {

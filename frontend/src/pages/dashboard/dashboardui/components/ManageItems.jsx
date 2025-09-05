@@ -15,8 +15,6 @@ export default function ManageItems() {
   const navigate = useNavigate();
   const { items, loading } = useSelector((state) => state.items);
 
-  console.log('items', items);
-
   useEffect(() => {
     dispatch(fetchUserItems());
   }, [dispatch]);

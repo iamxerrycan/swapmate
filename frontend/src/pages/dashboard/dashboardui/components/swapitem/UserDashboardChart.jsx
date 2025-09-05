@@ -19,7 +19,7 @@ export default function UserDashboardChart() {
   useEffect(() => {
     const fetchSwaps = async () => {
       try {
-        const res = await API.get('/api/swaps/my'); // or /api/swaps/swaps for admin
+        const res = await API.get('/api/swaps/my');
         const swaps = res.data;
 
         // Aggregate swaps by weekday

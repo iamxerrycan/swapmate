@@ -16,10 +16,6 @@ export default function SwapItem() {
   const [category, setCategory] = useState('');
   const [sortBy, setSortBy] = useState('');
   const [userLocation, setUserLocation] = useState(null);
-  console.log('User item id :', items.user?._id);
-
-  console.log('user ID', user.user?._id);
-  console.log('items swap', items);
 
   useEffect(() => {
     let query = '';

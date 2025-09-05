@@ -52,7 +52,6 @@ const useNotifications = (userId) => {
 
   const createNotification = async (payload) => {
     try {
-      console.log('📤 Sending notification:', payload);
       await API.post('/api/notifications', payload);
       await fetchNotifications();
       await fetchUnreadCount();

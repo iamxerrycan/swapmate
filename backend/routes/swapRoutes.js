@@ -21,7 +21,7 @@ const { protect } = require('../middleware/authMiddleware');
 router.post(
   '/sendrequest',
   (req, res, next) => {
-    // console.log('🔥 Incoming swap request');
+   
     next();
   },
   createSwapRequest

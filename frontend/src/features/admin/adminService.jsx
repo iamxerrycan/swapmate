@@ -10,7 +10,7 @@ import API from '../../utils/api/axiosInstance';
 export const fetchAllUsers = async () => {
   try {
     const response = await API.get('/api/admin/users');
-    console.log("🟢 API Response from /admin/users: ", response.data); // ✅ Debug log
+    console.log("🟢 API Response from /admin/users: ", response.data); 
     return response.data;
   } catch (error) {
     console.error("🔴 Error fetching users: ", error.response?.data || error.message);
