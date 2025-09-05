@@ -13,6 +13,8 @@ const ManageSwap = () => {
   const currentUserId = localStorage.getItem('userId');
   const navigate = useNavigate();
 
+  console.log('swaps', swaps);
+
   // Fetch swaps for the logged in user
   const fetchSwaps = async () => {
     setLoading(true);
@@ -101,14 +103,19 @@ const ManageSwap = () => {
             <tbody>
               {swaps.map((swap) => (
                 <tr key={swap._id}>
-                  <td>{swap.fromUser?.name || 'N/A'}</td>
-                  <td>{swap.toUser?.name || 'N/A'}</td>
-                  <td>{swap.fromItem?.name || '-'}</td>
-                  <td>{swap.toItem?.name || '-'}</td>
-                  <td>{swap.message || '-'}</td>
-                  <td className={`status status-${swap.status.toLowerCase()}`}>
+                  <td data-label="From User">{swap.fromUser?.name || 'N/A'}</td>
+                  <td data-label="To User">{swap.toUser?.name || 'N/A'}</td>
+                  <td data-label="From Item">{swap.fromItem?.name || '-'}</td>
+                  <td data-label="To Item">{swap.toItem?.name || '-'}</td>
+                  <td data-label="Message">{swap.message || '-'}</td>
+
+                  <td
+                    data-label="Status"
+                    className={`status status-${swap.status.toLowerCase()}`}
+                  >
                     {swap.status}
                   </td>
+
                   <td className="actions">
                     {swap.status === 'Pending' && (
                       <>
@@ -165,5 +172,3 @@ const ManageSwap = () => {
 };
 
 export default ManageSwap;
-
-
