@@ -98,3 +98,44 @@ exports.getAllSwaps = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.completeSwap = async (req, res) => {
+  try {
+    const swap = await SwapRequest.findById(req.params.id);
+    if (!swap) return res.status(404).json({ error: "Swap not found" });
+
+    swap.status = "Completed";
+    await swap.save();
+
+    res.json({ message: "Swap marked as completed", swap });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to complete swap" });
+  }
+};
+
+exports.markSwapped = async (req, res) => {
+  try {
+    const swap = await SwapRequest.findById(req.params.id)
+      .populate("fromItem")
+      .populate("toItem");
+
+    if (!swap) return res.status(404).json({ error: "Swap not found" });
+
+    if (swap.fromItem) {
+      swap.fromItem.isSwapped = true;
+      swap.fromItem.swappedWith = swap.toUser;
+      swap.fromItem.swapDate = new Date();
+      await swap.fromItem.save();
+    }
+    if (swap.toItem) {
+      swap.toItem.isSwapped = true;
+      swap.toItem.swappedWith = swap.fromUser;
+      swap.toItem.swapDate = new Date();
+      await swap.toItem.save();
+    }
+
+    res.json({ message: "Items marked as swapped", swap });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to mark items as swapped" });
+  }
+};

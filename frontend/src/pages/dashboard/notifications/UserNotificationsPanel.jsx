@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './UserNotificationsPanel.css';
 import API from '../../../utils/api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../../../components/ui/Loader';
 
 export default function UserNotificationsPanel() {
   const [notifications, setNotifications] = useState([]);
@@ -33,9 +34,9 @@ export default function UserNotificationsPanel() {
       <h3>Notifications</h3>
 
       {loading ? (
-        <p>Loading notifications...</p>
-      ) : notifications.length === 0 ? (
-        <p>No notifications available.</p>
+        <Loader />    
+      ) : notifications.filter((n) => !n.isSeen).length === 0 ? ( 
+        <p>No new notifications.</p>
       ) : (
         <ul>
           {notifications.map((note) => (
@@ -46,7 +47,11 @@ export default function UserNotificationsPanel() {
               <div
                 className="note-message"
                 onClick={goToNotificationsPage}
-                style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
+                style={{
+                  cursor: 'pointer',
+                  color: 'blue',
+                  textDecoration: 'underline',
+                }}
               >
                 {note.message}
               </div>

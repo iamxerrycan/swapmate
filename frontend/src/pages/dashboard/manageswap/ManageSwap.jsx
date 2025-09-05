@@ -34,6 +34,24 @@ const ManageSwap = () => {
   }, []);
 
   // Handle accept/reject/cancel/delete actions on swaps
+  // const handleAction = async (id, action) => {
+  //   setActionLoadingId(id);
+  //   let method = 'put';
+  //   let url = `/api/swaps/${id}/${action}`;
+  //   if (action === 'delete') {
+  //     method = 'delete';
+  //     url = `/api/swaps/${id}`;
+  //   }
+  //   try {
+  //     await API({ method, url });
+  //     fetchSwaps();
+  //   } catch (err) {
+  //     alert(err.response?.data?.error || err.message);
+  //   } finally {
+  //     setActionLoadingId(null);
+  //   }
+  // };
+
   const handleAction = async (id, action) => {
     setActionLoadingId(id);
     let method = 'put';
@@ -41,6 +59,14 @@ const ManageSwap = () => {
     if (action === 'delete') {
       method = 'delete';
       url = `/api/swaps/${id}`;
+    }
+    if (action === 'swapped') {
+      method = 'put';
+      url = `/api/swaps/${id}/swapped`;
+    }
+    if (action === 'complete') {
+      method = 'put';
+      url = `/api/swaps/${id}/complete`;
     }
     try {
       await API({ method, url });
@@ -145,12 +171,29 @@ const ManageSwap = () => {
                       </>
                     )}
                     {swap.status === 'Accepted' ? (
-                      <button
-                        className="btn chat"
-                        onClick={() => handleOpenChat(swap)}
-                      >
-                        Chat
-                      </button>
+                      <>
+                        <button
+                          className="btn chat"
+                          onClick={() => handleOpenChat(swap)}
+                        >
+                          Chat
+                        </button>
+                        <button
+                          className="btn swapped"
+                          disabled={actionLoadingId === swap._id}
+                          onClick={() => handleAction(swap._id, 'swapped')}
+                        >
+                          Swapped
+                        </button>
+
+                        <button
+                          className="btn fulfilled"
+                          disabled={actionLoadingId === swap._id}
+                          onClick={() => handleAction(swap._id, 'complete')}
+                        >
+                          Fulfilled
+                        </button>
+                      </>
                     ) : (
                       <button
                         className="btn delete"
@@ -172,5 +215,4 @@ const ManageSwap = () => {
 };
 
 export default ManageSwap;
-
 
