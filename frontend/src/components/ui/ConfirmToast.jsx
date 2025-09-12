@@ -9,7 +9,7 @@ export const confirmToast = (onConfirm) => {
         <button
           style={{ padding: '5px 10px', backgroundColor: 'red', color: 'white', border: 'none', cursor: 'pointer' }}
           onClick={() => {
-            onConfirm();  // call your delete function
+            onConfirm();  // call  delete function
             closeToast(); // close the toast
           }}
         >

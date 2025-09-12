@@ -1,0 +1,380 @@
+/* ------------------------------
+   Premium Font & Variable Setup
+------------------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  /* Font Families */
+  --font-primary: 'Poppins', sans-serif;
+  --font-secondary: 'Inter', sans-serif;
+
+  /* Light Theme Colors */
+  --color-bg: #f9fafb;
+  --color-text: #1f2937;
+  --color-heading: #111827;
+  --color-muted: #6b7280;
+  --color-primary: #6366f1;
+  --color-primary-dark: #4f46e5;
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+
+  /* Spacing & Radius */
+  --radius: 12px;
+  --radius-lg: 1rem;
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark Theme */
+[data-theme='dark'] {
+  --color-bg: #0f172a;
+  --color-text: #e5e7eb;
+  --color-heading: #f9fafb;
+  --color-muted: #94a3b8;
+  --color-primary: #818cf8;
+  --color-primary-dark: #6366f1;
+  --color-success: #34d399;
+  --color-danger: #f87171;
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ------------------------------
+   Base Resets & Global Styling
+------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: var(--font-primary);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+a:hover {
+  color: var(--color-primary-dark);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* ------------------------------
+   Typography
+------------------------------ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  color: var(--color-heading);
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.75rem;
+}
+h4 {
+  font-size: 1.5rem;
+}
+h5 {
+  font-size: 1.25rem;
+}
+h6 {
+  font-size: 1.1rem;
+}
+
+p,
+small,
+label {
+  font-family: var(--font-secondary);
+  color: var(--color-text);
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+small {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+/* ------------------------------
+   Buttons
+------------------------------ */
+button,
+.btn {
+  font-family: inherit;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-primary-dark)
+  );
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #4338ca, #7c3aed);
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--color-success), #065f46);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #047857, #064e3b);
+  transform: scale(1.05);
+}
+
+.btn-danger {
+  background: var(--color-danger);
+  color: #fff;
+}
+.btn-danger:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}
+
+button:disabled,
+.btn-disabled {
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ------------------------------
+   Form Elements
+------------------------------ */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: var(--color-text);
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* ------------------------------
+   Utility Classes
+------------------------------ */
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.mt-3 {
+  margin-top: 1rem;
+}
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mb-3 {
+  margin-bottom: 1rem;
+}
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.rounded-xl {
+  border-radius: var(--radius-lg);
+}
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+.shadow-xl {
+  box-shadow: var(--shadow-xl);
+}
+
+/* ------------------------------
+   Chat & Sidebar
+------------------------------ */
+.chat-heading {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--color-heading);
+}
+
+.chat-sidebar {
+  background-color: var(--color-bg);
+  padding: 15px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xl);
+}
+
+.chat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  margin-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+[data-theme='dark'] .chat-item {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.chat-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+[data-theme='dark'] .chat-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.chat-name {
+  font-weight: 500;
+}
+
+.chat-unread {
+  background-color: var(--color-danger);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+}
+
+/* ------------------------------
+   Toast Notifications
+------------------------------ */
+.custom-toast-container {
+  width: 90vw;
+  max-width: 400px;
+  margin: 1rem auto !important;
+  padding: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.custom-toast {
+  pointer-events: auto;
+  background: linear-gradient(135deg, #4a148c, #7b1fa2);
+  color: #fff;
+  font-family: var(--font-secondary);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(123, 31, 162, 0.5);
+  padding: 1rem 1.5rem;
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  border: 1px solid #9c27b0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.custom-toast:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 30px rgba(123, 31, 162, 0.8);
+  cursor: pointer;
+}
+
+/* ------------------------------
+   Responsive Styles
+------------------------------ */
+@media (max-width: 768px) {
+  .chat-heading {
+    font-size: 1.5rem;
+  }
+  .custom-toast {
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+  }
+  .custom-toast-container {
+    max-width: 95vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .custom-toast {
+    font-size: 0.85rem;
+    margin-left: 2rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+  }
+}

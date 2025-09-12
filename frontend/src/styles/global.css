@@ -215,11 +215,11 @@ input:focus, textarea:focus, select:focus {
 /* ------------------------------
    Chat Container & Layout
 ------------------------------ */
-.chat-container {
+/* .chat-container {
   max-width: 900px;
   margin: auto;
   padding: 20px;
-}
+} */
 
 .chat-heading {
   text-align: center;
@@ -316,13 +316,13 @@ input:focus, textarea:focus, select:focus {
    Responsive Styles
 ------------------------------ */
 @media (max-width: 768px) {
-  .chat-container {
+  /* .chat-container {
     padding: 10px;
     margin: 10px;
     margin-top: 50px;
     border-radius: 15px;
 
-  }
+  } */
   .chat-heading {
     font-size: 1.5rem;
   }

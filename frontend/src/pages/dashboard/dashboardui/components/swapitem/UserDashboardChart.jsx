@@ -15,6 +15,7 @@ import './UserDashboardChart.css';
 export default function UserDashboardChart() {
   const [chartData, setChartData] = useState([]);
   const [loading, setLoading] = useState(true);
+  console.log('chartData', chartData);
 
   useEffect(() => {
     const fetchSwaps = async () => {

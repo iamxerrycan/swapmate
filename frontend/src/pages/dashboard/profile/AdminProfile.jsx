@@ -51,9 +51,9 @@ const AdminProfile = () => {
   return (
     <div className="admin-profile-container">
       <div className="profile-wrapper">
-        <div className="profile-header-yahoo">
+        {/* <div className="profile-header-yahoo">
           <h1>Your Profile</h1>
-        </div>
+        </div> */}
 
         {/* Profile Details Card */}
         <div className="profile-card-main">
