@@ -126,7 +126,7 @@ const UserProfile = () => {
               border: 'none',
               borderRadius: '4px',
               cursor: 'pointer',
-              marginTop: '8px',
+              margin: '0',
             }}
             disabled={me && user && me._id === user._id}
           >
@@ -135,7 +135,7 @@ const UserProfile = () => {
           {/* Back button */}
           <button
             onClick={() => navigate('/dashboard')}
-            style={{ marginLeft: '1rem' }}
+            style={{ marginLeft: '1rem' , marginTop:'5px' }}
           >
             <Undo2 size={20} />
           </button>

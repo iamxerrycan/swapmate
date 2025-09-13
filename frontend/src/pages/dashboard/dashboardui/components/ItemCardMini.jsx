@@ -46,8 +46,8 @@ export default function ItemCardMini({ item }) {
             <X size={18} />
           </button>
           <div className="item-card-info">
-            <h4 className="item-card-title">{item.name}</h4>
-            <p><strong>Category:</strong> {item.category}</p>
+            {/* <h4 className="item-card-title">{item.name}</h4> */}
+            {/* <p><strong>Category:</strong> {item.category}</p> */}
             <p><strong>Condition:</strong> {item.condition}</p>
             <p><strong>Type:</strong> {item.type}</p>
             <p><strong>Swap Status:</strong> {item.swapStatus}</p>
@@ -55,7 +55,7 @@ export default function ItemCardMini({ item }) {
             <p><strong>Swapped:</strong> {item.isSwapped ? 'Yes' : 'No'}</p>
             <p><strong>Swap Date:</strong> {item.swapDate || 'Not set'}</p>
             <p><strong>Address:</strong> {item.address || 'Unknown Address'}</p>
-            <p><strong>Description:</strong> {item.description || 'No description.'}</p>
+            {/* <p><strong>Description:</strong> {item.description || 'No description.'}</p> */}
             <p><strong>Tags:</strong> {item.tags && item.tags.length > 0 ? item.tags.join(', ') : 'None'}</p>
             <p><strong>Posted by:</strong> {item.user?.name || 'Anonymous'} ({item.user?.email})</p>
             <p><strong>Created At:</strong> {new Date(item.createdAt).toLocaleString()}</p>

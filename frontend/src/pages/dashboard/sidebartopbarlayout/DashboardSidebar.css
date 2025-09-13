@@ -42,9 +42,11 @@
 }
 
 .sidebar-logo {
+  align-items: center;
+  text-align: center;
   font-size: 1.6rem;
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   color: #333;
 }
 
@@ -98,8 +100,8 @@
   color: #000000;
   font-weight: 500;
   cursor: pointer;
-  text-align: left;
-  margin-top: 1rem;
+  text-align: center;
+  margin: 0 !important;
   border-radius: 0.5rem;
   border: 1px solid #ff0000;
   transition: all 0.2s ease-in-out;
@@ -117,7 +119,6 @@
   background: rgba(0, 0, 0, 0.3);
   z-index: 1000;
 }
-
 
 @media (min-width: 900px) {
   .sidebar {
